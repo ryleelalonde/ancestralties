@@ -1,1 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapping: Ancestral Ties</title>
 
+   <!--Leaflet (OpenstreetMap)-->
+   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<style>
+html,body {
+    height: 100%;
+    margin:0; 
+}
+
+.page{ 
+    display: flex;
+    height: calc(100vh- 60px);
+}
+
+aside {
+    width: 360px;
+}
+
+main { 
+    flex: 1;
+    position: relative; 
+}
+
+section h2 {
+font-size: 0.95rem;
+font-weight: 600;
+margin-bottom: 8px;
+}
+
+
+section p {
+font-size: 0.85rem;
+line-height: 1.5;
+color: var(--text-secondary);
+}
+
+
+.legend-item {
+display: flex;
+align-items: center;
+font-size: 0.85rem;
+margin-bottom: 6px;
+}
+
+
+.legend-symbol {
+width: 14px;
+height: 14px;
+background: var(--accent-muted);
+opacity: 0.6;
+margin-right: 8px;
+}
+
+
+.toggle {
+display: flex;
+align-items: center;
+font-size: 0.85rem;
+margin-bottom: 6px;
+}
+
+
+.toggle input { margin-right: 8px; }
+
+
+/* ---------- Map Area ---------- */
+main {
+flex: 1;
+position: relative;
+}
+
+
+#map {
+position: absolute;
+top: 0;
+bottom: 0;
+width: 100%;
+inset: 0;
+}
+
+
+/* ---------- Leaflet Popup ---------- */
+.leaflet-popup-content {
+font-size: 0.85rem;
+line-height: 1.4;
+}
+
+
+.leaflet-popup-content h3 {
+margin-top: 0;
+font-size: 0.9rem;
+font-weight: 600;
+}
+</style>
+</head>
+<body>
+    <header>
+        <h1>Ancestral Ties</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="map.html">Map</a>
+            <a href="about.html">About the Author</a>
+            <a href="source.html">Sources</a>
+        </nav>
+    </header>
+
+    <div class="page">
+        <aside>
+            <section>
+                <h2>How to Read this Map</h2>
+                <p>This map visualizes cultural affilitation under notices for the Native American Grave Protection and Repatriation Act (NAGPRA). A single 
+                repatriation location may be affiliated with multiple Tribal Nations through different forms of evidence.</p>
+            </section>
+
+            <section>
+              <h2>Map Legend</h2>
+              <div class="legend-item">
+              <div class="legend-symbol"></div>
+              Cultural Area
+             </div>
+             <div class="legend-item">
+                <div class="legend-symbol"></div>
+                Affiliated County
+            </div>
+            </section>
+
+            <section>
+                <h2>Layers</h2>
+                <div class="toggle">
+                    <input type="checkbox" checked/>Cultural Regions
+                </div>
+                <div class="toggle">
+                    <input type="checkbox" checked/>Institutions
+                </div>
+            </section>
+
+            <section>
+                <h2>Info Panel</h2>
+                <p>Select a county to explore associated cultural affiliations, institutional connections, or time periods.</p>
+            </section>
+        </aside>
+
+        <main>
+            <div id="map"></div>
+        </main>
+    </div>
+    
+    <script>
+        const map=L.map('map', {
+            center: [39, -98],
+            zoom: 4,
+            zoomControl: true
+        });
+
+        //Open StreetMap base tiles 
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 18,
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+        L.marker([39, -98]).addTo(map).bindPopup("Test marker");
+
+        //Placeholder example popup (change for each point)
+      L.popup()
+        .setLatLng([39, -98])
+        .setContent('<h3>Name</h3><p>Time Period<br>Institution</p>')
+        .openOn(map);
+    </script>
+</body>
+</html>
