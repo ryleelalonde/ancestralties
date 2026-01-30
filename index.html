@@ -1,1 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ancestral Ties</title>
 
+  <!--Stylesheet-->
+   <link rel="stylesheet" href="style.css">
+
+  <!--Style Specific to Home Page-->
+  <style>
+     :root {
+      --bg: #f6f5f2;
+      --text: #2f3437;
+      --text-muted: #5f6a72;
+      --accent: #6b86a3;
+      --border: #d0d3d6;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ---------- Header ---------- */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 64px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    header h1 {
+      font-size: 1.1rem;
+      font-weight: 500;
+      margin: 0;
+    }
+
+    nav a {
+      margin-left: 32px;
+      text-decoration: none;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    nav a.active {
+      color: var(--text);
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 4px;
+    }
+
+    /* ---------- Main Layout ---------- */
+    main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 80px 32px 120px;
+    }
+
+    /* ---------- Hero ---------- */
+    .hero {
+      text-align: center;
+      margin-bottom: 80px;
+    }
+
+    .hero h2 {
+      font-size: 2.2rem;
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+
+    .hero p {
+      font-style: italic;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+    }
+
+    .hero button {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 12px 28px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      border-radius: 2px;
+    }
+
+    /* ---------- Sections ---------- */
+    section {
+      margin-bottom: 72px;
+    }
+
+    section h3 {
+      font-size: 1.2rem;
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin-bottom: 24px;
+    }
+
+    section p {
+      max-width: 720px;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* ---------- Key Concepts ---------- */
+    .key-concepts {
+      text-align: center;
+    }
+
+    .concept-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 40px;
+    }
+
+    .concept-card {
+      border: 1px solid var(--border);
+      padding: 32px 16px;
+      background: #fff;
+    }
+
+    .concept-card h4 {
+      margin-top: 16px;
+      font-weight: 500;
+      font-size: 1rem;
+    }
+
+    .icon {
+      font-size: 2rem;
+      color: var(--text-muted);
+    }
+
+    /* ---------- Footer spacing ---------- */
+    footer {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+  </style>
+</head>
+
+<body>
+<header>
+    <h1>Ancestral Ties: A Mapping Project</h1>
+    <nav>
+        <a href="index.html" class="active">Home</a>
+        <a href="map.html">Map</a>
+        <a href="about.html">About the Author</a>
+        <a href="sources.html">Sources</a>
+    </nav>
+</header>
+
+<main>
+    <!--Main Section-->
+    <div class="hero">
+        <h2>Cultural Affiliation and Repatriations</h2>
+        <p>Exploring Ancestral Connections in Repatriation Efforts</p>
+        <button onclick="location.href='map.html'">Explore the Map</button>
+    </div>
+
+    <!--Overview-->
+    <section>
+        <h3>Project Overview</h3>
+        <div class="divider"></div>
+        <p>Explain project...</p>
+    </section>
+
+    <!--Key Concepts-->
+    <section class="key-concepts">
+        <h3>Concepts</h3>
+        <div class="divider"></div>
+
+        <div class="concept-grid">
+        <div class="concept-card">
+        <div class="icon">ADD ICON</div>
+        <h4>Cultural Affiliation</h4>
+        </div>
+
+        <div class="concept-card">
+        <div class="icon">ADD ICON</div>
+        <h4>NAGPRA</h4>
+        </div>
+
+        <div class="concept-card">
+        <div class="icon">ADD ICON</div>
+        <h4>Repatriation</h4>
+        </div>
+        </div>
+    </section>
+
+    <!--Ethics Claim-->
+    <section>
+        <h3>Ethics Positioning</h3>
+        <div class="divider"></div>
+        <p>This map prioritizes transparency and care in representing cultural affiliation.
+            Connections shown do not imply owernship or movement, but rather document
+            relationships established through archaeological, historical, and Tribal evidence.
+        </p>
+    </section>
+</main>
+
+</body>
+</html>

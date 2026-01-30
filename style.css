@@ -1,1 +1,132 @@
+@charset "UTF-8";
 
+html,body {
+    height: 100%;
+    margin:0; 
+}
+
+body {
+    display: flex;
+    flex-direction: column; 
+    font-family: system-ui, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background: #f6f6f4;
+    color: #2f2f2f; 
+}
+
+header {
+    height: 60px;
+    display: flex; 
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    background: #efefed;
+    border-bottom: 1px solid #d0d0cc;
+    flex-shrink: 0;
+}
+
+header h1 {
+    margin: 0;
+    font-family: serif;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+nav a {
+    margin-left: 20px;
+    text-decoration: none;
+    color: #5a5a5a;
+    font-size: 0.9rem;
+}
+/*-- General Page Layout--*/
+.page{ 
+    display: flex;
+    height: calc(100vh- 60px);
+    min-height: 0;
+}
+
+aside {
+    width: 360px;
+    background: #ffffff;
+    border-right: 1px solid #d0d0cc;
+    padding: 20px;
+    overflow-y:auto;
+}
+
+main { 
+    flex: 1;
+    position: relative; 
+    min-width: 0 ;
+}
+
+/*-- Content--*/ 
+section {
+    margin-bottom: 24px;
+}
+
+section h2 {
+font-size: 0.95rem;
+font-weight: 600;
+margin-bottom: 8px;
+}
+
+
+section p {
+font-size: 0.85rem;
+line-height: 1.5;
+color: var(--text-secondary);
+}
+
+
+.legend-item {
+display: flex;
+align-items: center;
+font-size: 0.85rem;
+margin-bottom: 6px;
+}
+
+
+.legend-symbol {
+width: 14px;
+height: 14px;
+background: #6f7f8c;
+opacity: 0.6;
+margin-right: 8px;
+}
+
+
+.toggle {
+display: flex;
+align-items: center;
+font-size: 0.85rem;
+margin-bottom: 6px;
+}
+
+
+.toggle input { margin-right: 8px; }
+
+
+/* -----Map------ */
+main {
+flex: 1;
+position: relative;
+}
+
+
+#map {
+position: absolute;
+inset: 0;
+}
+
+
+/* ----Leaflet Popup----- */
+.leaflet-popup-content {
+font-size: 0.85rem;
+line-height: 1.4;
+}
+
+
+.leaflet-popup-content h3 {
+margin-top: 0;
+font-size: 0.9rem;
+font-weight: 600;
+}
