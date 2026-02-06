@@ -360,7 +360,7 @@
                     <div class="legend-item"><div class="legend-symbol legend-tribal"></div>Tribal Nation</div>
                     <div class="legend-item"><div class="legend-symbol"></div>Cultural Affiliation</div>
                     <div class="legend-item"><div class="legend-symbol legend-institution"></div>Institution</div>
-                    <div class="legend-item"><div class="legend-symbol legend cultural"></div>Cultural Area</div>
+                    <div class="legend-item"><div class="legend-symbol legend-cultural"></div>Cultural Area</div>
                 </div>
             </section>
 
@@ -462,17 +462,6 @@
                 </div>
             </div>
         </section>
-
-        <!--Info Panel-->
-        <section>
-            <div class="section-header" onclick="toggleSection('info-panel')">
-            <h2>Info Panel</h2>
-            <span class="section-collapse-icon" id="info-panel-icon">▼</span>
-            </div>
-            <div class="section-content" id="info-panel-content"></div>
-                <p>Info Here</p>
-            </div>
-            </section>
         </aside>
 
             <div id="map"></div>
@@ -508,11 +497,13 @@
         const map= new mapboxgl.Map({
             container: 'map',
             style: 'mapbox://styles/mapbox/light-v11', //maybe try outdoors-v12
-            center: [-98, 39],
-            zoom: 4,
-            projection: 'mercator'
+            center: [-98, 39], //have this center somewhere else
+            zoom: 3,
+
         });
 
+        //Tribal Polygon
+      
         //Navigation Controls (Zoom)
         map.addControl(new mapboxgl.NavigationControl(), 'top-right');
 
