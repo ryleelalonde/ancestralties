@@ -1,1 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Sources — Ancestral Ties</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --parchment:   #f2ede6;
+            --parchment-2: #e2d9ce;
+            --parchment-3: #cfc4b5;
+            --ink:         #0f0c08;
+            --ink-muted:   #3d3229;
+            --ink-faint:   #7a6e64;
+            --terra:       #8b3a1e;
+            --terra-light: rgba(139, 58, 30, 0.10);
+            --terra-mid:   rgba(139, 58, 30, 0.30);
+            --border:      rgba(15, 12, 8, 0.20);
+            --dark-bg:     #19140e;
+            --dark-text:   #f2ede6;
+            --dark-muted:  #b8a898;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--parchment);
+            color: var(--ink);
+            line-height: 1.6;
+        }
+
+        /* ─── Header ──────────────────────────── */
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            height: 52px;
+            background: rgba(242, 237, 230, 0.97);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            backdrop-filter: blur(12px);
+        }
+
+        .header-title {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+        }
+
+        .header-title h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.25rem;
+            font-weight: 500;
+            letter-spacing: 0.01em;
+            color: var(--ink);
+            white-space: nowrap;
+        }
+
+        .header-title span {
+            font-size: 0.7rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            font-weight: 300;
+        }
+
+        nav { display: flex; gap: 4px; }
+
+        nav a {
+            font-size: 0.78rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: var(--ink-muted);
+            padding: 5px 10px;
+            border-radius: 3px;
+            transition: color 0.15s, background 0.15s;
+        }
+
+        nav a:hover { color: var(--ink); background: var(--parchment-2); }
+        nav a.active { color: var(--terra); background: var(--terra-light); }
+
+        /* ─── Page layout ─────────────────────── */
+        .page-wrap {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            min-height: calc(100vh - 52px);
+        }
+
+        /* ─── Left nav ────────────────────────── */
+        .src-nav {
+            position: sticky;
+            top: 52px;
+            align-self: start;
+            height: calc(100vh - 52px);
+            overflow-y: auto;
+            border-right: 1px solid var(--border);
+            padding: 32px 20px;
+            background: var(--parchment);
+            scrollbar-width: thin;
+            scrollbar-color: var(--parchment-3) transparent;
+        }
+
+        .src-nav::-webkit-scrollbar { width: 4px; }
+        .src-nav::-webkit-scrollbar-thumb { background: var(--parchment-3); }
+
+        .src-nav-label {
+            font-size: 0.65rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .src-nav-group {
+            margin-bottom: 20px;
+        }
+
+        .src-nav-group-title {
+            font-size: 0.67rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--terra);
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        .src-nav a {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--ink-muted);
+            text-decoration: none;
+            padding: 3px 0 3px 8px;
+            border-left: 2px solid transparent;
+            transition: color 0.12s, border-color 0.12s;
+            line-height: 1.4;
+        }
+
+        .src-nav a:hover {
+            color: var(--ink);
+            border-left-color: var(--terra-mid);
+        }
+
+        .src-nav a.active {
+            color: var(--terra);
+            border-left-color: var(--terra);
+            font-weight: 500;
+        }
+
+        /* Search */
+        .src-search-wrap {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .src-search {
+            width: 100%;
+            padding: 7px 10px 7px 28px;
+            font-size: 0.8rem;
+            font-family: 'DM Sans', sans-serif;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 3px;
+            color: var(--ink);
+            outline: none;
+            transition: border-color 0.15s;
+        }
+
+        .src-search:focus { border-color: var(--terra); }
+        .src-search::placeholder { color: var(--ink-faint); }
+
+        .src-search-icon {
+            position: absolute;
+            left: 9px; top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.75rem;
+            color: var(--ink-faint);
+            pointer-events: none;
+        }
+
+        /* ─── Main content ────────────────────── */
+        main {
+            padding: 52px 60px 100px;
+            max-width: 800px;
+        }
+
+        .page-eyebrow {
+            font-size: 0.7rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--terra);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .page-eyebrow::after {
+            content: '';
+            display: inline-block;
+            width: 32px; height: 1px;
+            background: var(--terra);
+            opacity: 0.5;
+        }
+
+        .page-heading {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.8rem;
+            font-weight: 400;
+            line-height: 1.15;
+            color: var(--ink);
+            margin-bottom: 12px;
+        }
+
+        .page-heading em {
+            font-style: italic;
+            color: var(--terra);
+        }
+
+        .page-intro {
+            font-size: 0.9rem;
+            color: var(--ink-muted);
+            line-height: 1.75;
+            max-width: 600px;
+            margin-bottom: 16px;
+        }
+
+        .page-rule {
+            width: 48px; height: 1px;
+            background: var(--terra);
+            margin-bottom: 52px;
+        }
+
+        /* ─── Data note ───────────────────────── */
+        .data-note {
+            background: white;
+            border: 1px solid var(--parchment-3);
+            border-left: 3px solid var(--terra);
+            border-radius: 0 3px 3px 0;
+            padding: 20px 24px;
+            margin-bottom: 52px;
+            box-shadow: 0 1px 4px rgba(15,12,8,0.06);
+        }
+
+        .data-note-label {
+            font-size: 0.67rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--terra);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .data-note p {
+            font-size: 0.85rem;
+            color: var(--ink-muted);
+            line-height: 1.75;
+        }
+
+        .data-note p + p { margin-top: 8px; }
+
+        /* ─── Source categories ───────────────── */
+        .src-category {
+            margin-bottom: 56px;
+            scroll-margin-top: 80px;
+        }
+
+        .category-label {
+            font-size: 0.67rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 24px;
+        }
+
+        /* ─── Citation entries ────────────────── */
+        .src-entry {
+            display: grid;
+            grid-template-columns: 3px 1fr;
+            margin-bottom: 20px;
+            border-radius: 0 3px 3px 0;
+            overflow: hidden;
+            scroll-margin-top: 80px;
+        }
+
+        .src-entry.hidden { display: none; }
+
+        .src-bar {
+            background: var(--parchment-3);
+            transition: background 0.15s;
+        }
+
+        .src-entry:hover .src-bar { background: var(--terra); }
+
+        .src-content {
+            background: white;
+            border: 1px solid var(--parchment-3);
+            border-left: none;
+            padding: 16px 20px;
+        }
+
+        .src-tags {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
+
+        .src-tag {
+            font-size: 0.65rem;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+            padding: 2px 6px;
+            border-radius: 2px;
+            border: 1px solid var(--terra-mid);
+            color: var(--terra);
+            background: var(--terra-light);
+        }
+
+        .src-citation {
+            font-size: 0.85rem;
+            color: var(--ink-muted);
+            line-height: 1.7;
+        }
+
+        .src-citation strong {
+            color: var(--ink);
+            font-weight: 500;
+        }
+
+        .src-citation em {
+            font-style: italic;
+        }
+
+        .src-annotation {
+            font-size: 0.8rem;
+            color: var(--ink-faint);
+            line-height: 1.65;
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid rgba(15,12,8,0.07);
+        }
+
+        .src-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.75rem;
+            color: var(--terra);
+            text-decoration: none;
+            margin-top: 8px;
+            transition: opacity 0.15s;
+        }
+
+        .src-link:hover { opacity: 0.75; }
+
+        /* ─── No results ──────────────────────── */
+        #no-results {
+            display: none;
+            text-align: center;
+            padding: 60px 0;
+            color: var(--ink-faint);
+            font-size: 0.9rem;
+        }
+
+        /* ─── Footer ──────────────────────────── */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 28px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-left {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.95rem;
+            color: var(--ink-muted);
+        }
+
+        .footer-right {
+            font-size: 0.75rem;
+            color: var(--ink-faint);
+        }
+
+        /* ─── Responsive ──────────────────────── */
+        @media (max-width: 740px) {
+            .page-wrap { grid-template-columns: 1fr; }
+            .src-nav { display: none; }
+            main { padding: 40px 24px 80px; }
+            .page-heading { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-title">
+            <h1>Ancestral Ties</h1>
+            <span>A Mapping Project</span>
+        </div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="map.html">Map</a>
+            <a href="about.html">About</a>
+            <a href="definitions.html">Definitions</a>
+            <a href="sources.html" class="active">Sources</a>
+        </nav>
+    </header>
+
+    <div class="page-wrap">
+
+        <!-- ── Left nav ─────────────────────── -->
+        <nav class="src-nav" aria-label="Sources navigation">
+
+            <div class="src-search-wrap">
+                <span class="src-search-icon">🔍</span>
+                <input class="src-search" type="search" id="src-search" placeholder="Search sources…" oninput="filterSources(this.value)"/>
+            </div>
+
+            <p class="src-nav-label">Jump to category</p>
+
+            <div class="src-nav-group">
+                <p class="src-nav-group-title">Primary Sources</p>
+                <a href="#cat-statute">Federal Statute</a>
+                <a href="#cat-regulations">Federal Regulations</a>
+                <a href="#cat-federal-register">Federal Register</a>
+                <a href="#cat-databases">Government Databases</a>
+            </div>
+
+            <div class="src-nav-group">
+                <p class="src-nav-group-title">Secondary Sources</p>
+                <a href="#cat-books">Books &amp; Monographs</a>
+                <a href="#cat-articles">Journal Articles</a>
+                <a href="#cat-reports">Reports &amp; Documents</a>
+            </div>
+
+            <div class="src-nav-group">
+                <p class="src-nav-group-title">Data &amp; Technical</p>
+                <a href="#cat-geodata">Geographic Data</a>
+                <a href="#cat-tools">Mapping Tools</a>
+            </div>
+
+        </nav>
+
+        <!-- ── Main content ──────────────────── -->
+        <main>
+
+            <p class="page-eyebrow">Bibliography</p>
+            <h2 class="page-heading">Sources &amp; <em>Data</em></h2>
+            <p class="page-intro">All primary data, legal sources, and scholarly literature informing this project. Citations follow American Psychological Association- 7th generation style. Sources are organized by type; annotations note how each source is used in the project.</p>
+            <div class="page-rule"></div>
+
+            <!-- Data methodology note -->
+            <div class="data-note">
+                <p class="data-note-label">A Note on the Data</p>
+                <p>The primary dataset for this project is drawn from NAGPRA notices published in the Federal Register and the National NAGPRA Online Databases maintained by the National Park Service. All inventory and affiliation data reflects publicly available federal records. Institutional locations reflect documented addresses; tribal nation locations reflect traditional homelands and/or contemporary governmental seats as documented in publicly available sources.</p>
+                <p>This project does not display sensitive information about the location of specific burial sites, sacred sites, or ceremonial items at the request of tribal communities or per federal law. Add additional methodological notes here.</p>
+            </div>
+
+            <div id="no-results">No sources match your search.</div>
+
+            <!-- ══ FEDERAL STATUTE ════════════════ -->
+            <div class="src-category" id="cat-statute">
+                <p class="category-label">Federal Statute</p>
+
+                <div class="src-entry" data-terms="nagpra native american graves protection repatriation act 1990 federal law 25 USC">
+                    <div class="src-bar"></div>
+                    <div class="src-content">
+                        <div class="src-tags"><span class="src-tag">Primary Source</span><span class="src-tag">Federal Law</span></div>
+                        <p class="src-citation">Native American Graves Protection and Repatriation Act. <em>Public Law</em> 101-601, 104 Stat. 3048, codified at <strong>25 U.S.C. §§ 3001–3013</strong> (1990).</p>
+                        <p class="src-annotation">The foundational legal text of this project. Establishes the five categories of cultural items subject to repatriation, the definition of cultural affiliation, institutional obligations, and the criminal penalties for trafficking. All definitions in this project trace back to this statute.</p>
+                        <a class="src-link" href="https://www.govinfo.gov/content/pkg/STATUTE-104/pdf/STATUTE-104-Pg3048.pdf" target="_blank" rel="noopener">↗ Full text (GovInfo)</a>
+                    </div>
+                </div>
+
+                <div class="src-entry" data-terms="national museum american indian act 1989 smithsonian NMAIA precursor">
+                    <div class="src-bar"></div>
+                    <div class="src-content">
+                        <div class="src-tags"><span class="src-tag">Primary Source</span><span class="src-tag">Federal Law</span></div>
+                        <p class="src-citation">National Museum of the American Indian Act. <em>Public Law</em> 101-185, 103 Stat. 1336, codified at <strong>20 U.S.C. §§ 80q et seq.</strong> (1989).</p>
+                        <p class="src-annotation">The legislative precursor to NAGPRA, requiring the Smithsonian Institution specifically to inventory and repatriate Native American collections. Referenced in the project's legislative timeline.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ══ FEDERAL REGULATIONS ════════════ -->
+            <div class="src-category" id="cat-regulations">
+                <p class="category-label">Federal Regulations</p>
+
+                <div class="src-entry" data-terms="43 CFR part 10 regulations implementing NAGPRA interior department procedures">
+                    <div class="src-bar"></div>
+                    <div class="src-content">
+                        <div class="src-tags"><span class="src-tag">Primary Source</span><span class="src-tag">Regulation</span></div>
+                        <p class="src-citation">U.S. Department of the Interior. "Native American Graves Protection and Repatriation Act Regulations." <strong>43 C.F.R. Part 10</strong> (1995, amended 2010, 2023).</p>
+                        <p class="src-annotation">The implementing regulations for NAGPRA. Establishes detailed procedures for inventories, summaries, consultation, cultural affiliation determinations, and repatriation. The 2010 amendment addressed culturally unidentifiable remains; the 2023 revision substantially strengthened tribal consultation requirements.</p>
+                        <a class="src-link" href="https://www.ecfr.gov/current/title-43/subtitle-A/part-10" target="_blank" rel="noopener">↗ Current regulations (eCFR)</a>
+                    </div>
+                </div>
+
+                <div class="src-entry" data-terms="2024 NAGPRA revised regulations 88 FR 92716">
+                    <div class="src-bar"></div>
+                    <div class="src-content">
+                        <div class="src-tags"><span class="src-tag">Primary Source</span><span class="src-tag">Regulation</span><span class="src-tag">2023</span></div>
+                        <p class="src-citation">U.S. Department of the Interior. "Native American Graves Protection and Repatriation Act." <em>Federal Register</em> <strong>88</strong>, no. 247 (December 27, 2023): 92,716–92,793.</p>
+                        <p class="src-annotation">2024 revision to NAGPRA regulations. Key changes include: requiring free, prior, and informed consent before conducting research on human remains; removing the "culturally unidentifiable" category as a basis for withholding repatriation; and strengthening government-to-government consultation requirements. Cited across the project's legislative timeline and definitions.</p>
+                        <a class="src-link" href="https://www.federalregister.gov/documents/2023/12/27/2023-28391/native-american-graves-protection-and-repatriation-act" target="_blank" rel="noopener">↗ Full text (Federal Register)</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ══ FEDERAL REGISTER ════════════════ -->
+            <div class="src-category" id="cat-federal-register">
+                <p class="category-label">Federal Register — NAGPRA Notices</p>
+
+                <div class="src-entry" data-terms="notice inventory completion NIC federal register institution tribe affiliation published">
+                    <div class="src-bar"></div>
+                    <div class="src-content">
+                        <div class="src-tags"><span class="src-tag">Primary Data</span><span class="src-tag">Notices</span></div>
+                        <p class="src-citation">U.S. National Park Service. "NAGPRA Notices." <em>Federal Register</em>, various dates, 1993–present.</p>
+                        <p class="src-annotation">Notices of Inventory Completion and Notices of Intent to Repatriate published by covered institutions in the Federal Register constitute the primary dataset for this mapping project. Each notice identifies the holding institution, the affiliated tribal nation(s), the category and number of cultural items, and the geographic provenance. Notices are searchable at federalregister.gov under agency "National Park Service."</p>
+                        <a class="src-link" href="https://www.federalregister.gov/agencies/national-park-service" target="_blank" rel="noopener">↗ Search NAGPRA notices</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ══ GOVERNMENT DATABASES ═══════════ -->
+            <div class="src-category" id="cat-databases">
+                <p class="category-label">Government Databases</p>
+
+                <div class="src-entry" data-terms="national NAGPRA online database NPS national park service inventory institutions tribes">
+                    <div class="src-bar"></div>
+                    <div class="src-content">
+                        <div class="src-tags"><span class="src-tag">Primary Data</span><span class="src-tag">Database</span></div>
+                        <p class="src-citation">U.S. National Park Service. <em>National NAGPRA Online Databases.</em> Washington, D.C.: U.S. Department of the Interior. Accessed 2024–2025.</p>
+                        <p class="src-annotation">The National Park Service maintains publicly accessible online databases of NAGPRA inventories, summaries, and notices. These databases are the primary source for institutional and affiliation data represented on the map. Data is updated as new notices are published. Add specific access date here.</p>
+                        <a class="src-link" href="https://www.nps.gov/subjects/nagpra/databases.htm" target="_blank" rel="noopener">↗ National NAGPRA Databases</a>
+                    </div>
+                </div>
+
+                <div class="src-entry" data-terms="Bureau Indian Affairs BIA federally recognized tribes list federal register 2024">
+                    <div class="src-bar"></div>
+                    <div class="src-content">
+                        <div class="src-tags"><span class="src-tag">Primary Data</span><span class="src-tag">Government</span></div>
+                        <p class="src-citation">U.S. Bureau of Indian Affairs. "Indian Entities Recognized and Eligible to Receive Services from the United States Bureau of Indian Affairs." <em>Federal Register</em> <strong>89</strong>, no. 18 (January 26, 2024): 5,254–5,264.</p>
+                        <p class="src-annotation">The official list of 574 federally recognized tribal nations. Used to determine which tribal nations are eligible claimants under NAGPRA and to establish the Tribal Nations layer on the map.</p>
+                        <a class="src-link" href="https://www.federalregister.gov/documents/2024/01/08/2024-00109/indian-entities-recognized-by-and-eligible-to-receive-services-from-the-united-states-bureau-of" target="_blank" rel="noopener">↗ 2024 Federal Register list</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ══ BOOKS & MONOGRAPHS ══════════════ -->
+            <div class="src-category" id="cat-books">
+                <p class="category-label">Books &amp; Monographs</p>
+
+                <div class="src-entry" data-terms="decolonizing methodologies Linda Tuhiwai Smith research indigenous peoples 1999">
+                    <div class="src-bar"></div>
+                    <div class="src-content">
+                        <div class="src-tags"><span class="src-tag">Book</span><span class="src-tag">Methodology</span></div>
+                        <p class="src-citation">Smith, Linda Tuhiwai. <em>Decolonizing Methodologies: Research and Indigenous Peoples.</em> London: Zed Books, 1999.</p>
+                    </div>
+                </div>
+
+                <div class="src-entry" data-terms="bioarchaeology contextual analysis human remains Buikstra Lane Beck 2006">
+                    <div class="src-bar"></div>
+                    <div class="src-content">
+                        <div class="src-tags"><span class="src-tag">Book</span><span class="src-tag">Bioarchaeology</span></div>
+                        <p class="src-citation">Buikstra, Jane E., and Lane A. Beck, eds. <em>Bioarchaeology: The Contextual Analysis of Human Remains.</em> New York: Academic Press, 2006.</p>
+                    </div>
+                </div>
+
+                <div class="src-entry" data-terms="native science natural laws interdependence Cajete 2000 indigenous epistemology">
+                    <div class="src-bar"></div>
+                    <div class="src-content">
+                        <div class="src-tags"><span class="src-tag">Book</span><span class="src-tag">Epistemology</span></div>
+                        <p class="src-citation">Cajete, Gregory. <em>Native Science: Natural Laws of Interdependence.</em> Santa Fe: Clear Light Publishers, 2000.</p>
+                    </div>
+                </div>
+
+                <div class="src-entry" data-terms="Kroeber cultural natural areas native north america 1939 culture area anthropology">
+                    <div class="src-bar"></div>
+                    <div class="src-content">
+                        <div class="src-tags"><span class="src-tag">Book</span><span class="src-tag">Mapping</span><span class="src-tag">Anthropology</span></div>
+                        <p class="src-citation">Kroeber, Alfred L. <em>Cultural and Natural Areas of Native North America.</em> Berkeley: University of California Press, 1939.</p>
+                    </div>
+                </div>
+
+                <div class="src-entry" data-terms="NAGPRA repatriation bones conflict museums tribes Riding In 2000">
+                    <div class="src-bar"></div>
+                    <div class="src-content">
+                        <div class="src-tags"><span class="src-tag">Book</span><span class="src-tag">NAGPRA</span></div>
+                        <p class="src-citation">Fine-Dare, Kathleen S. <em>Grave Injustice: The American Indian Repatriation Movement and NAGPRA.</em> Lincoln: University of Nebraska Press, 2002.</p>
+                    </div>
+                </div>
+
+                <div class="src-entry" data-terms="walker repatriation skeletal remains bioarchaeology ethics 2000">
+                    <div class="src-bar"></div>
+                    <div class="src-content">
+                        <div class="src-tags"><span class="src-tag">Book</span><span class="src-tag">Bioarchaeology</span><span class="src-tag">Ethics</span></div>
+                        <p class="src-citation">Mihesuah, Devon A., ed. <em>Repatriation Reader: Who Owns American Indian Remains?</em> Lincoln: University of Nebraska Press, 2000.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ══ JOURNAL ARTICLES ════════════════ -->
+           
+
+            <!-- ══ REPORTS & DOCUMENTS ════════════ -->
+            <div class="src-category" id="cat-reports">
+                <p class="category-label">Reports &amp; Government Documents</p>
+
+                <div class="src-entry" data-terms="GAO government accountability office NAGPRA progress report 2010 repatriation slow">
+                    <div class="src-bar"></div>
+                    <div class="src-content">
+                        <div class="src-tags"><span class="src-tag">Report</span><span class="src-tag">Government</span></div>
+                        <p class="src-citation">U.S. Government Accountability Office. <em>Native American Graves Protection and Repatriation Act: After Almost 20 Years, Key Federal Agencies Still Have Not Fully Complied with the Act.</em> GAO-10-768. Washington, D.C.: GAO, July 2010.</p>
+                        <p class="src-annotation">A critical assessment of federal agency compliance with NAGPRA two decades after its passage, finding significant gaps in inventory completion, consultation, and repatriation. Provides quantitative context for the scale of the ongoing repatriation backlog.</p>
+                        <a class="src-link" href="https://www.gao.gov/products/gao-10-768" target="_blank" rel="noopener">↗ Full report (GAO)</a>
+                    </div>
+                </div>
+
+                <div class="src-entry" data-terms="NPS national park service NAGPRA annual report statistics compliance institutions">
+                    <div class="src-bar"></div>
+                    <div class="src-content">
+                        <div class="src-tags"><span class="src-tag">Report</span><span class="src-tag">Government</span></div>
+                        <p class="src-citation">U.S. National Park Service. <em>NAGPRA Annual Reports to Congress.</em> Washington, D.C.: U.S. Department of the Interior, various years.</p>
+                        <p class="src-annotation">Annual reports documenting repatriation activity, institutional compliance, and program statistics. Used for background context and statistical data throughout this project.</p>
+                        <a class="src-link" href="https://www.nps.gov/subjects/nagpra/reports.htm" target="_blank" rel="noopener">↗ Annual reports (NPS)</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ══ GEOGRAPHIC DATA ════════════════ -->
+            <div class="src-category" id="cat-geodata">
+                <p class="category-label">Geographic Data</p>
+
+                <div class="src-entry" data-terms="Census TIGER line shapefiles county boundary Michigan geographic data 2023">
+                    <div class="src-bar"></div>
+                    <div class="src-content">
+                        <div class="src-tags"><span class="src-tag">Data</span><span class="src-tag">Geographic</span></div>
+                        <p class="src-citation">U.S. Census Bureau. <em>TIGER/Line Shapefiles: County and Equivalent.</em> Washington, D.C.: U.S. Department of Commerce, 2023.</p>
+                        <p class="src-annotation">The authoritative source for county boundary data used in the Upper Peninsula cultural region polygon on this map. For production-quality boundaries, download the Michigan county shapefile, filter to Alger, Chippewa, Delta, Luce, Mackinac, Marquette, and Schoolcraft counties, dissolve county lines, and convert to GeoJSON using Mapshaper or QGIS.</p>
+                        <a class="src-link" href="https://www.census.gov/geographies/mapping-files/time-series/geo/tiger-line-file.html" target="_blank" rel="noopener">↗ TIGER/Line downloads (Census)</a>
+                    </div>
+                </div>
+
+                <div class="src-entry" data-terms="Mapbox GL JS mapping library web interactive basemap tiles style">
+                    <div class="src-bar"></div>
+                    <div class="src-content">
+                        <div class="src-tags"><span class="src-tag">Data</span><span class="src-tag">Basemap</span></div>
+                        <p class="src-citation">Mapbox. <em>Mapbox GL JS</em> (Version 3.0.1). San Francisco: Mapbox, 2024.</p>
+                        <p class="src-annotation">The JavaScript mapping library powering this project's interactive map. The light-v11 basemap style is used as the background for all data layers.</p>
+                        <a class="src-link" href="https://docs.mapbox.com/mapbox-gl-js/api/" target="_blank" rel="noopener">↗ Mapbox GL JS documentation</a>
+                    </div>
+                </div>
+
+            </div>
+            </div>
+
+        </main>
+    </div>
+
+    <footer>
+        <span class="footer-left">Ancestral Ties</span>
+        <span class="footer-right">Department of Anthropology &nbsp;·&nbsp; A Mapping Project</span>
+    </footer>
+
+    <script>
+        /* ── Search / filter ─────────────────── */
+        function filterSources(query) {
+            const q = query.toLowerCase().trim();
+            const entries    = document.querySelectorAll('.src-entry');
+            const categories = document.querySelectorAll('.src-category');
+            let anyVisible   = false;
+
+            entries.forEach(entry => {
+                const terms    = (entry.dataset.terms || '').toLowerCase();
+                const citation = entry.querySelector('.src-citation')?.textContent.toLowerCase() || '';
+                const match    = !q || terms.includes(q) || citation.includes(q);
+                entry.classList.toggle('hidden', !match);
+                if (match) anyVisible = true;
+            });
+
+            categories.forEach(cat => {
+                const visible = [...cat.querySelectorAll('.src-entry')].some(e => !e.classList.contains('hidden'));
+                cat.style.display = visible ? '' : 'none';
+            });
+
+            document.getElementById('no-results').style.display = anyVisible ? 'none' : 'block';
+        }
+
+        /* ── Active nav on scroll ────────────── */
+        const allSections = document.querySelectorAll('.src-category[id]');
+        const navLinks    = document.querySelectorAll('.src-nav a');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    const id = e.target.id;
+                    navLinks.forEach(a => {
+                        a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+                    });
+                }
+            });
+        }, { rootMargin: '-20% 0px -70% 0px' });
+
+        allSections.forEach(el => observer.observe(el));
+    </script>
+
+</body>
+</html>
