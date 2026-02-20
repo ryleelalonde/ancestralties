@@ -28,6 +28,8 @@
 
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+        html { scroll-behavior: smooth; }
+
         body {
             font-family: 'DM Sans', sans-serif;
             background: var(--parchment);
@@ -89,110 +91,11 @@
         nav a:hover { color: var(--ink); background: var(--parchment-2); }
         nav a.active { color: var(--terra); background: var(--terra-light); }
 
-        /* ─── Page layout ─────────────────────── */
-        .page-wrap {
-            display: grid;
-            grid-template-columns: 220px 1fr;
-            min-height: calc(100vh - 52px);
-        }
-
-        /* ─── Left nav ────────────────────────── */
-        .src-nav {
-            position: sticky;
-            top: 52px;
-            align-self: start;
-            height: calc(100vh - 52px);
-            overflow-y: auto;
-            border-right: 1px solid var(--border);
-            padding: 32px 20px;
-            background: var(--parchment);
-            scrollbar-width: thin;
-            scrollbar-color: var(--parchment-3) transparent;
-        }
-
-        .src-nav::-webkit-scrollbar { width: 4px; }
-        .src-nav::-webkit-scrollbar-thumb { background: var(--parchment-3); }
-
-        .src-nav-label {
-            font-size: 0.65rem;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: var(--ink-faint);
-            margin-bottom: 10px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .src-nav-group {
-            margin-bottom: 20px;
-        }
-
-        .src-nav-group-title {
-            font-size: 0.67rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--terra);
-            margin-bottom: 6px;
-            font-weight: 500;
-        }
-
-        .src-nav a {
-            display: block;
-            font-size: 0.8rem;
-            color: var(--ink-muted);
-            text-decoration: none;
-            padding: 3px 0 3px 8px;
-            border-left: 2px solid transparent;
-            transition: color 0.12s, border-color 0.12s;
-            line-height: 1.4;
-        }
-
-        .src-nav a:hover {
-            color: var(--ink);
-            border-left-color: var(--terra-mid);
-        }
-
-        .src-nav a.active {
-            color: var(--terra);
-            border-left-color: var(--terra);
-            font-weight: 500;
-        }
-
-        /* Search */
-        .src-search-wrap {
-            margin-bottom: 20px;
-            position: relative;
-        }
-
-        .src-search {
-            width: 100%;
-            padding: 7px 10px 7px 28px;
-            font-size: 0.8rem;
-            font-family: 'DM Sans', sans-serif;
-            background: white;
-            border: 1px solid var(--border);
-            border-radius: 3px;
-            color: var(--ink);
-            outline: none;
-            transition: border-color 0.15s;
-        }
-
-        .src-search:focus { border-color: var(--terra); }
-        .src-search::placeholder { color: var(--ink-faint); }
-
-        .src-search-icon {
-            position: absolute;
-            left: 9px; top: 50%;
-            transform: translateY(-50%);
-            font-size: 0.75rem;
-            color: var(--ink-faint);
-            pointer-events: none;
-        }
-
         /* ─── Main content ────────────────────── */
         main {
-            padding: 52px 60px 100px;
             max-width: 800px;
+            margin: 0 auto;
+            padding: 52px 60px 100px;
         }
 
         .page-eyebrow {
@@ -273,7 +176,7 @@
         /* ─── Source categories ───────────────── */
         .src-category {
             margin-bottom: 56px;
-            scroll-margin-top: 80px;
+            scroll-margin-top: 72px;
         }
 
         .category-label {
@@ -421,41 +324,6 @@
         </nav>
     </header>
 
-    <div class="page-wrap">
-
-        <!-- ── Left nav ─────────────────────── -->
-        <nav class="src-nav" aria-label="Sources navigation">
-
-            <div class="src-search-wrap">
-                <span class="src-search-icon">🔍</span>
-                <input class="src-search" type="search" id="src-search" placeholder="Search sources…" oninput="filterSources(this.value)"/>
-            </div>
-
-            <p class="src-nav-label">Jump to category</p>
-
-            <div class="src-nav-group">
-                <p class="src-nav-group-title">Primary Sources</p>
-                <a href="#cat-statute">Federal Statute</a>
-                <a href="#cat-regulations">Federal Regulations</a>
-                <a href="#cat-federal-register">Federal Register</a>
-                <a href="#cat-databases">Government Databases</a>
-            </div>
-
-            <div class="src-nav-group">
-                <p class="src-nav-group-title">Secondary Sources</p>
-                <a href="#cat-books">Books &amp; Monographs</a>
-                <a href="#cat-articles">Journal Articles</a>
-                <a href="#cat-reports">Reports &amp; Documents</a>
-            </div>
-
-            <div class="src-nav-group">
-                <p class="src-nav-group-title">Data &amp; Technical</p>
-                <a href="#cat-geodata">Geographic Data</a>
-                <a href="#cat-tools">Mapping Tools</a>
-            </div>
-
-        </nav>
-
         <!-- ── Main content ──────────────────── -->
         <main>
 
@@ -512,12 +380,12 @@
                     </div>
                 </div>
 
-                <div class="src-entry" data-terms="2024 NAGPRA revised regulations 88 FR 92716">
+                <div class="src-entry" data-terms="2024 NAGPRA revised regulations federal register 88 FR 92716">
                     <div class="src-bar"></div>
                     <div class="src-content">
                         <div class="src-tags"><span class="src-tag">Primary Source</span><span class="src-tag">Regulation</span><span class="src-tag">2023</span></div>
                         <p class="src-citation">U.S. Department of the Interior. "Native American Graves Protection and Repatriation Act." <em>Federal Register</em> <strong>88</strong>, no. 247 (December 27, 2023): 92,716–92,793.</p>
-                        <p class="src-annotation">2024 revision to NAGPRA regulations. Key changes include: requiring free, prior, and informed consent before conducting research on human remains; removing the "culturally unidentifiable" category as a basis for withholding repatriation; and strengthening government-to-government consultation requirements. Cited across the project's legislative timeline and definitions.</p>
+                        <p class="src-annotation">The 2024 revision to NAGPRA regulations. Key changes include: requiring free, prior, and informed consent before conducting research on human remains; removing the "culturally unidentifiable" category as a basis for withholding repatriation; and strengthening government-to-government consultation requirements. Cited across the project's legislative timeline and definitions.</p>
                         <a class="src-link" href="https://www.federalregister.gov/documents/2023/12/27/2023-28391/native-american-graves-protection-and-repatriation-act" target="_blank" rel="noopener">↗ Full text (Federal Register)</a>
                     </div>
                 </div>
@@ -559,8 +427,8 @@
                     <div class="src-content">
                         <div class="src-tags"><span class="src-tag">Primary Data</span><span class="src-tag">Government</span></div>
                         <p class="src-citation">U.S. Bureau of Indian Affairs. "Indian Entities Recognized and Eligible to Receive Services from the United States Bureau of Indian Affairs." <em>Federal Register</em> <strong>89</strong>, no. 18 (January 26, 2024): 5,254–5,264.</p>
-                        <p class="src-annotation">The official list of 574 federally recognized tribal nations. Used to determine which tribal nations are eligible claimants under NAGPRA and to establish the Tribal Nations layer on the map.</p>
-                        <a class="src-link" href="https://www.federalregister.gov/documents/2024/01/08/2024-00109/indian-entities-recognized-by-and-eligible-to-receive-services-from-the-united-states-bureau-of" target="_blank" rel="noopener">↗ 2024 Federal Register list</a>
+                        <p class="src-annotation">The official list of 575 federally recognized tribal nations. Used to determine which tribal nations are eligible claimants under NAGPRA and to establish the Tribal Nations layer on the map.</p>
+                        <a class="src-link" href="https://www.federalregister.gov/documents/2020/01/30/2020-01707/indian-entities-recognized-by-and-eligible-to-receive-services-from-the-united-states-bureau-of" target="_blank" rel="noopener">↗ 2024 Federal Register list</a>
                     </div>
                 </div>
 
@@ -621,9 +489,36 @@
             </div>
 
             <!-- ══ JOURNAL ARTICLES ════════════════ -->
-           
+            <div class="src-category" id="cat-articles">
+                <p class="category-label">Journal Articles</p>
 
-            <!-- ══ REPORTS & DOCUMENTS ════════════ -->
+                <div class="src-entry" data-terms="Brousseau 2021 unrefutable responsibility mapping seeds settler futurity cartography colonialism indigenous land">
+                    <div class="src-bar"></div>
+                    <div class="src-content">
+                        <div class="src-tags"><span class="src-tag">Article</span><span class="src-tag">Mapping</span><span class="src-tag">Settler Colonialism</span></div>
+                        <p class="src-citation">Brousseau. "Unrefutable Responsibility: Mapping the Seeds of Settler Futurity." 2021.</p>
+                        <p class="src-annotation" style="color: var(--terra); border-top: none; margin-top: 4px; padding-top: 0;"><em>Brousseau, M. (2021). “Unrefutable Responsibility”: Mapping the Seeds of Settler Futurity and Seeding the Maps of Indigenous Futurity. Native American and Indigenous Studies, 8(1), 112-122.</em></p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ══ JOURNALISM & INVESTIGATIVE ══════ -->
+            <div class="src-category" id="cat-journalism">
+                <p class="category-label">Journalism &amp; Investigative Reporting</p>
+
+                <div class="src-entry" data-terms="land grab Robert Lee Tristan Ahtone Margaret Pearce Kalen Goodluck Geoff McGhee Cody Leff Katherine Lanpher Taryn Salinas High Country News land grant universities Indigenous 2020">
+                    <div class="src-bar"></div>
+                    <div class="src-content">
+                        <div class="src-tags"><span class="src-tag">Investigative Journalism</span><span class="src-tag">Land</span><span class="src-tag">Universities</span></div>
+                        <p class="src-citation">Lee, Robert, Tristan Ahtone, Margaret Pearce, Kalen Goodluck, Geoff McGhee, Cody Leff, Katherine Lanpher, and Taryn Salinas. "Land Grab Universities." <em>High Country News,</em> March 30, 2020.</p>
+                        <p class="src-annotation">A landmark piece of data-driven investigative journalism documenting how the Morrill Act of 1862 — which established the land-grant university system — was funded through the seizure and sale of nearly 11 million acres of Indigenous land. The investigation identified 52 land-grant universities, the 245 tribal nations whose land was taken, and the roughly $500 million in revenue generated.</p>
+                        <p class="src-annotation">Directly relevant to this project's mapping of institutional NAGPRA holdings: many of the same universities that hold the largest Native American collections were built on — and financially founded through — the dispossession of the very peoples whose ancestors are in those collections. The piece's cartographic and data methodology also models the kind of critical Indigenous-centered mapping this project aspires to.</p>
+                        <a class="src-link" href="https://www.landgrabu.org" target="_blank" rel="noopener">↗ landgrabu.org (full project)</a>
+                    </div>
+                </div>
+
+            </div>
             <div class="src-category" id="cat-reports">
                 <p class="category-label">Reports &amp; Government Documents</p>
 
@@ -674,14 +569,12 @@
                 </div>
 
             </div>
-            </div>
 
         </main>
-    </div>
 
     <footer>
         <span class="footer-left">Ancestral Ties</span>
-        <span class="footer-right">Department of Anthropology &nbsp;·&nbsp; A Mapping Project</span>
+        <span class="footer-right">2026</span>
     </footer>
 
     <script>
@@ -709,21 +602,26 @@
         }
 
         /* ── Active nav on scroll ────────────── */
-        const allSections = document.querySelectorAll('.src-category[id]');
+        const allSections = Array.from(document.querySelectorAll('.src-category[id]'));
         const navLinks    = document.querySelectorAll('.src-nav a');
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(e => {
-                if (e.isIntersecting) {
-                    const id = e.target.id;
-                    navLinks.forEach(a => {
-                        a.classList.toggle('active', a.getAttribute('href') === '#' + id);
-                    });
-                }
-            });
-        }, { rootMargin: '-20% 0px -70% 0px' });
+        function updateActiveLink() {
+            const scrollY = window.scrollY + 100; // offset for sticky header
 
-        allSections.forEach(el => observer.observe(el));
+            let current = allSections[0];
+            for (const section of allSections) {
+                if (section.offsetTop <= scrollY) {
+                    current = section;
+                }
+            }
+
+            navLinks.forEach(a => {
+                a.classList.toggle('active', a.getAttribute('href') === '#' + current.id);
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveLink, { passive: true });
+        updateActiveLink(); // run on load
     </script>
 
 </body>

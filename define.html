@@ -89,111 +89,11 @@
         nav a:hover { color: var(--ink); background: var(--parchment-2); }
         nav a.active { color: var(--terra); background: var(--terra-light); }
 
-        /* ─── Layout ──────────────────────────── */
-        .page-wrap {
-            display: grid;
-            grid-template-columns: 220px 1fr;
-            min-height: calc(100vh - 52px);
-        }
-
-        /* ─── Left nav ────────────────────────── */
-        .def-nav {
-            position: sticky;
-            top: 52px;
-            align-self: start;
-            height: calc(100vh - 52px);
-            overflow-y: auto;
-            border-right: 1px solid var(--border);
-            padding: 32px 20px;
-            background: var(--parchment);
-            scrollbar-width: thin;
-            scrollbar-color: var(--parchment-3) transparent;
-        }
-
-        .def-nav::-webkit-scrollbar { width: 4px; }
-        .def-nav::-webkit-scrollbar-thumb { background: var(--parchment-3); }
-
-        .def-nav-label {
-            font-size: 0.65rem;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: var(--ink-faint);
-            margin-bottom: 10px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .def-nav-group {
-            margin-bottom: 20px;
-        }
-
-        .def-nav-group-title {
-            font-size: 0.67rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--terra);
-            margin-bottom: 6px;
-            font-weight: 500;
-        }
-
-        .def-nav a {
-            display: block;
-            font-size: 0.8rem;
-            color: var(--ink-muted);
-            text-decoration: none;
-            padding: 3px 0 3px 8px;
-            border-left: 2px solid transparent;
-            transition: color 0.12s, border-color 0.12s;
-            line-height: 1.4;
-        }
-
-        .def-nav a:hover {
-            color: var(--ink);
-            border-left-color: var(--terra-mid);
-        }
-
-        .def-nav a.active {
-            color: var(--terra);
-            border-left-color: var(--terra);
-            font-weight: 500;
-        }
-
-        /* Search */
-        .def-search-wrap {
-            margin-bottom: 20px;
-            position: relative;
-        }
-
-        .def-search {
-            width: 100%;
-            padding: 7px 10px 7px 28px;
-            font-size: 0.8rem;
-            font-family: 'DM Sans', sans-serif;
-            background: white;
-            border: 1px solid var(--border);
-            border-radius: 3px;
-            color: var(--ink);
-            outline: none;
-            transition: border-color 0.15s;
-        }
-
-        .def-search:focus { border-color: var(--terra); }
-        .def-search::placeholder { color: var(--ink-faint); }
-
-        .def-search-icon {
-            position: absolute;
-            left: 9px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 0.75rem;
-            color: var(--ink-faint);
-            pointer-events: none;
-        }
-
         /* ─── Main content ────────────────────── */
         main {
-            padding: 52px 60px 100px;
             max-width: 760px;
+            margin: 0 auto;
+            padding: 52px 60px 100px;
         }
 
         .page-eyebrow {
@@ -407,66 +307,6 @@
             <a href="sources.html">Sources</a>
         </nav>
     </header>
-
-    <div class="page-wrap">
-
-        <!-- ── Left nav ─────────────────────── -->
-        <nav class="def-nav" aria-label="Definitions navigation">
-
-            <div class="def-search-wrap">
-                <span class="def-search-icon">🔍</span>
-                <input class="def-search" type="search" id="def-search" placeholder="Search terms…" oninput="filterDefs(this.value)"/>
-            </div>
-
-            <p class="def-nav-label">Jump to category</p>
-
-            <div class="def-nav-group">
-                <p class="def-nav-group-title">Law &amp; Policy</p>
-                <a href="#nagpra">NAGPRA</a>
-                <a href="#cultural-affiliation">Cultural Affiliation</a>
-                <a href="#repatriation">Repatriation</a>
-                <a href="#federal-register">Federal Register</a>
-                <a href="#inventory">Inventory</a>
-                <a href="#summary">Summary</a>
-                <a href="#lineal-descendant">Lineal Descendant</a>
-                <a href="#consultation">Tribal Consultation</a>
-                <a href="#culturally-unidentifiable">Culturally Unidentifiable</a>
-            </div>
-
-            <div class="def-nav-group">
-                <p class="def-nav-group-title">Cultural Items</p>
-                <a href="#human-remains">Human Remains</a>
-                <a href="#funerary-objects">Funerary Objects</a>
-                <a href="#sacred-objects">Sacred Objects</a>
-                <a href="#cultural-patrimony">Cultural Patrimony</a>
-            </div>
-
-            <div class="def-nav-group">
-                <p class="def-nav-group-title">Tribal &amp; Political</p>
-                <a href="#tribal-sovereignty">Tribal Sovereignty</a>
-                <a href="#federally-recognized">Federally Recognized Tribe</a>
-                <a href="#state-recognized">State Recognized Tribe</a>
-                <a href="#nhao">Native Hawaiian Organization</a>
-            </div>
-
-            <div class="def-nav-group">
-                <p class="def-nav-group-title">Scholarly &amp; Methodological</p>
-                <a href="#bioarchaeology">Bioarchaeology</a>
-                <a href="#indigenizing">Indigenizing</a>
-                <a href="#traditional-knowledge">Traditional Knowledge</a>
-                <a href="#epistemology">Indigenous Epistemology</a>
-                <a href="#rhetoric">Rhetorical Analysis</a>
-                <a href="#positionality">Positionality</a>
-            </div>
-
-            <div class="def-nav-group">
-                <p class="def-nav-group-title">Mapping &amp; Data</p>
-                <a href="#cultural-region">Cultural Region</a>
-                <a href="#geojson">GeoJSON</a>
-                <a href="#tiger">TIGER/Line</a>
-            </div>
-
-        </nav>
 
         <!-- ── Main content ──────────────────── -->
         <main>
@@ -728,16 +568,13 @@
                     </div>
                     <p class="def-cite">Kroeber, A.L. (1939). <em>Cultural and Natural Areas of Native North America.</em> University of California Press.</p>
                 </div>
-
-
             </div>
 
         </main>
-    </div>
 
     <footer>
         <span class="footer-left">Ancestral Ties</span>
-        <span class="footer-right">Department of Anthropology &nbsp;·&nbsp; A Mapping Project</span>
+        <span class="footer-right">2026</span>
     </footer>
 
     <script>
@@ -757,7 +594,6 @@
                 if (match) anyVisible = true;
             });
 
-            // Hide categories with no visible entries
             categories.forEach(cat => {
                 const visible = [...cat.querySelectorAll('.def-entry')].some(e => !e.classList.contains('hidden'));
                 cat.style.display = visible ? '' : 'none';
@@ -765,23 +601,6 @@
 
             document.getElementById('no-results').style.display = anyVisible ? 'none' : 'block';
         }
-
-        /* ── Active nav link on scroll ───────── */
-        const allEntries = document.querySelectorAll('.def-entry[id], .def-category[id]');
-        const navLinks   = document.querySelectorAll('.def-nav a');
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(e => {
-                if (e.isIntersecting) {
-                    const id = e.target.id;
-                    navLinks.forEach(a => {
-                        a.classList.toggle('active', a.getAttribute('href') === '#' + id);
-                    });
-                }
-            });
-        }, { rootMargin: '-20% 0px -70% 0px' });
-
-        allEntries.forEach(el => observer.observe(el));
     </script>
 
 </body>

@@ -628,9 +628,9 @@
             features: [{
                 type: 'Feature',
                 properties: {
-                    name: 'Central & Eastern Upper Peninsula',
+                    name: 'Sault Tribe of Chippewa Indias',
                     counties: 'Alger, Chippewa, Delta, Luce, Mackinac, Marquette, Schoolcraft',
-                    region: 'Great Lakes'
+                    region: 'Great Lakes / Midwest'
                 },
                 geometry: {
                     type: 'Polygon',
@@ -689,91 +689,267 @@
             }]
         };
 
+        /* ── Gogebic County ─────────────────────────────────────────────────
+           Westernmost UP county. North: Lake Superior. West/South: Wisconsin
+           state line. East: borders Ontonagon County (~-89.04).
+           For production accuracy replace with Census TIGER/Line data.
+        ──────────────────────────────────────────────────────────────────── */
+        const gogebicRegion = {
+            type: 'FeatureCollection',
+            features: [{
+                type: 'Feature',
+                properties: {
+                    name: 'Lac Vieux Desert Band of Lake Sueprior Chippewa Indians',
+                    counties: 'Gogebic',
+                    region: 'Great Lakes / Midwest'
+                },
+                geometry: {
+                    type: 'Polygon',
+                    coordinates: [[
+                        [-90.42, 46.88],   // NW — Lake Superior / Wisconsin border
+                        [-90.20, 46.84],
+                        [-89.85, 46.78],
+                        [-89.50, 46.70],
+                        [-89.10, 46.58],   // NE — east boundary with Ontonagon
+                        [-89.04, 46.07],   // SE corner
+                        [-89.50, 46.07],   // south border (Wisconsin state line)
+                        [-90.00, 46.07],
+                        [-90.42, 46.07],   // SW corner
+                        [-90.42, 46.88]    // back to NW start
+                    ]]
+                }
+            }]
+        };
+
+        /* ── Menominee + Delta Counties ─────────────────────────────────────
+           SW Upper Peninsula. Menominee borders Wisconsin (S/W) and Green Bay (E).
+           Delta borders Schoolcraft/Marquette (N) and Green Bay (E).
+           For production accuracy replace with Census TIGER/Line data.
+        ──────────────────────────────────────────────────────────────────── */
+        const menomineeDeltaRegion = {
+            type: 'FeatureCollection',
+            features: [{
+                type: 'Feature',
+                properties: {
+                    name: 'Hannahville Indian Community Area',
+                    counties: 'Menominee, Delta',
+                    region: 'Great Lakes / Midwest'
+                },
+                geometry: {
+                    type: 'Polygon',
+                    coordinates: [[
+                        // ── North edge of Delta (meets Schoolcraft / Marquette) ──
+                        [-87.22, 46.10],   // NW corner Delta
+                        [-87.00, 46.10],
+                        [-86.65, 46.10],
+                        [-86.40, 46.12],   // NE corner Delta
+                        // ── East side: Delta shoreline down Green Bay ──
+                        [-86.25, 45.95],
+                        [-86.15, 45.80],
+                        [-86.10, 45.65],   // Escanaba area
+                        // ── Continue SE: Menominee along Green Bay ──
+                        [-86.10, 45.45],
+                        [-86.25, 45.22],
+                        [-86.50, 45.08],
+                        [-87.00, 45.02],
+                        [-87.20, 45.02],   // Menominee city area
+                        // ── South border: Wisconsin state line ──
+                        [-87.55, 45.10],
+                        [-87.85, 45.28],
+                        [-88.05, 45.55],   // SW Menominee
+                        // ── West border going north ──
+                        [-88.10, 45.78],
+                        [-87.95, 45.98],   // NW Menominee
+                        // ── North: Menominee/Delta west side back to start ──
+                        [-87.70, 46.05],
+                        [-87.50, 46.08],
+                        [-87.35, 46.08],
+                        [-87.22, 46.10]    // back to NW start
+                    ]]
+                }
+            }]
+        };
+
         map.on('load', () => {
 
-            map.addSource('up-michigan-region', {
+            /* Helper to register a polygon source + fill + outline + hover + popup */
+            function addRegionLayer(id, geojson) {
+                map.addSource(id, { type: 'geojson', data: geojson });
+
+                map.addLayer({
+                    id: id + '-fill',
+                    type: 'fill',
+                    source: id,
+                    paint: { 'fill-color': 'rgba(196, 146, 58, 0.18)', 'fill-opacity': 1 }
+                });
+
+                map.addLayer({
+                    id: id + '-outline',
+                    type: 'line',
+                    source: id,
+                    paint: {
+                        'line-color': 'rgba(196, 146, 58, 0.90)',
+                        'line-width': 1.5,
+                        'line-dasharray': [3, 2]
+                    }
+                });
+
+                map.addLayer({
+                    id: id + '-hover',
+                    type: 'fill',
+                    source: id,
+                    paint: { 'fill-color': 'rgba(196, 146, 58, 0.08)', 'fill-opacity': 0 }
+                });
+
+                map.on('click', id + '-fill', (e) => {
+                    const props = e.features[0].properties;
+                    new mapboxgl.Popup({ offset: 8 })
+                        .setLngLat(e.lngLat)
+                        .setHTML(`
+                            <div class="popup-head"><h3>${props.name}</h3></div>
+                            <div class="popup-body">
+                                <p><strong>Counties:</strong> ${props.counties}</p>
+                                <p><strong>Region:</strong> ${props.region}</p>
+                            </div>
+                        `)
+                        .addTo(map);
+                });
+
+                map.on('mouseenter', id + '-fill', () => {
+                    map.getCanvas().style.cursor = 'pointer';
+                    map.setPaintProperty(id + '-hover', 'fill-opacity', 1);
+                });
+
+                map.on('mouseleave', id + '-fill', () => {
+                    map.getCanvas().style.cursor = '';
+                    map.setPaintProperty(id + '-hover', 'fill-opacity', 0);
+                });
+            }
+
+            addRegionLayer('up-michigan-region',      upMichiganRegion);
+            addRegionLayer('gogebic-region',           gogebicRegion);
+            addRegionLayer('menominee-delta-region',   menomineeDeltaRegion);
+
+            /* ── Tribal Nation Points ─────────────────────────────────── */
+            map.addSource('tribal-nations', {
                 type: 'geojson',
-                data: upMichiganRegion
-            });
-
-            // Fill layer
-            map.addLayer({
-                id: 'up-michigan-fill',
-                type: 'fill',
-                source: 'up-michigan-region',
-                paint: {
-                    'fill-color': 'rgba(196, 146, 58, 0.18)',
-                    'fill-opacity': 1
+                data: {
+                    type: 'FeatureCollection',
+                    features: [
+                        {
+                            type: 'Feature',
+                            properties: {
+                                name: 'Bay Mills Indian Community',
+                                location: 'Brimley, MI',
+                                status: 'Federally Recognized',
+                                url: 'https://baymills.org'
+                            },
+                            geometry: {
+                                type: 'Point',
+                                coordinates: [-84.5617, 46.4197]
+                            }
+                        }
+                    ]
                 }
             });
 
-            // Outline layer
+            // Outer glow ring
             map.addLayer({
-                id: 'up-michigan-outline',
-                type: 'line',
-                source: 'up-michigan-region',
+                id: 'tribal-nations-glow',
+                type: 'circle',
+                source: 'tribal-nations',
                 paint: {
-                    'line-color': 'rgba(196, 146, 58, 0.90)',
-                    'line-width': 1.5,
-                    'line-dasharray': [3, 2]
+                    'circle-radius': 10,
+                    'circle-color': 'rgba(168, 68, 40, 0.18)',
+                    'circle-stroke-width': 0
                 }
             });
 
-            // Hover highlight
+            // Main dot
             map.addLayer({
-                id: 'up-michigan-hover',
-                type: 'fill',
-                source: 'up-michigan-region',
+                id: 'tribal-nations-dot',
+                type: 'circle',
+                source: 'tribal-nations',
                 paint: {
-                    'fill-color': 'rgba(196, 146, 58, 0.08)',
-                    'fill-opacity': 0
+                    'circle-radius': 6,
+                    'circle-color': '#a84428',
+                    'circle-stroke-width': 1.5,
+                    'circle-stroke-color': 'rgba(255,255,255,0.8)'
                 }
             });
 
             // Popup on click
-            map.on('click', 'up-michigan-fill', (e) => {
+            map.on('click', 'tribal-nations-dot', (e) => {
                 const props = e.features[0].properties;
-                new mapboxgl.Popup({ offset: 8 })
-                    .setLngLat(e.lngLat)
+                new mapboxgl.Popup({ offset: 10 })
+                    .setLngLat(e.features[0].geometry.coordinates)
                     .setHTML(`
                         <div class="popup-head">
                             <h3>${props.name}</h3>
                         </div>
                         <div class="popup-body">
-                            <p><strong>Counties:</strong> ${props.counties}</p>
-                            <p><strong>Region:</strong> ${props.region}</p>
+                            <p><strong>Location:</strong> ${props.location}</p>
+                            <p><strong>Status:</strong> ${props.status}</p>
+                            <p style="margin-top:8px;">
+                                <a href="${props.url}" target="_blank" rel="noopener"
+                                   style="color:var(--terra);font-size:0.78rem;text-decoration:none;">
+                                    ↗ ${props.url.replace('https://','')}
+                                </a>
+                            </p>
                         </div>
                     `)
                     .addTo(map);
             });
 
-            map.on('mouseenter', 'up-michigan-fill', () => {
+            map.on('mouseenter', 'tribal-nations-dot', () => {
                 map.getCanvas().style.cursor = 'pointer';
-                map.setPaintProperty('up-michigan-hover', 'fill-opacity', 1);
             });
-
-            map.on('mouseleave', 'up-michigan-fill', () => {
+            map.on('mouseleave', 'tribal-nations-dot', () => {
                 map.getCanvas().style.cursor = '';
-                map.setPaintProperty('up-michigan-hover', 'fill-opacity', 0);
             });
 
         });
 
+        /* ── All Midwest layer IDs ── */
+        const midwestLayers = [
+            'up-michigan-region',
+            'gogebic-region',
+            'menominee-delta-region'
+        ];
+
+        function setMidwestVisibility(vis) {
+            midwestLayers.forEach(id => {
+                if (map.getLayer(id + '-fill'))    map.setLayoutProperty(id + '-fill',    'visibility', vis);
+                if (map.getLayer(id + '-outline')) map.setLayoutProperty(id + '-outline', 'visibility', vis);
+            });
+        }
+
         /* ── Cultural Regions parent toggle ── */
         document.getElementById('cultural-regions').addEventListener('change', (e) => {
-            const vis = e.target.checked ? 'visible' : 'none';
-            // Also sync the Midwest sub-checkbox
             document.getElementById('r-midwest').checked = e.target.checked;
-            if (map.getLayer('up-michigan-fill'))    map.setLayoutProperty('up-michigan-fill',    'visibility', vis);
-            if (map.getLayer('up-michigan-outline')) map.setLayoutProperty('up-michigan-outline', 'visibility', vis);
+            setMidwestVisibility(e.target.checked ? 'visible' : 'none');
         });
 
         /* ── Midwest sub-checkbox toggle ── */
         function handleMidwestToggle(checkbox) {
-            const vis = checkbox.checked ? 'visible' : 'none';
-            if (map.getLayer('up-michigan-fill'))    map.setLayoutProperty('up-michigan-fill',    'visibility', vis);
-            if (map.getLayer('up-michigan-outline')) map.setLayoutProperty('up-michigan-outline', 'visibility', vis);
+            setMidwestVisibility(checkbox.checked ? 'visible' : 'none');
         }
+
+        /* ── Tribal Nations toggle ── */
+        document.getElementById('tribal-nations').addEventListener('change', (e) => {
+            const vis = e.target.checked ? 'visible' : 'none';
+            if (map.getLayer('tribal-nations-dot'))  map.setLayoutProperty('tribal-nations-dot',  'visibility', vis);
+            if (map.getLayer('tribal-nations-glow')) map.setLayoutProperty('tribal-nations-glow', 'visibility', vis);
+            // Keep sub-checkbox in sync
+            document.getElementById('t-federally-recognized').checked = e.target.checked;
+        });
+
+        /* ── Federally Recognized sub-checkbox toggle ── */
+        document.getElementById('t-federally-recognized').addEventListener('change', (e) => {
+            const vis = e.target.checked ? 'visible' : 'none';
+            if (map.getLayer('tribal-nations-dot'))  map.setLayoutProperty('tribal-nations-dot',  'visibility', vis);
+            if (map.getLayer('tribal-nations-glow')) map.setLayoutProperty('tribal-nations-glow', 'visibility', vis);
+        });
     </script>
 
 </body>
