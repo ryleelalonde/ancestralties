@@ -5,521 +5,775 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mapping: Ancestral Ties</title>
 
-   <!--Mapbox GL JS-->
-   <link href='https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css' rel='stylesheet' />
-   <script src='https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css' rel='stylesheet' />
+    <script src='https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js'></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 
-   <!--Stylesheet-->
-   <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --parchment:   #f2ede6;
+            --parchment-2: #e2d9ce;
+            --parchment-3: #cfc4b5;
+            --ink:         #0f0c08;
+            --ink-muted:   #3d3229;
+            --ink-faint:   #7a6e64;
+            --terra:       #8b3a1e;
+            --terra-light: rgba(139, 58, 30, 0.10);
+            --terra-mid:   rgba(139, 58, 30, 0.30);
+            --border:      rgba(15, 12, 8, 0.20);
+            --sidebar-w:   300px;
 
-   <style>
-       body, html {
-           margin: 0;
-           padding: 0;
-           height: 100%;
-           overflow: hidden;
-       }
+            /* Legend colors — warm, harmonized palette */
+            --c-tribal:      #a84428;
+            --c-university:  #3d2e22;
+            --c-museum:      #7a5530;
+            --c-federal:     #3a5040;
+            --c-state:       #556645;
+            --c-historical:  #6b4a28;
+            --c-affiliation: #6b5542;
+        }
 
-       /* Fullscreen map container */
-       #map {
-           position: absolute;
-           top: 0;
-           bottom: 0;
-           width: 100%;
-       }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-       /* Header overlay */
-       header {
-           position: absolute;
-           top: 0;
-           left: 0;
-           right: 0;
-           background: rgba(246, 245, 242, 0.95);
-           z-index: 1;
-           backdrop-filter: blur(10px);
-       }
+        body, html {
+            height: 100%;
+            overflow: hidden;
+            font-family: 'DM Sans', sans-serif;
+            color: var(--ink);
+            background: var(--parchment);
+        }
 
-       /* Sidebar overlay */
-       aside {
-           position: absolute;
-           left: 0;
-           top: 0px; 
-           bottom: 0;
-           width: 320px;
-           background: rgba(246, 245, 242, 0.95);
-           backdrop-filter: blur(10px);
-           overflow-y: auto;
-           z-index: 1;
-           padding: 24px;
-           box-shadow: 2px 0 8px rgba(0,0,0,0.1);
-           transition: transform 0.3s ease;
-       }
+        #map { position: absolute; inset: 0; }
 
-       /* Sidebar toggle button */
-       #sidebar-toggle {
-           position: absolute;
-           left: 340px;
-           top: 80px;
-           z-index: 2;
-           background: white;
-           border: 1px solid #d0d3d6;
-           border-radius: 4px;
-           padding: 8px 12px;
-           cursor: pointer;
-           box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-           transition: left 0.3s ease;
-       }
+        /* ─── Header ──────────────────────────── */
+        header {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px 0 calc(var(--sidebar-w) + 20px);
+            height: 52px;
+            background: rgba(242, 237, 230, 0.97);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            transition: padding-left 0.3s ease;
+        }
 
-       #sidebar-toggle:hover {
-           background: #f6f5f2;
-       }
+        .sidebar-hidden header { padding-left: 20px; }
 
-       /* When sidebar is hidden */
-       .sidebar-hidden aside {
-           transform: translateX(-100%);
-       }
+        .header-title {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+        }
 
-       .sidebar-hidden #sidebar-toggle {
-           left: 20px;
-       }
+        .header-title h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.25rem;
+            font-weight: 500;
+            letter-spacing: 0.01em;
+            color: var(--ink);
+            white-space: nowrap;
+        }
 
-       /* Collapsible Headers*/
+        .header-title span {
+            font-size: 0.7rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            font-weight: 300;
+        }
 
-       aside section{
-          margin-bottom: 24px;
-       }
+        nav { display: flex; gap: 4px; }
 
-       .section-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        cursor: pointer;
-        padding: 8px 0;
-        border-bottom: 1px solid var(--border, #d0d3d6);
-        margin-bottom: 12px;
-       }
+        nav a {
+            font-size: 0.78rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: var(--ink-muted);
+            padding: 5px 10px;
+            border-radius: 3px;
+            transition: color 0.15s, background 0.15s;
+        }
 
-       .section-header h2 {
-        font-size: 1.1rem;
-        font-weight: 500;
-        margin: 0;
-        color: var(--text, #2f3437); 
-       }
+        nav a:hover { color: var(--ink); background: var(--parchment-2); }
 
-       .section-collapse-icon{
-        font-size: 14px;
-        color: var(--text-muted, #5f6a72);
-        transition: transform 0.2s; 
-       }
+        nav a.active {
+            color: var(--terra);
+            background: var(--terra-light);
+        }
 
-       .section-collapse-icon.collapsed {
-        transform: rotate(-90deg);
-       }
+        /* ─── Sidebar ─────────────────────────── */
+        aside {
+            position: absolute;
+            top: 52px; left: 0; bottom: 0;
+            width: var(--sidebar-w);
+            background: rgba(242, 237, 230, 0.98);
+            backdrop-filter: blur(14px);
+            border-right: 1px solid var(--border);
+            overflow-y: auto;
+            z-index: 9;
+            padding: 20px 18px;
+            transition: transform 0.3s cubic-bezier(.4,0,.2,1);
+            scrollbar-width: thin;
+            scrollbar-color: var(--parchment-3) transparent;
+        }
 
-       .section-content {
-        max-height: 1000px;
-        overflow: hidden;
-        transition: max-height 0.3s ease, opacity 0.3s ease; 
-        opacity: 1; 
-       }
+        aside::-webkit-scrollbar { width: 4px; }
+        aside::-webkit-scrollbar-thumb { background: var(--parchment-3); border-radius: 2px; }
 
-       .section-content.collapsed {
-        max-height: 0;
-        opacity: 0;
-       }
+        .sidebar-hidden aside { transform: translateX(-100%); }
 
-         /* Non-collapsible section header */
-       .section-header.no-collapse {
-           cursor: default;
-       }
+        /* ─── Sidebar toggle ──────────────────── */
+        #sidebar-toggle {
+            position: absolute;
+            left: calc(var(--sidebar-w) + 12px);
+            top: 64px;
+            z-index: 10;
+            width: 28px; height: 28px;
+            background: rgba(242, 237, 230, 0.98);
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 1px 6px rgba(15,12,8,0.14);
+            transition: left 0.3s cubic-bezier(.4,0,.2,1), background 0.15s;
+        }
 
-       .section-header.no-collapse .section-collapse-icon {
-           display: none;
-       }
+        #sidebar-toggle:hover { background: var(--parchment-2); }
+        .sidebar-hidden #sidebar-toggle { left: 12px; }
 
-       /*Legend*/
-       .legend-item {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        margin-bottom: 8px;
-        font-size: 0.9rem;
-        color: #2f3437;
-       }
+        .toggle-icon {
+            width: 12px; height: 9px;
+            display: flex; flex-direction: column;
+            justify-content: space-between;
+        }
 
-       .legend-symbol {
-        width: 14px;
-        height: 14px;
-        display: inline-block;
-       }
+        .toggle-icon span {
+            display: block;
+            height: 1.5px;
+            background: var(--ink-muted);
+            border-radius: 1px;
+        }
 
-       /*Tribal Nation*/
-       .legend-tribal {
-        border-radius: 50%;
-        background: #3aa0ff;
-        box-shadow: 0 0 8px rgba(58, 160, 255, 0.9),
-                0 0 16px rgba(58, 160, 255, 0.6);
-       }
+        /* ─── Sidebar sections ────────────────── */
+        .sb-section { margin-bottom: 20px; }
 
-       /*Institution*/
-       .legend-institution {
-        border-radius: 50%;
-        background: #000; 
-       }
+        .sb-section-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 6px 0;
+            border-bottom: 1.5px solid var(--border);
+            margin-bottom: 12px;
+            cursor: pointer;
+            user-select: none;
+        }
 
-       /*Cultural Area*/
-       .legend-cultural {
-        background: rgba(58, 160, 255, 0.35);
-        border: 1px solid rgba(58, 160, 255, 0.8);
-       }
+        .sb-section-head h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--ink);
+        }
 
-       /* Layer section styling */
-       .layer-section {
-           margin-bottom: 12px;
-       }
+        .sb-caret {
+            font-size: 9px;
+            color: var(--ink-faint);
+            transition: transform 0.2s;
+            line-height: 1;
+        }
 
-       .layer-header {
-           display: flex;
-           align-items: center;
-           justify-content: space-between;
-           padding: 8px 12px;
-           background: white;
-           border: 1px solid var(--border, #d0d3d6);
-           border-radius: 4px;
-           cursor: pointer;
-           transition: background 0.2s;
-       }
+        .sb-caret.closed { transform: rotate(-90deg); }
 
-       .layer-header:hover {
-           background: #f8f8f8;
-       }
+        .sb-body {
+            overflow: hidden;
+            transition: max-height 0.3s ease, opacity 0.25s ease;
+            max-height: 800px;
+            opacity: 1;
+        }
 
-       .layer-header-left {
-           display: flex;
-           align-items: center;
-           gap: 8px;
-       }
+        .sb-body.closed { max-height: 0; opacity: 0; }
 
-       .layer-toggle-icon {
-           font-size: 12px;
-           transition: transform 0.2s;
-           color: var(--text-muted, #5f6a72);
-       }
+        /* ─── Legend ──────────────────────────── */
+        .legend-group { margin-bottom: 14px; }
+        .legend-group:last-child { margin-bottom: 0; }
 
-       .layer-toggle-icon.expanded {
-           transform: rotate(90deg);
-       }
+        .legend-group-label {
+            font-size: 0.65rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
 
-       .layer-checkbox {
-           margin: 0;
-       }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            font-size: 0.81rem;
+            color: var(--ink-muted);
+            margin-bottom: 7px;
+            line-height: 1.3;
+        }
 
-       .layer-label {
-           font-size: 0.95rem;
-           font-weight: 500;
-           color: var(--text, #2f3437);
-       }
+        .legend-item:last-child { margin-bottom: 0; }
 
-        .layer-dropdown {
-           max-height: 0;
-           overflow: hidden;
-           transition: max-height 0.3s ease;
-           background: white;
-           border-left: 1px solid var(--border, #d0d3d6);
-           border-right: 1px solid var(--border, #d0d3d6);
-           border-bottom: 1px solid var(--border, #d0d3d6);
-           border-radius: 0 0 4px 4px;
-           margin-top: -1px;
-       }
+        .legend-dot {
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
 
-       .layer-dropdown.expanded {
-           max-height: 400px;
-           overflow-y: auto;
-       }
+        .legend-dot.tribal {
+            background: var(--c-tribal);
+            box-shadow: 0 0 0 3px rgba(168, 68, 40, 0.18);
+        }
 
-        .layer-option {
-           padding: 8px 12px 8px 32px;
-           display: flex;
-           align-items: center;
-           gap: 8px;
-           font-size: 0.9rem;
-           color: var(--text-muted, #5f6a72);
-           border-bottom: 1px solid #f0f0f0;
-       }
+        .legend-dot.university  { background: var(--c-university); }
+        .legend-dot.museum      { background: var(--c-museum); }
+        .legend-dot.federal     { background: var(--c-federal); }
+        .legend-dot.state       { background: var(--c-state); }
+        .legend-dot.historical  { background: var(--c-historical); }
 
-       .layer-option:last-child {
-           border-bottom: none;
-       }
+        .legend-swatch {
+            width: 12px; height: 10px;
+            flex-shrink: 0;
+            border-radius: 2px;
+        }
 
-              .layer-option:hover {
-           background: #f8f8f8;
-       }
+        .legend-swatch.cultural {
+            background: rgba(196, 146, 58, 0.35);
+            border: 1.5px solid rgba(196, 146, 58, 0.9);
+        }
 
-       .layer-option input[type="checkbox"] {
-           margin: 0;
-       }
+        .legend-dash {
+            width: 20px; height: 0;
+            flex-shrink: 0;
+            border-top: 2px dashed var(--c-affiliation);
+        }
 
-       .layer-option label {
-           cursor: pointer;
-           flex: 1;
-       }
+        .legend-divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 10px 0;
+        }
 
-       /* Enhanced popup styling */
-       .mapboxgl-popup-content {
-           padding: 0;
-           border-radius: 8px;
-           box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-           min-width: 200px;
-       }
+        /* ─── Layer controls ──────────────────── */
+        .layer-group {
+            margin-bottom: 6px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+        }
 
-       .popup-header {
-           background: var(--accent, #6b86a3);
-           color: white;
-           padding: 12px 16px;
-           border-radius: 8px 8px 0 0;
-           display: flex;
-           justify-content: space-between;
-           align-items: center;
-           cursor: pointer;
-       }
+        .layer-head {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 10px;
+            background: white;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
 
-       .popup-header h3 {
-           margin: 0;
-           font-size: 16px;
-           font-weight: 500;
-       }
+        .layer-head:hover { background: var(--parchment-2); }
 
-       .popup-toggle {
-           background: none;
-           border: none;
-           color: white;
-           font-size: 20px;
-           cursor: pointer;
-           padding: 0;
-           width: 24px;
-           height: 24px;
-           line-height: 1;
-       }
+        .layer-head input[type="checkbox"] {
+            accent-color: var(--terra);
+            cursor: pointer;
+        }
 
-       .popup-body {
-           padding: 16px;
-           max-height: 200px;
-           overflow-y: auto;
-       }
+        .layer-head-label {
+            font-size: 0.83rem;
+            font-weight: 500;
+            color: var(--ink);
+            flex: 1;
+        }
 
-       .popup-body.collapsed {
-           display: none;
-       }
+        .layer-caret {
+            font-size: 8px;
+            color: var(--ink-faint);
+            transition: transform 0.2s;
+        }
 
-       .popup-body p {
-           margin: 0 0 8px 0;
-           font-size: 14px;
-           color: #5f6a72;
-       }
-       
-       .mapboxgl-popup-close-button {
-           font-size: 20px;
-           padding: 8px;
-       }
-   </style>
+        .layer-caret.open { transform: rotate(90deg); }
+
+        .layer-options {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.25s ease;
+            background: var(--parchment);
+            border-top: 1px solid var(--border);
+        }
+
+        .layer-options.open { max-height: 300px; overflow-y: auto; }
+
+        .layer-opt {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 10px 6px 14px;
+            font-size: 0.8rem;
+            color: var(--ink-muted);
+            border-bottom: 1px solid rgba(15,12,8,0.07);
+            transition: background 0.12s;
+        }
+
+        .layer-opt:last-child { border-bottom: none; }
+        .layer-opt:hover { background: var(--parchment-2); }
+
+        .layer-opt input[type="checkbox"] {
+            accent-color: var(--terra);
+            cursor: pointer;
+        }
+
+        .layer-opt label { cursor: pointer; flex: 1; }
+
+        .opt-pip {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .opt-pip.square { border-radius: 2px; }
+
+        /* ─── Popup ───────────────────────────── */
+        .mapboxgl-popup-content {
+            padding: 0;
+            border-radius: 6px;
+            box-shadow: 0 4px 20px rgba(15,12,8,0.18);
+            min-width: 180px;
+            overflow: hidden;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .popup-head {
+            background: var(--terra);
+            color: white;
+            padding: 10px 14px;
+        }
+
+        .popup-head h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1rem;
+            font-weight: 500;
+            margin: 0;
+        }
+
+        .popup-body {
+            padding: 12px 14px;
+            font-size: 0.82rem;
+            color: var(--ink-muted);
+            line-height: 1.5;
+        }
+
+        .mapboxgl-popup-close-button {
+            color: rgba(255,255,255,0.7);
+            font-size: 16px;
+            padding: 8px;
+            top: 2px; right: 2px;
+        }
+
+        .mapboxgl-popup-close-button:hover { color: white; background: none; }
+
+        .mapboxgl-ctrl-group {
+            border-radius: 5px !important;
+            box-shadow: 0 1px 6px rgba(15,12,8,0.14) !important;
+            border: 1px solid var(--border) !important;
+        }
+
+        .sb-note {
+            font-size: 0.73rem;
+            color: var(--ink-faint);
+            line-height: 1.5;
+            padding: 10px 0 4px;
+            border-top: 1px solid var(--border);
+            margin-top: 4px;
+        }
+    </style>
 </head>
 <body>
 
     <header>
-        <h1>Ancestral Ties: A Mapping Project</h1>
+        <div class="header-title">
+            <h1>Ancestral Ties</h1>
+            <span>A Mapping Project</span>
+        </div>
         <nav>
             <a href="index.html">Home</a>
             <a href="map.html" class="active">Map</a>
-            <a href="about.html">About the Author</a>
+            <a href="about.html">About</a>
             <a href="source.html">Sources</a>
         </nav>
     </header>
 
-    <button id="sidebar-toggle">☰</button>
+    <button id="sidebar-toggle" aria-label="Toggle sidebar">
+        <div class="toggle-icon">
+            <span></span><span></span><span></span>
+        </div>
+    </button>
 
-        <aside id="sidebar">
-            <!-- How to Read Section-->
-            <section>
-                <div class="section-header" onclick="toggleSection('how-to-read')">
-                <h2>How to Read this Map</h2>
-                <span class="section-collapse-icon" id="how-to-read-icon">▼</span>
-                </div>
-                <div class="section-content" id="how-to-read-content">
-                <p>Info Here</p>
-                </div>
-            </section>
+    <aside id="sidebar">
 
-            <!--Legend-->
-            <section>
-                <div class="section-header" onclick="toggleSection('legend')">
-                    <h2>Map Legend</h2>
-                    <span class="section-collapse-icon" id="legend-icon">▼</span>
+        <!-- How to Read -->
+        <div class="sb-section">
+            <div class="sb-section-head" onclick="toggleSection('how-to-read')">
+                <h2>How to Read</h2>
+                <span class="sb-caret" id="how-to-read-caret">▾</span>
+            </div>
+            <div class="sb-body" id="how-to-read-body">
+                <p style="font-size:0.81rem; color:var(--ink-muted); line-height:1.65; margin-bottom:8px;">
+                    This map visualizes NAGPRA (Native American Graves Protection and Repatriation Act) inventories and cultural affiliation claims across the United States.
+                </p>
+                <p style="font-size:0.81rem; color:var(--ink-muted); line-height:1.65; margin-bottom:8px;">
+                    <strong style="color:var(--ink); font-weight:500;">Institutions</strong> — universities, museums, and agencies — are shown as colored dots based on type. Each holds NAGPRA inventories of human remains and cultural items.
+                </p>
+                <p style="font-size:0.81rem; color:var(--ink-muted); line-height:1.65; margin-bottom:8px;">
+                    <strong style="color:var(--ink); font-weight:500;">Tribal Nations</strong> are shown as terracotta dots. Dashed lines connect tribes to the institutions with which they share a documented cultural affiliation.
+                </p>
+                <p style="font-size:0.81rem; color:var(--ink-muted); line-height:1.65;">
+                    Shaded <strong style="color:var(--ink); font-weight:500;">cultural regions</strong> provide geographic and cultural context. Click any point to see inventory details and affiliation status.
+                </p>
+            </div>
+        </div>
+
+        <!-- Legend -->
+        <div class="sb-section">
+            <div class="sb-section-head" onclick="toggleSection('legend')">
+                <h2>Legend</h2>
+                <span class="sb-caret" id="legend-caret">▾</span>
+            </div>
+            <div class="sb-body" id="legend-body">
+
+                <div class="legend-group">
+                    <div class="legend-group-label">Tribal Nations</div>
+                    <div class="legend-item">
+                        <div class="legend-dot tribal"></div>
+                        Federally Recognized Tribal Nation
+                    </div>
                 </div>
 
-                <div class="section-content" id="legend-content">
-                    <div class="legend-item"><div class="legend-symbol legend-tribal"></div>Tribal Nation</div>
-                    <div class="legend-item"><div class="legend-symbol"></div>Cultural Affiliation</div>
-                    <div class="legend-item"><div class="legend-symbol legend-institution"></div>Institution</div>
-                    <div class="legend-item"><div class="legend-symbol legend-cultural"></div>Cultural Area</div>
-                </div>
-            </section>
+                <hr class="legend-divider">
 
-            <!--Layers-->
-            <section>
-                <div class="section-header" onclick="toggleSection('layers')">
+                <div class="legend-group">
+                    <div class="legend-group-label">Institutions</div>
+                    <div class="legend-item">
+                        <div class="legend-dot university"></div>
+                        University / College
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot museum"></div>
+                        Museum
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot federal"></div>
+                        Federal Agency
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot state"></div>
+                        State Agency
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot historical"></div>
+                        Historical Society
+                    </div>
+                </div>
+
+                <hr class="legend-divider">
+
+                <div class="legend-group">
+                    <div class="legend-group-label">Areas &amp; Connections</div>
+                    <div class="legend-item">
+                        <div class="legend-swatch cultural"></div>
+                        Cultural Region
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dash"></div>
+                        Cultural Affiliation (Institution ↔ Tribe)
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Layers -->
+        <div class="sb-section">
+            <div class="sb-section-head" onclick="toggleSection('layers')">
                 <h2>Layers</h2>
-                <span class="section-collapse-icon" id="layers-icon">▼</span>
-                </div>
-                <div class="section-content" id="layers-content">
-
-                <!-- Cultural Regions Layer -->
-            <div class="layer-section">
-                <div class="layer-header" onclick="toggleLayerDropdown('cultural-regions-dropdown')">
-                    <div class="layer-header-left">
-                        <span class="layer-toggle-icon" id="cultural-regions-icon">▶</span>
-                        <input type="checkbox" id="cultural-regions" class="layer-checkbox" checked onclick="event.stopPropagation()"/>
-                        <span class="layer-label">Cultural Regions</span>
-                    </div>
-                </div>
-                <div class="layer-dropdown" id="cultural-regions-dropdown">
-                    <div class="layer-option">
-                        <input type="checkbox" id="region-northeast" checked/>
-                        <label for="region-northeast">Northeast</label>
-                    </div>
-                    <div class="layer-option">
-                        <input type="checkbox" id="region-southeast" checked/>
-                        <label for="region-southeast">Southeast</label>
-                    </div>
-                    <div class="layer-option">
-                        <input type="checkbox" id="region-plains" checked/>
-                        <label for="region-plains">Plains</label>
-                    </div>
-                    <div class="layer-option">
-                        <input type="checkbox" id="region-southwest" checked/>
-                        <label for="region-southwest">Southwest</label>
-                    </div>
-                    <div class="layer-option">
-                        <input type="checkbox" id="region-great-basin" checked/>
-                        <label for="region-great-basin">Great Basin</label>
-                    </div>
-                    <div class="layer-option">
-                        <input type="checkbox" id="region-california" checked/>
-                        <label for="region-california">California</label>
-                    </div>
-                    <div class="layer-option">
-                        <input type="checkbox" id="region-northwest" checked/>
-                        <label for="region-northwest">Northwest Coast</label>
-                    </div>
-                    <div class="layer-option">
-                        <input type="checkbox" id="region-plateau" checked/>
-                        <label for="region-plateau">Plateau</label>
-                    </div>
-                    <div class="layer-option">
-                        <input type="checkbox" id="region-subarctic" checked/>
-                        <label for="region-subarctic">Subarctic</label>
-                    </div>
-                    <div class="layer-option">
-                        <input type="checkbox" id="region-arctic" checked/>
-                        <label for="region-arctic">Arctic</label>
-                    </div>
-                </div>
+                <span class="sb-caret" id="layers-caret">▾</span>
             </div>
+            <div class="sb-body" id="layers-body">
 
-            <!-- Institutional Type Layer -->
-            <div class="layer-section">
-                <div class="layer-header" onclick="toggleLayerDropdown('institutions-dropdown')">
-                    <div class="layer-header-left">
-                        <span class="layer-toggle-icon" id="institutions-icon">▶</span>
-                        <input type="checkbox" id="institutions" class="layer-checkbox" checked onclick="event.stopPropagation()"/>
-                        <span class="layer-label">Institutional Type</span>
+                <div class="layer-group">
+                    <div class="layer-head" onclick="toggleLayerOptions('tribal-options', 'tribal-caret')">
+                        <input type="checkbox" id="tribal-nations" checked onclick="event.stopPropagation(); handleLayerToggle('tribal-nations')"/>
+                        <span class="layer-head-label">Tribal Nations</span>
+                        <span class="layer-caret" id="tribal-caret">▶</span>
+                    </div>
+                    <div class="layer-options" id="tribal-options">
+                        <div class="layer-opt">
+                            <div class="opt-pip" style="background:var(--c-tribal)"></div>
+                            <input type="checkbox" id="t-federally-recognized" checked/>
+                            <label for="t-federally-recognized">Federally Recognized Tribes</label>
+                        </div>
+                        <div class="layer-opt">
+                            <div class="opt-pip" style="background:var(--c-tribal); opacity:0.45;"></div>
+                            <input type="checkbox" id="t-state-recognized" checked/>
+                            <label for="t-state-recognized">State Recognized Tribes</label>
+                        </div>
                     </div>
                 </div>
-                <div class="layer-dropdown" id="institutions-dropdown">
-                    <div class="layer-option">
-                        <input type="checkbox" id="inst-university" checked/>
-                        <label for="inst-university">Universities</label>
+
+                <div class="layer-group">
+                    <div class="layer-head" onclick="toggleLayerOptions('cultural-options', 'cultural-caret')">
+                        <input type="checkbox" id="cultural-regions" checked onclick="event.stopPropagation(); handleLayerToggle('cultural-regions')"/>
+                        <span class="layer-head-label">Cultural Regions</span>
+                        <span class="layer-caret" id="cultural-caret">▶</span>
                     </div>
-                    <div class="layer-option">
-                        <input type="checkbox" id="inst-museum" checked/>
-                        <label for="inst-museum">Museums</label>
-                    </div>
-                    <div class="layer-option">
-                        <input type="checkbox" id="inst-federal" checked/>
-                        <label for="inst-federal">Federal Agencies</label>
-                    </div>
-                    <div class="layer-option">
-                        <input type="checkbox" id="inst-state" checked/>
-                        <label for="inst-state">State Agencies</label>
-                    </div>
-                    <div class="layer-option">
-                        <input type="checkbox" id="inst-historical" checked/>
-                        <label for="inst-historical">Historical Societies</label>
-                    </div>
-                    <div class="layer-option">
-                        <input type="checkbox" id="inst-tribal" checked/>
-                        <label for="inst-tribal">Tribal Nations</label>
+                    <div class="layer-options" id="cultural-options">
+                        <div class="layer-opt"><div class="opt-pip square" style="background:rgba(196,146,58,0.55);border:1px solid rgba(196,146,58,0.95)"></div><input type="checkbox" id="r-arctic" checked/><label for="r-arctic">Arctic</label></div>
+                        <div class="layer-opt"><div class="opt-pip square" style="background:rgba(196,146,58,0.55);border:1px solid rgba(196,146,58,0.95)"></div><input type="checkbox" id="r-california" checked/><label for="r-california">California</label></div>
+                        <div class="layer-opt"><div class="opt-pip square" style="background:rgba(196,146,58,0.55);border:1px solid rgba(196,146,58,0.95)"></div><input type="checkbox" id="r-great-basin" checked/><label for="r-great-basin">Great Basin</label></div>
+                        <div class="layer-opt"><div class="opt-pip square" style="background:rgba(196,146,58,0.55);border:1px solid rgba(196,146,58,0.95)"></div><input type="checkbox" id="r-midwest" checked onchange="handleMidwestToggle(this)"/><label for="r-midwest">Midwest</label></div>
+                        <div class="layer-opt"><div class="opt-pip square" style="background:rgba(196,146,58,0.55);border:1px solid rgba(196,146,58,0.95)"></div><input type="checkbox" id="r-northeast" checked/><label for="r-northeast">Northeast</label></div>
+                        <div class="layer-opt"><div class="opt-pip square" style="background:rgba(196,146,58,0.55);border:1px solid rgba(196,146,58,0.95)"></div><input type="checkbox" id="r-northwest" checked/><label for="r-northwest">Northwest Coast</label></div>
+                        <div class="layer-opt"><div class="opt-pip square" style="background:rgba(196,146,58,0.55);border:1px solid rgba(196,146,58,0.95)"></div><input type="checkbox" id="r-plains" checked/><label for="r-plains">Plains</label></div>
+                        <div class="layer-opt"><div class="opt-pip square" style="background:rgba(196,146,58,0.55);border:1px solid rgba(196,146,58,0.95)"></div><input type="checkbox" id="r-plateau" checked/><label for="r-plateau">Plateau</label></div>
+                        <div class="layer-opt"><div class="opt-pip square" style="background:rgba(196,146,58,0.55);border:1px solid rgba(196,146,58,0.95)"></div><input type="checkbox" id="r-southeast" checked/><label for="r-southeast">Southeast</label></div>
+                        <div class="layer-opt"><div class="opt-pip square" style="background:rgba(196,146,58,0.55);border:1px solid rgba(196,146,58,0.95)"></div><input type="checkbox" id="r-southwest" checked/><label for="r-southwest">Southwest</label></div>
                     </div>
                 </div>
+
+                <div class="layer-group">
+                    <div class="layer-head" onclick="toggleLayerOptions('inst-options', 'inst-caret')">
+                        <input type="checkbox" id="institutions" checked onclick="event.stopPropagation(); handleLayerToggle('institutions')"/>
+                        <span class="layer-head-label">Institutions</span>
+                        <span class="layer-caret" id="inst-caret">▶</span>
+                    </div>
+                    <div class="layer-options" id="inst-options">
+                        <div class="layer-opt"><div class="opt-pip" style="background:var(--c-university)"></div><input type="checkbox" id="i-university" checked/><label for="i-university">Universities &amp; Colleges</label></div>
+                        <div class="layer-opt"><div class="opt-pip" style="background:var(--c-museum)"></div><input type="checkbox" id="i-museum" checked/><label for="i-museum">Museums</label></div>
+                        <div class="layer-opt"><div class="opt-pip" style="background:var(--c-federal)"></div><input type="checkbox" id="i-federal" checked/><label for="i-federal">Federal Agencies</label></div>
+                        <div class="layer-opt"><div class="opt-pip" style="background:var(--c-state)"></div><input type="checkbox" id="i-state" checked/><label for="i-state">State Agencies</label></div>
+                        <div class="layer-opt"><div class="opt-pip" style="background:var(--c-historical)"></div><input type="checkbox" id="i-historical" checked/><label for="i-historical">Historical Societies</label></div>
+                    </div>
+                </div>
+
+                <div class="layer-group">
+                    <div class="layer-head">
+                        <input type="checkbox" id="affiliations" checked onclick="handleLayerToggle('affiliations')"/>
+                        <span class="layer-head-label">Cultural Affiliations</span>
+                    </div>
+                </div>
+
+                <p class="sb-note">Click a layer name to show or hide sub-categories. Click any point on the map to view NAGPRA inventory details.</p>
             </div>
-        </section>
-        </aside>
+        </div>
 
-            <div id="map"></div>
-    
+    </aside>
+
+    <div id="map"></div>
+
     <script>
-        //Legend 
-   
-        //Sidebar
-        const sidebarToggle = document.getElementById('sidebar-toggle');
-
-        sidebarToggle.addEventListener('click',() => {
+        document.getElementById('sidebar-toggle').addEventListener('click', () => {
             document.body.classList.toggle('sidebar-hidden');
-        })
-
-        //Toggle 
-        function toggleLayerDropdown(id) {
-        const el = document.getElementById(id);
-        el.classList.toggle('expanded');
-        }
+        });
 
         function toggleSection(name) {
-        const content = document.getElementById(name + '-content');
-        const icon = document.getElementById(name + '-icon');
-
-        content.classList.toggle('collapsed');
-        icon.classList.toggle('collapsed');
+            const body  = document.getElementById(name + '-body');
+            const caret = document.getElementById(name + '-caret');
+            body.classList.toggle('closed');
+            caret.classList.toggle('closed');
         }
 
-        //Set Mapbox access token 
+        function toggleLayerOptions(optionsId, caretId) {
+            const opts  = document.getElementById(optionsId);
+            const caret = document.getElementById(caretId);
+            opts.classList.toggle('open');
+            caret.classList.toggle('open');
+        }
+
+        function handleLayerToggle(layerId) {
+            const checked = document.getElementById(layerId).checked;
+            console.log(layerId, 'toggled:', checked);
+        }
+
         mapboxgl.accessToken = 'pk.eyJ1IjoicnlsZWUtbGFsb25kZSIsImEiOiJjbWxheWJ5OXYwYjY0M2RxMmh1NDR5MjRxIn0.C9DGK_0soHehFbajEFkyoA';
 
-        // Initialize the map 
-        const map= new mapboxgl.Map({
+        const map = new mapboxgl.Map({
             container: 'map',
-            style: 'mapbox://styles/mapbox/light-v11', //maybe try outdoors-v12
-            center: [-98, 39], //have this center somewhere else
+            style: 'mapbox://styles/mapbox/light-v11',
+            center: [-98, 39],
             zoom: 3,
-
         });
 
-        //Tribal Polygon
-      
-        //Navigation Controls (Zoom)
         map.addControl(new mapboxgl.NavigationControl(), 'top-right');
 
+        /* ── Upper Peninsula Cultural Region ───────────────────────────────
+           Counties: Alger, Chippewa, Delta, Luce, Mackinac, Marquette, Schoolcraft
+           Boundary traced clockwise from NW. For production use, replace with
+           Census TIGER/Line data: https://www.census.gov/geographies/mapping-files/
+        ──────────────────────────────────────────────────────────────────── */
+        const upMichiganRegion = {
+            type: 'FeatureCollection',
+            features: [{
+                type: 'Feature',
+                properties: {
+                    name: 'Central & Eastern Upper Peninsula',
+                    counties: 'Alger, Chippewa, Delta, Luce, Mackinac, Marquette, Schoolcraft',
+                    region: 'Great Lakes'
+                },
+                geometry: {
+                    type: 'Polygon',
+                    coordinates: [[
+                        // ── West side: Marquette county (Lake Superior shore W→E) ──
+                        [-87.60, 46.98],   // NW Marquette, Lake Superior shore
+                        [-87.55, 46.90],
+                        [-87.42, 46.82],
+                        [-87.35, 46.68],   // Marquette city area, Lake Superior
+                        [-87.10, 46.60],
+                        // ── Alger county, Lake Superior shore ──
+                        [-86.82, 46.62],
+                        [-86.65, 46.57],   // Munising / Pictured Rocks
+                        [-86.35, 46.60],
+                        // ── Alger/Luce border, Lake Superior shore ──
+                        [-86.00, 46.68],   // Grand Marais
+                        [-85.75, 46.68],
+                        [-85.52, 46.66],
+                        // ── Luce county, Lake Superior shore ──
+                        [-85.28, 46.70],
+                        [-85.02, 46.78],   // Whitefish Point area
+                        // ── Chippewa county, Lake Superior shore ──
+                        [-84.82, 46.88],
+                        [-84.65, 46.93],   // Chippewa north shore
+                        [-84.50, 46.90],
+                        [-84.37, 46.75],
+                        // ── East side: Chippewa county (St. Marys River) ──
+                        [-84.37, 46.49],   // Sault Ste. Marie
+                        [-84.28, 46.35],
+                        [-84.12, 46.20],
+                        [-84.08, 46.05],
+                        // ── SE corner: Chippewa into Mackinac (Lake Huron) ──
+                        [-84.25, 45.95],
+                        [-84.55, 45.88],
+                        [-84.73, 45.82],   // St. Ignace / Mackinac Straits
+                        // ── South shore: Mackinac & Schoolcraft (Lake Michigan) ──
+                        [-85.05, 45.73],
+                        [-85.30, 45.72],
+                        [-85.60, 45.78],
+                        [-85.88, 45.74],
+                        // ── South shore: Delta county (Green Bay / Lake Michigan) ──
+                        [-86.20, 45.70],
+                        [-86.55, 45.65],
+                        [-86.90, 45.62],   // Escanaba area
+                        [-87.08, 45.62],
+                        [-87.18, 45.70],
+                        // ── West side: Delta / Marquette boundary going north ──
+                        [-87.22, 45.90],
+                        [-87.22, 46.08],   // Delta/Marquette corner
+                        [-87.42, 46.10],   // Marquette SW
+                        [-87.55, 46.20],
+                        [-87.60, 46.50],
+                        [-87.60, 46.98]    // back to NW start
+                    ]]
+                }
+            }]
+        };
 
-        //Layer Toggle 
-        document.getElementById('cultural-regions').addEventListener('change', (e) => {
-            //Add cultural regions layer toggle 
-            console.log('Cultural regions toggled:', e.target.checked);
+        map.on('load', () => {
+
+            map.addSource('up-michigan-region', {
+                type: 'geojson',
+                data: upMichiganRegion
+            });
+
+            // Fill layer
+            map.addLayer({
+                id: 'up-michigan-fill',
+                type: 'fill',
+                source: 'up-michigan-region',
+                paint: {
+                    'fill-color': 'rgba(196, 146, 58, 0.18)',
+                    'fill-opacity': 1
+                }
+            });
+
+            // Outline layer
+            map.addLayer({
+                id: 'up-michigan-outline',
+                type: 'line',
+                source: 'up-michigan-region',
+                paint: {
+                    'line-color': 'rgba(196, 146, 58, 0.90)',
+                    'line-width': 1.5,
+                    'line-dasharray': [3, 2]
+                }
+            });
+
+            // Hover highlight
+            map.addLayer({
+                id: 'up-michigan-hover',
+                type: 'fill',
+                source: 'up-michigan-region',
+                paint: {
+                    'fill-color': 'rgba(196, 146, 58, 0.08)',
+                    'fill-opacity': 0
+                }
+            });
+
+            // Popup on click
+            map.on('click', 'up-michigan-fill', (e) => {
+                const props = e.features[0].properties;
+                new mapboxgl.Popup({ offset: 8 })
+                    .setLngLat(e.lngLat)
+                    .setHTML(`
+                        <div class="popup-head">
+                            <h3>${props.name}</h3>
+                        </div>
+                        <div class="popup-body">
+                            <p><strong>Counties:</strong> ${props.counties}</p>
+                            <p><strong>Region:</strong> ${props.region}</p>
+                        </div>
+                    `)
+                    .addTo(map);
+            });
+
+            map.on('mouseenter', 'up-michigan-fill', () => {
+                map.getCanvas().style.cursor = 'pointer';
+                map.setPaintProperty('up-michigan-hover', 'fill-opacity', 1);
+            });
+
+            map.on('mouseleave', 'up-michigan-fill', () => {
+                map.getCanvas().style.cursor = '';
+                map.setPaintProperty('up-michigan-hover', 'fill-opacity', 0);
+            });
+
         });
 
-        document.getElementById('institutions').addEventListener('change', (e)=> {
-            const visibility= e.target.checked ? 'visible' : 'none';
-            //This will work once institutions are added
-            //map.setLayoutProperty('institutions-layer', 'visibility', visibility);
-            console.log('Institutions toggled:', e.target.checked);
-        })
+        /* ── Cultural Regions parent toggle ── */
+        document.getElementById('cultural-regions').addEventListener('change', (e) => {
+            const vis = e.target.checked ? 'visible' : 'none';
+            // Also sync the Midwest sub-checkbox
+            document.getElementById('r-midwest').checked = e.target.checked;
+            if (map.getLayer('up-michigan-fill'))    map.setLayoutProperty('up-michigan-fill',    'visibility', vis);
+            if (map.getLayer('up-michigan-outline')) map.setLayoutProperty('up-michigan-outline', 'visibility', vis);
+        });
+
+        /* ── Midwest sub-checkbox toggle ── */
+        function handleMidwestToggle(checkbox) {
+            const vis = checkbox.checked ? 'visible' : 'none';
+            if (map.getLayer('up-michigan-fill'))    map.setLayoutProperty('up-michigan-fill',    'visibility', vis);
+            if (map.getLayer('up-michigan-outline')) map.setLayoutProperty('up-michigan-outline', 'visibility', vis);
+        }
     </script>
 
 </body>

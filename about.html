@@ -2,220 +2,484 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ancestral Ties</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>About the Author — Ancestral Ties</title>
 
-  <!--Stylesheet-->
-   <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 
-  <!--Style Specific to Home Page-->
-  <style>
-     :root {
-      --bg: #f6f5f2;
-      --text: #2f3437;
-      --text-muted: #5f6a72;
-      --accent: #6b86a3;
-      --border: #d0d3d6;
-    }
+    <style>
+        :root {
+            --parchment:   #f2ede6;
+            --parchment-2: #e2d9ce;
+            --parchment-3: #cfc4b5;
+            --ink:         #0f0c08;
+            --ink-muted:   #3d3229;
+            --ink-faint:   #7a6e64;
+            --terra:       #8b3a1e;
+            --terra-light: rgba(139, 58, 30, 0.10);
+            --terra-mid:   rgba(139, 58, 30, 0.30);
+            --border:      rgba(15, 12, 8, 0.20);
 
-    * {
-      box-sizing: border-box;
-    }
+            --dark-bg:     #19140e;
+            --dark-text:   #f2ede6;
+            --dark-muted:  #b8a898;
+            --dark-border: rgba(242, 237, 230, 0.14);
+        }
 
-    body {
-      margin: 0;
-      font-family: Georgia, "Times New Roman", serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-    }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    /* ---------- Header ---------- */
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 24px 64px;
-      border-bottom: 1px solid var(--border);
-    }
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--parchment);
+            color: var(--ink);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
 
-    header h1 {
-      font-size: 1.1rem;
-      font-weight: 500;
-      margin: 0;
-    }
+        /* ─── Header ──────────────────────────── */
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            height: 52px;
+            background: rgba(242, 237, 230, 0.97);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            backdrop-filter: blur(12px);
+        }
 
-    nav a {
-      margin-left: 32px;
-      text-decoration: none;
-      color: var(--text-muted);
-      font-size: 0.95rem;
-    }
+        .header-title {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+        }
 
-    nav a.active {
-      color: var(--text);
-      border-bottom: 2px solid var(--accent);
-      padding-bottom: 4px;
-    }
+        .header-title h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.25rem;
+            font-weight: 500;
+            letter-spacing: 0.01em;
+            color: var(--ink);
+            white-space: nowrap;
+        }
 
-    /* ---------- Main Layout ---------- */
-    main {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 80px 32px 120px;
-    }
+        .header-title span {
+            font-size: 0.7rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            font-weight: 300;
+        }
 
-    /* ---------- Hero ---------- */
-    .hero {
-      text-align: center;
-      margin-bottom: 80px;
-    }
+        nav { display: flex; gap: 4px; }
 
-    .hero h2 {
-      font-size: 2.2rem;
-      font-weight: 500;
-      margin-bottom: 16px;
-    }
+        nav a {
+            font-size: 0.78rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: var(--ink-muted);
+            padding: 5px 10px;
+            border-radius: 3px;
+            transition: color 0.15s, background 0.15s;
+        }
 
-    .hero p {
-      font-style: italic;
-      color: var(--text-muted);
-      margin-bottom: 32px;
-    }
+        nav a:hover { color: var(--ink); background: var(--parchment-2); }
 
-    .hero button {
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      padding: 12px 28px;
-      font-size: 0.95rem;
-      cursor: pointer;
-      border-radius: 2px;
-    }
+        nav a.active {
+            color: var(--terra);
+            background: var(--terra-light);
+        }
 
-    /* ---------- Sections ---------- */
-    section {
-      margin-bottom: 72px;
-    }
+        /* ─── Page layout ─────────────────────── */
+        main {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 72px 32px 120px;
+        }
 
-    section h3 {
-      font-size: 1.2rem;
-      font-weight: 500;
-      margin-bottom: 12px;
-    }
+        /* ─── Page header ─────────────────────── */
+        .page-eyebrow {
+            font-size: 0.7rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--terra);
+            margin-bottom: 10px;
+        }
 
-    .divider {
-      height: 1px;
-      background: var(--border);
-      margin-bottom: 24px;
-    }
+        .page-heading {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.8rem;
+            font-weight: 400;
+            line-height: 1.15;
+            color: var(--ink);
+            margin-bottom: 16px;
+        }
 
-    section p {
-      max-width: 720px;
-      color: var(--text-muted);
-      font-size: 0.95rem;
-    }
+        .page-heading em {
+            font-style: italic;
+            color: var(--terra);
+        }
 
-    /* ---------- Key Concepts ---------- */
-    .key-concepts {
-      text-align: center;
-    }
+        .page-rule {
+            width: 48px;
+            height: 1px;
+            background: var(--terra);
+            margin-bottom: 60px;
+        }
 
-    .concept-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-      margin-top: 40px;
-    }
+        /* ─── Profile block ───────────────────── */
+        .profile {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 48px;
+            align-items: start;
+            margin-bottom: 64px;
+        }
 
-    .concept-card {
-      border: 1px solid var(--border);
-      padding: 32px 16px;
-      background: #fff;
-    }
+        .profile-photo-wrap {
+            position: relative;
+        }
 
-    .concept-card h4 {
-      margin-top: 16px;
-      font-weight: 500;
-      font-size: 1rem;
-    }
+        .profile-photo-wrap::before {
+            content: '';
+            position: absolute;
+            inset: -8px;
+            border: 1px solid var(--terra-mid);
+            border-radius: 3px;
+            z-index: 0;
+        }
 
-    .icon {
-      font-size: 2rem;
-      color: var(--text-muted);
-    }
+        .profile-photo-wrap img {
+            position: relative;
+            z-index: 1;
+            width: 200px;
+            height: 240px;
+            object-fit: cover;
+            object-position: top center;
+            display: block;
+            border-radius: 2px;
+            filter: sepia(12%);
+        }
+        .profile-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 500;
+            letter-spacing: 0.01em;
+            margin-bottom: 4px;
+        }
 
-    /* ---------- Footer spacing ---------- */
-    footer {
-      text-align: center;
-      color: var(--text-muted);
-      font-size: 0.8rem;
-    }
-/* ---- Author Images ---*/ 
-.team-member {
-  margin-bottom: 3rem;
-  text-align: center;
-}
+        .profile-title {
+            font-size: 0.8rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--terra);
+            margin-bottom: 20px;
+        }
 
-.team-member img {
-  width: 14rem;
-  height: 14rem;
-  border: 0.5rem solid rgba(0, 0, 0, 0.1);
-  border-radius: 50%; /* This makes it circular */
-  display: block;
-  margin: 0 auto; /* This centers it */
-  object-fit: cover; /* This ensures the image fills the circle nicely */
-}
+        .profile-bio {
+            font-size: 0.93rem;
+            color: var(--ink-muted);
+            line-height: 1.75;
+            max-width: 540px;
+        }
 
-.team-member h4, .team-member .h4 {
-  margin-top: 1.5rem;
-  margin-bottom: 0;
-}
+        .profile-bio p + p { margin-top: 14px; }
 
-/* Remove the mx-auto class and use CSS instead */
-.mx-auto {
-  margin-left: auto;
-  margin-right: auto;
-}
+        /* ─── Section divider ─────────────────── */
+        .section-label {
+            font-size: 0.67rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+        }
 
-.rounded-circle {
-  border-radius: 50%;
-}
-  </style>
+        /* ─── Research interests ──────────────── */
+        .interests {
+            margin-bottom: 64px;
+        }
+
+        .interest-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 4px;
+        }
+
+        .interest-card {
+            background: white;
+            border: 1px solid var(--parchment-3);
+            border-top: 3px solid var(--terra);
+            padding: 20px 18px;
+            border-radius: 2px;
+            box-shadow: 0 1px 4px rgba(15,12,8,0.06);
+        }
+
+        .interest-icon {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            opacity: 0.7;
+        }
+
+        .interest-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: 7px;
+        }
+
+        .interest-desc {
+            font-size: 0.78rem;
+            color: var(--ink-muted);
+            line-height: 1.6;
+        }
+
+        /* ─── About the project ───────────────── */
+        .project-section {
+            margin-bottom: 64px;
+        }
+
+        .project-block {
+            background: white;
+            border: 1px solid var(--parchment-3);
+            border-radius: 3px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(15,12,8,0.06);
+        }
+
+        .project-block-inner {
+            display: grid;
+            grid-template-columns: 3px 1fr;
+        }
+
+        .project-accent-bar {
+            background: var(--terra);
+        }
+
+        .project-content {
+            padding: 28px 32px;
+        }
+
+        .project-content h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+
+        .project-content p {
+            font-size: 0.88rem;
+            color: var(--ink-muted);
+            line-height: 1.75;
+            max-width: 620px;
+        }
+
+        .project-content p + p { margin-top: 12px; }
+
+        /* ─── NAGPRA context block ────────────── */
+        .context-section {
+            margin-bottom: 64px;
+        }
+
+        .context-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .context-item {
+            background: var(--parchment-2);
+            border: 1px solid var(--parchment-3);
+            border-radius: 2px;
+            padding: 20px 20px;
+        }
+
+        .context-item-label {
+            font-size: 0.67rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--terra);
+            margin-bottom: 6px;
+        }
+
+        .context-item-value {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            font-weight: 500;
+            color: var(--terra);
+            line-height: 1;
+            margin-bottom: 6px;
+        }
+
+        .context-item-desc {
+            font-size: 0.78rem;
+            color: var(--ink-muted);
+            line-height: 1.5;
+        }
+
+        /* ─── Contact / links ─────────────────── */
+        .contact-section {
+            margin-bottom: 64px;
+        }
+
+        .contact-links {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 4px;
+        }
+
+        .contact-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.8rem;
+            letter-spacing: 0.04em;
+            color: var(--terra);
+            text-decoration: none;
+            border: 1px solid var(--terra-mid);
+            padding: 6px 14px;
+            border-radius: 2px;
+            background: var(--terra-light);
+            transition: background 0.15s, border-color 0.15s;
+        }
+
+        .contact-link:hover {
+            background: var(--terra-mid);
+            border-color: var(--terra);
+        }
+
+        /* ─── Footer ──────────────────────────── */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 28px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-left {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.95rem;
+            color: var(--ink-muted);
+        }
+
+        .footer-right {
+            font-size: 0.75rem;
+            color: var(--ink-faint);
+        }
+
+        /* ─── Responsive ──────────────────────── */
+        @media (max-width: 680px) {
+            .profile { grid-template-columns: 1fr; }
+            .profile-photo-wrap img { width: 100%; height: 260px; }
+            .interest-grid { grid-template-columns: 1fr; }
+            .context-grid { grid-template-columns: 1fr; }
+            .page-heading { font-size: 2rem; }
+        }
+    </style>
 </head>
-
 <body>
-<header>
-    <h1>Ancestral Ties: A Mapping Project</h1>
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="map.html">Map</a>
-        <a href="about.html" class="active">About the Author</a>
-        <a href="sources.html">Sources</a>
-    </nav>
-</header>
 
-<main>
-    <!--Main Section-->
-    <div class="hero">
-        <h2>About the Author</h2>
-        <div class="team-member">
-            <img src="images/rylee.jpg" alt="Rylee LaLonde"/>
+    <header>
+        <div class="header-title">
+            <h1>Ancestral Ties</h1>
+            <span>A Mapping Project</span>
         </div>
-    </div>
-    <!--About Me-->
-    <section>
-        <h3>Rylee LaLonde</h3>
-        <div class="divider"></div>
-        <p>Rylee LaLonde is a second-year PhD student in the Department of Anthropology. Rylee's work centers on Indigenizing bioarchaeology, specifically issues linked with Indigenous science, traditional knowledge, methodological practices, and rhetoric. Her current work explores Indigenous voices concerning the Native American Graves Protection and Repatriation Act.</p>
-    </section>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="map.html">Map</a>
+            <a href="about.html" class="active">About</a>
+            <a href="sources.html">Sources</a>
+        </nav>
+    </header>
 
-    <!--Overview-->
-    <section>
-       <p>Add something here</p>
-    </section>
-</main>
+    <main>
+
+        <p class="page-eyebrow">The Researcher</p>
+        <h2 class="page-heading">About the <em>Author</em></h2>
+        <div class="page-rule"></div>
+
+        <!-- Profile -->
+        <div class="profile">
+            <div class="profile-photo-wrap">
+                <img src="images/049A1986.JPG" alt="Rylee LaLonde"/>
+            </div>
+            <div class="profile-text">
+                <p class="profile-name">Rylee LaLonde</p>
+                <p class="profile-title">PhD Student &nbsp;·&nbsp; MSU Department of Anthropology</p>
+                <p class="profile-title">Enrolled Member of Sault Tribe of Chippewa Indians</p>
+                <div class="profile-bio">
+                    <p>Rylee LaLonde is a second-year PhD student in the Department of Anthropology. Her work centers on Indigenizing bioarchaeology — specifically questions of Indigenous science, traditional knowledge, methodological practice, and rhetoric.</p>
+                    <p>Her current research explores Indigenous voices and perspectives concerning the Native American Graves Protection and Repatriation Act (NAGPRA), with a focus on how communities engage with, contest, and shape the repatriation process.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Research Interests -->
+        <div class="interests">
+            <p class="section-label">Research Interests</p>
+            <div class="interest-grid">
+                <div class="interest-card">
+                    <div class="interest-icon">⚗</div>
+                    <p class="interest-title">Indigenizing Bioarchaeology</p>
+                    <p class="interest-desc">Recentering Indigenous knowledge and methodology in the study of ancestral human remains and mortuary practices.</p>
+                </div>
+                <div class="interest-card">
+                    <div class="interest-icon">⚖</div>
+                    <p class="interest-title">NAGPRA & Repatriation</p>
+                    <p class="interest-desc">Examining how the law shapes and is shaped by Indigenous communities asserting sovereignty over ancestors and cultural patrimony.</p>
+                </div>
+                <div class="interest-card">
+                    <div class="interest-icon">◎</div>
+                    <p class="interest-title">Traditional Knowledge</p>
+                    <p class="interest-desc">Engaging Indigenous epistemologies as legitimate frameworks alongside — and often in tension with — Western scientific practice.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- About the Project -->
+        <div class="project-section">
+            <p class="section-label">About the Project</p>
+            <div class="project-block">
+                <div class="project-block-inner">
+                    <div class="project-accent-bar"></div>
+                    <div class="project-content">
+                        <h3>Ancestral Ties: Mapping NAGPRA Across the United States</h3>
+                        <p>This project maps NAGPRA inventories and cultural affiliation claims held by institutions across the United States. By visualizing the geographic relationships between institutions — universities, museums, federal agencies, historical societies — and the tribal nations with whom they share documented cultural affiliations, the map makes visible a bureaucratic and often opaque process.</p>
+                        <p>The goal is not simply to display data, but to situate it: to show how ancestral remains and cultural items move (or don't move) through the repatriation process, and whose voices are centered or marginalized in that movement.</p>
+                        <p>Add more information here...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact -->
+        <div class="contact-section">
+            <p class="section-label">Contact &amp; Links</p>
+            <div class="contact-links">
+                <a href="/cdn-cgi/l/email-protection#16" class="contact-link">✉ Email</a>
+                <a href="https://anthropology.msu.edu/people/graduate-students/" target="_blank" rel="noopener" class="contact-link">↗ University Profile</a>
+                <a href="https://www.linkedin.com/in/rylee-lalonde-6b7346290/" target="_blank" rel="noopener" class="contact-link">↗ LinkedIn</a>
+                <a href="#" class="contact-link">↗ ORCID</a>
+            </div>
+        </div>
+
+    </main>
+
+  <footer>
+        <span class="footer-left">Ancestral Ties</span>
+        <span class="footer-right">2026</span>
+    </footer>
 
 </body>
 </html>
-

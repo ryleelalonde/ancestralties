@@ -2,217 +2,722 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ancestral Ties</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Ancestral Ties — A Mapping Project</title>
 
-  <!--Stylesheet-->
-   <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 
-  <!--Style Specific to Home Page-->
-  <style>
-     :root {
-      --bg: #f6f5f2;
-      --text: #2f3437;
-      --text-muted: #5f6a72;
-      --accent: #6b86a3;
-      --border: #d0d3d6;
-    }
+    <style>
+        :root {
+            --parchment:   #f2ede6;
+            --parchment-2: #e2d9ce;
+            --parchment-3: #cfc4b5;
+            --ink:         #0f0c08;
+            --ink-muted:   #3d3229;
+            --ink-faint:   #7a6e64;
+            --terra:       #8b3a1e;
+            --terra-light: rgba(139, 58, 30, 0.10);
+            --terra-mid:   rgba(139, 58, 30, 0.30);
+            --border:      rgba(15, 12, 8, 0.20);
 
-    * {
-      box-sizing: border-box;
-    }
+            --dark-bg:     #19140e;
+            --dark-text:   #f2ede6;
+            --dark-muted:  #b8a898;
+            --dark-border: rgba(242, 237, 230, 0.14);
+        }
 
-    body {
-      margin: 0;
-      font-family: Georgia, "Times New Roman", serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-    }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    /* ---------- Header ---------- */
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 24px 64px;
-      border-bottom: 1px solid var(--border);
-    }
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--parchment);
+            color: var(--ink);
+            line-height: 1.6;
+        }
 
-    header h1 {
-      font-size: 1.1rem;
-      font-weight: 500;
-      margin: 0;
-    }
+        /* ─── Header ──────────────────────────── */
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            height: 52px;
+            background: rgba(242, 237, 230, 0.97);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            backdrop-filter: blur(12px);
+        }
 
-    nav a {
-      margin-left: 32px;
-      text-decoration: none;
-      color: var(--text-muted);
-      font-size: 0.95rem;
-    }
+        .header-title {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+        }
 
-    nav a.active {
-      color: var(--text);
-      border-bottom: 2px solid var(--accent);
-      padding-bottom: 4px;
-    }
+        .header-title h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.25rem;
+            font-weight: 500;
+            letter-spacing: 0.01em;
+            color: var(--ink);
+            white-space: nowrap;
+        }
 
-    /* ---------- Main Layout ---------- */
-    main {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 80px 32px 120px;
-    }
+        .header-title span {
+            font-size: 0.7rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            font-weight: 300;
+        }
 
-    /* ---------- Hero ---------- */
-    .hero {
-      text-align: center;
-      margin-bottom: 80px;
-    }
+        nav { display: flex; gap: 4px; }
 
-    .hero h2 {
-      font-size: 2.2rem;
-      font-weight: 500;
-      margin-bottom: 16px;
-    }
+        nav a {
+            font-size: 0.78rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: var(--ink-muted);
+            padding: 5px 10px;
+            border-radius: 3px;
+            transition: color 0.15s, background 0.15s;
+        }
 
-    .hero p {
-      font-style: italic;
-      color: var(--text-muted);
-      margin-bottom: 32px;
-    }
+        nav a:hover { color: var(--ink); background: var(--parchment-2); }
+        nav a.active { color: var(--terra); background: var(--terra-light); }
 
-    .hero button {
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      padding: 12px 28px;
-      font-size: 0.95rem;
-      cursor: pointer;
-      border-radius: 2px;
-    }
+        /* ─── Hero ────────────────────────────── */
+        .hero {
+            position: relative;
+            padding: 100px 40px 90px;
+            max-width: 900px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
 
-    /* ---------- Sections ---------- */
-    section {
-      margin-bottom: 72px;
-    }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 40px; right: -20px;
+            width: 340px; height: 340px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(139,58,30,0.13) 0%, transparent 70%);
+            pointer-events: none;
+        }
 
-    section h3 {
-      font-size: 1.2rem;
-      font-weight: 500;
-      margin-bottom: 12px;
-    }
+        .hero-eyebrow {
+            font-size: 0.7rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--terra);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-    .divider {
-      height: 1px;
-      background: var(--border);
-      margin-bottom: 24px;
-    }
+        .hero-eyebrow::after {
+            content: '';
+            display: inline-block;
+            width: 32px;
+            height: 1px;
+            background: var(--terra);
+            opacity: 0.5;
+        }
 
-    section p {
-      max-width: 720px;
-      color: var(--text-muted);
-      font-size: 0.95rem;
-    }
+        .hero-heading {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.8rem;
+            font-weight: 400;
+            line-height: 1.1;
+            color: var(--ink);
+            margin-bottom: 10px;
+            max-width: 620px;
+        }
 
-    /* ---------- Key Concepts ---------- */
-    .key-concepts {
-      text-align: center;
-    }
+        .hero-heading em {
+            font-style: italic;
+            color: var(--terra);
+        }
 
-    .concept-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-      margin-top: 40px;
-    }
+        .hero-sub {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.25rem;
+            font-style: italic;
+            color: var(--ink-muted);
+            font-weight: 300;
+            margin-bottom: 36px;
+            max-width: 520px;
+        }
 
-    .concept-card {
-      border: 1px solid var(--border);
-      padding: 32px 16px;
-      background: #fff;
-    }
+        .hero-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
 
-    .concept-card h4 {
-      margin-top: 16px;
-      font-weight: 500;
-      font-size: 1rem;
-    }
+        .btn-primary {
+            display: inline-block;
+            background: var(--terra);
+            color: white;
+            text-decoration: none;
+            font-size: 0.8rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 11px 24px;
+            border-radius: 2px;
+            transition: background 0.15s, transform 0.15s;
+        }
 
-    .icon {
-      font-size: 2rem;
-      color: var(--text-muted);
-    }
+        .btn-primary:hover {
+            background: #6a4029;
+            transform: translateY(-1px);
+        }
 
-    /* ---------- Footer spacing ---------- */
-    footer {
-      text-align: center;
-      color: var(--text-muted);
-      font-size: 0.8rem;
-    }
-  </style>
+        .btn-ghost {
+            display: inline-block;
+            color: var(--terra);
+            text-decoration: none;
+            font-size: 0.8rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 11px 24px;
+            border-radius: 2px;
+            border: 1px solid var(--terra-mid);
+            background: var(--terra-light);
+            transition: background 0.15s, border-color 0.15s;
+        }
+
+        .btn-ghost:hover {
+            background: var(--terra-mid);
+            border-color: var(--terra);
+        }
+
+        /* ─── Horizontal rule ─────────────────── */
+        .section-rule {
+            max-width: 900px;
+            margin: 0 auto;
+            border: none;
+            border-top: 1px solid var(--border);
+        }
+
+        /* ─── Shared section wrapper ──────────── */
+        .section-wrap {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 72px 40px;
+        }
+
+        .section-wrap + .section-wrap {
+            padding-top: 0;
+        }
+
+        .section-label {
+            font-size: 0.67rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-heading {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 400;
+            color: var(--ink);
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .section-body {
+            font-size: 0.9rem;
+            color: var(--ink-muted);
+            line-height: 1.8;
+            max-width: 680px;
+        }
+
+        .section-body p + p { margin-top: 14px; }
+
+        /* ─── Project Overview ────────────────── */
+        .overview-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+            margin-top: 32px;
+        }
+
+        .overview-text p {
+            font-size: 0.9rem;
+            color: var(--ink-muted);
+            line-height: 1.8;
+        }
+
+        .overview-text p + p { margin-top: 14px; }
+
+        .overview-aside {
+            background: white;
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--terra);
+            padding: 24px;
+            border-radius: 0 3px 3px 0;
+        }
+
+        .overview-aside-label {
+            font-size: 0.67rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--terra);
+            margin-bottom: 12px;
+        }
+
+        .overview-aside p {
+            font-size: 0.83rem;
+            color: var(--ink-muted);
+            line-height: 1.7;
+        }
+
+        /* ─── Concepts ────────────────────────── */
+        .concepts-section {
+            background: var(--dark-bg);
+            border-top: 1px solid rgba(15,12,8,0.4);
+            border-bottom: 1px solid rgba(15,12,8,0.4);
+        }
+
+        .concepts-section .section-label {
+            color: rgba(242, 237, 230, 0.45);
+            border-bottom-color: rgba(242, 237, 230, 0.12);
+        }
+
+        .concepts-section .section-heading {
+            color: var(--dark-text);
+        }
+
+        .concept-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+            margin-top: 24px;
+            background: rgba(242,237,230,0.08);
+            border: 1px solid rgba(242,237,230,0.1);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .concept-card {
+            background: #241d15;
+            padding: 28px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            transition: background 0.15s;
+        }
+
+        .concept-card:hover {
+            background: #2c2318;
+        }
+
+        .concept-icon {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            background: rgba(139, 58, 30, 0.25);
+            border: 1px solid rgba(139, 58, 30, 0.5);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1rem;
+            flex-shrink: 0;
+            color: #e8a07a;
+        }
+
+        .concept-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--dark-text);
+            line-height: 1.2;
+        }
+
+        .concept-def {
+            font-size: 0.8rem;
+            color: var(--dark-muted);
+            line-height: 1.7;
+            flex: 1;
+        }
+
+        .concept-source {
+            font-size: 0.72rem;
+            color: rgba(242, 237, 230, 0.3);
+            font-style: italic;
+            border-top: 1px solid rgba(242, 237, 230, 0.1);
+            padding-top: 10px;
+            margin-top: auto;
+        }
+
+        /* ─── NAGPRA deep-dive ────────────────── */
+        .nagpra-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 28px;
+        }
+
+        .nagpra-item {
+            background: white;
+            border: 1px solid var(--parchment-3);
+            border-top: 3px solid var(--terra);
+            border-radius: 2px;
+            padding: 22px;
+        }
+
+        .nagpra-item-label {
+            font-size: 0.67rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--terra);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .nagpra-item-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: 8px;
+        }
+
+        .nagpra-item p {
+            font-size: 0.82rem;
+            color: var(--ink-muted);
+            line-height: 1.7;
+        }
+
+        /* ─── Timeline ────────────────────────── */
+        .timeline {
+            margin-top: 28px;
+            position: relative;
+            padding-left: 24px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 5px; top: 8px; bottom: 8px;
+            width: 1px;
+            background: var(--terra);
+            opacity: 0.5;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 24px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -21px; top: 6px;
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: var(--terra);
+            border: 2px solid var(--parchment);
+            outline: 1.5px solid var(--terra);
+        }
+
+        .timeline-year {
+            font-size: 0.72rem;
+            letter-spacing: 0.1em;
+            color: var(--terra);
+            margin-bottom: 3px;
+            font-weight: 500;
+        }
+
+        .timeline-event {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: 4px;
+        }
+
+        .timeline-desc {
+            font-size: 0.82rem;
+            color: var(--ink-muted);
+            line-height: 1.65;
+        }
+
+        /* ─── Ethics ──────────────────────────── */
+        .ethics-block {
+            background: white;
+            border: 1px solid var(--parchment-3);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 24px;
+            box-shadow: 0 2px 8px rgba(15,12,8,0.06);
+        }
+
+        .ethics-bar { background: var(--terra); }
+
+        .ethics-content {
+            padding: 28px 32px;
+        }
+
+        .ethics-content > p {
+            font-size: 0.88rem;
+            color: var(--ink-muted);
+            line-height: 1.8;
+            max-width: 640px;
+        }
+
+        .ethics-content > p + p { margin-top: 12px; }
+
+        .ethics-principles {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .ethics-principle {
+            background: var(--parchment);
+            border: 1px solid var(--parchment-3);
+            border-radius: 2px;
+            padding: 14px 16px;
+        }
+
+        .ethics-principle-title {
+            font-size: 0.78rem;
+            font-weight: 500;
+            color: var(--ink);
+            margin-bottom: 5px;
+        }
+
+        .ethics-principle p {
+            font-size: 0.78rem !important;
+            color: var(--ink-muted);
+            line-height: 1.6 !important;
+        }
+
+        /* ─── Footer ──────────────────────────── */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 28px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-left {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.95rem;
+            color: var(--ink-muted);
+        }
+
+        .footer-right {
+            font-size: 0.75rem;
+            color: var(--ink-faint);
+        }
+
+        /* ─── Responsive ──────────────────────── */
+        @media (max-width: 700px) {
+            .hero-heading { font-size: 2.6rem; }
+            .overview-grid { grid-template-columns: 1fr; }
+            .concept-grid { grid-template-columns: 1fr; }
+            .nagpra-grid { grid-template-columns: 1fr; }
+            .ethics-principles { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
-
 <body>
-<header>
-    <h1>Ancestral Ties: A Mapping Project</h1>
-    <nav>
-        <a href="index.html" class="active">Home</a>
-        <a href="map.html">Map</a>
-        <a href="about.html">About the Author</a>
-        <a href="sources.html">Sources</a>
-    </nav>
-</header>
 
-<main>
-    <!--Main Section-->
+    <header>
+        <div class="header-title">
+            <h1>Ancestral Ties</h1>
+            <span>A Mapping Project</span>
+        </div>
+        <nav>
+            <a href="index.html" class="active">Home</a>
+            <a href="map.html">Map</a>
+            <a href="about.html">About</a>
+            <a href="sources.html">Sources</a>
+        </nav>
+    </header>
+
+    <!-- ── Hero ──────────────────────────────── -->
     <div class="hero">
-        <h2>Cultural Affiliation and Repatriations</h2>
-        <p>Exploring Ancestral Connections in Repatriation Efforts</p>
-        <button onclick="location.href='map.html'">Explore the Map</button>
+        <p class="hero-eyebrow">A Mapping Project</p>
+        <h2 class="hero-heading">Cultural Affiliation<br>& <em>Repatriation</em></h2>
+        <p class="hero-sub">Exploring Ancestral connections and NAGPRA inventories across the United States.</p>
+        <div class="hero-actions">
+            <a href="map.html" class="btn-primary">Explore the Map</a>
+        </div>
     </div>
 
-    <!--Overview-->
-    <section>
-        <h3>Project Overview</h3>
-        <div class="divider"></div>
-        <p>Explain project...</p>
-    </section>
+    <hr class="section-rule">
 
-    <!--Key Concepts-->
-    <section class="key-concepts">
-        <h3>Concepts</h3>
-        <div class="divider"></div>
+    <!-- ── Project Overview ───────────────────── -->
+    <div class="section-wrap">
+        <p class="section-label">Project Overview</p>
+        <div class="overview-grid">
+            <div class="overview-text">
+                <p>This project maps NAGPRA inventories and cultural affiliation claims documented by institutions across the United States. It visualizes the relationships between the museums, universities, federal agencies, and historical societies that hold ancestral remains and cultural items — and the Tribal Nations with whom they share documented cultural ties.</p>
+                <p>The map makes visible a process that is often buried in bureaucratic databases and federal registers. By placing these relationships in geographic space, it asks: who holds what, where, and on whose ancestral land?</p>
+                <p>Add more here...</p>
+            </div>
+            <div class="overview-aside">
+                <p class="overview-aside-label">A Note on the Data</p>
+                <p>All inventory and affiliation data is drawn from publicly available NAGPRA notices published in the Federal Register, as well as the National NAGPRA Online Databases maintained by the National Park Service. Institutional and Tribal Nation locations reflect documented addresses and traditional homelands, respectively.</p>
+            </div>
+        </div>
+    </div>
 
+    <hr class="section-rule">
+
+    <!-- ── Key Concepts ───────────────────────── -->
+    <div class="section-wrap concepts-section">
+        <p class="section-label">Key Concepts</p>
+        <h2 class="section-heading">Understanding the Framework</h2>
         <div class="concept-grid">
-        <div class="concept-card">
-        <div class="icon">ADD ICON</div>
-        <h4>Cultural Affiliation</h4>
+
+            <div class="concept-card">
+                <div class="concept-icon">⚖</div>
+                <p class="concept-title">NAGPRA</p>
+                <p class="concept-def">The Native American Graves Protection and Repatriation Act (1990) is a federal law requiring institutions that receive federal funding to inventory Native American human remains, funerary objects, sacred objects, and objects of cultural patrimony — and to repatriate them to lineal descendants and culturally affiliated tribes.</p>
+                <p class="concept-source">Native American Graves Protection and Repatriation Act, 25 U.S.C. §§ 3001–3013 (1990)</p>
+            </div>
+
+            <div class="concept-card">
+                <div class="concept-icon">◎</div>
+                <p class="concept-title">Cultural Affiliation</p>
+                <p class="concept-def">Under NAGPRA, cultural affiliation is defined as a relationship of shared group identity that can be reasonably traced between a present-day tribe and an identifiable earlier group. Establishing affiliation draws on archaeological, geographical, kinship, biological, linguistic, folkloric, oral tradition, historical, and other relevant evidence.</p>
+                <p class="concept-source">25 U.S.C. § 3001(2); 43 C.F.R. § 10.14</p>
+            </div>
+
+            <div class="concept-card">
+                <div class="concept-icon">↩</div>
+                <p class="concept-title">Repatriation</p>
+                <p class="concept-def">Repatriation refers to the process by which institutions transfer cultural items and human remains back to culturally affiliated tribes or lineal descendants. It is both a legal obligation and a political and ethical act — one that is ongoing, contested, and deeply tied to questions of sovereignty, memory, and justice.</p>
+                <p class="concept-source">National Park Service, National NAGPRA Program</p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ── NAGPRA Deep Dive ────────────────────── -->
+    <div class="section-wrap">
+        <p class="section-label">The Law in Context</p>
+        <h2 class="section-heading">How NAGPRA Works</h2>
+        <div class="section-body">
+            <p>NAGPRA established a process — not a single event. Institutions are required to consult with tribes, publish notices in the Federal Register, and transfer items upon request. But the law's implementation has been uneven, slow, and at times contested. Understanding its structure helps make sense of what this map is showing.</p>
         </div>
 
-        <div class="concept-card">
-        <div class="icon">ADD ICON</div>
-        <h4>NAGPRA</h4>
+        <div class="nagpra-grid">
+            <div class="nagpra-item">
+                <p class="nagpra-item-label">Step 1</p>
+                <p class="nagpra-item-title">Inventory & Summary</p>
+                <p>Institutions must compile inventories of human remains and associated funerary objects, and written summaries of unassociated funerary objects, sacred objects, and cultural patrimony. These must be shared with potentially affiliated tribes.</p>
+            </div>
+            <div class="nagpra-item">
+                <p class="nagpra-item-label">Step 2</p>
+                <p class="nagpra-item-title">Consultation</p>
+                <p>Institutions are required to consult with Tribal Representatives to determine cultural affiliation. This process is meant to be collaborative — though in practice it varies widely in quality and good faith.</p>
+            </div>
+            <div class="nagpra-item">
+                <p class="nagpra-item-label">Step 3</p>
+                <p class="nagpra-item-title">Federal Register Notice</p>
+                <p>Once affiliation is determined, institutions publish a Notice of Inventory Completion or Notice of Intent to Repatriate in the Federal Register, making the affiliation claim a matter of public record. This is the primary data source for this project.</p>
+            </div>
+            <div class="nagpra-item">
+                <p class="nagpra-item-label">Step 4</p>
+                <p class="nagpra-item-title">Transfer & Repatriation</p>
+                <p>After a 30-day waiting period following Federal Register publication, the institution may transfer the items to the affiliated tribe or lineal descendants. Physical transfer, however, is just one part of a longer relationship.</p>
+            </div>
         </div>
+    </div>
 
-        <div class="concept-card">
-        <div class="icon">ADD ICON</div>
-        <h4>Repatriation</h4>
-        </div>
-        </div>
-    </section>
+    <hr class="section-rule">
 
-    <!--Ethics Claim-->
-    <section>
-        <h3>Ethics Positioning</h3>
-        <div class="divider"></div>
-        <p>This map prioritizes transparency and care in representing cultural affiliation.
-            Connections shown do not imply owernship or movement, but rather document
-            relationships established through archaeological, historical, and Tribal evidence.
-        </p>
-    </section>
-</main>
+    <!-- ── Legislative Timeline ───────────────── -->
+    <div class="section-wrap" style="background: var(--dark-bg); max-width: 100%; padding-left: 0; padding-right: 0;">
+      <div style="max-width: 900px; margin: 0 auto; padding: 72px 40px;">
+        <p class="section-label" style="color: rgba(242,237,230,0.4); border-bottom-color: rgba(242,237,230,0.12);">Legislative History</p>
+        <h2 class="section-heading" style="color: var(--dark-text);">Key Milestones</h2>
+        <div class="timeline" style="--terra-mid: rgba(242,237,230,0.2);">
+            <div class="timeline-item">
+                <p class="timeline-year">1989</p>
+                <p class="timeline-event" style="color: var(--dark-text);">National Museum of the American Indian Act</p>
+                <p class="timeline-desc" style="color: var(--dark-muted);">Congress passes NMAIA, requiring the Smithsonian Institution to inventory and repatriate Native American collections — a precursor to broader NAGPRA legislation.</p>
+            </div>
+            <div class="timeline-item">
+                <p class="timeline-year">1990</p>
+                <p class="timeline-event" style="color: var(--dark-text);">NAGPRA Enacted</p>
+                <p class="timeline-desc" style="color: var(--dark-muted);">Signed into law on November 16, 1990, NAGPRA extends repatriation obligations to all federally funded institutions and establishes protections for Native American graves on federal and Tribal lands.</p>
+            </div>
+            <div class="timeline-item">
+                <p class="timeline-year">1995</p>
+                <p class="timeline-event" style="color: var(--dark-text);">Implementing Regulations Published</p>
+                <p class="timeline-desc" style="color: var(--dark-muted);">The Department of the Interior publishes final NAGPRA regulations (43 C.F.R. Part 10), establishing procedures for inventories, consultation, and repatriation.</p>
+            </div>
+            <div class="timeline-item">
+                <p class="timeline-year">2010</p>
+                <p class="timeline-event" style="color: var(--dark-text);">Disposition of Culturally Unidentifiable Remains</p>
+                <p class="timeline-desc" style="color: var(--dark-muted);">New regulations address the long-standing problem of "culturally unidentifiable" human remains — a category that had stalled repatriation for tens of thousands of individuals.</p>
+            </div>
+            <div class="timeline-item">
+                <p class="timeline-year">2023</p>
+                <p class="timeline-event" style="color: var(--dark-text);">Revised NAGPRA Regulations</p>
+                <p class="timeline-desc" style="color: var(--dark-muted);">The publication of sweeping revisions to NAGPRA regulations, aimed at strengthening Tribal consultation requirements and shifting the burden of proof toward institutions.</p>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="section-rule">
+
+    <!-- ── Ethics Positioning ─────────────────── -->
+    <div class="section-wrap">
+        <p class="section-label">Ethics & Positionality</p>
+        <h2 class="section-heading">How This Map Takes a Position</h2>
+        <div class="ethics-block">
+            <div class="ethics-inner">
+                <div class="ethics-bar"></div>
+                <div class="ethics-content">
+                    <p>This map does not claim to be neutral. Mapping is always an interpretive act, and mapping Indigenous land, ancestors, and cultural relationships carries particular ethical weight. The decisions made here — what to show, what to name, how to draw connections — reflect a set of commitments to transparency, care, and Indigenous-centered framing.</p>
+                    <p>Connections shown between institutions and Tribal Nations do not imply ownership or resolved repatriation. They document relationships established through archaeological, historical, and Tribal evidence as recorded -- evidence produced within a legal system that itself has a complicated relationship with Indigenous sovereignty.</p>
+
+                    <div class="ethics-principles">
+                        <div class="ethics-principle">
+                            <p class="ethics-principle-title">Transparency</p>
+                            <p>All data sources are cited. The methods and limitations of the dataset are disclosed in the Sources page.</p>
+                        </div>
+                        <div class="ethics-principle">
+                            <p class="ethics-principle-title">Tribal Sovereignty</p>
+                            <p>Tribal nations are named and treated as sovereign political entities, not ethnic categories or archaeological groupings.</p>
+                        </div>
+                        <div class="ethics-principle">
+                            <p class="ethics-principle-title">Avoiding Harm</p>
+                            <p>This project does not display sensitive information about individual human remains, sacred objects, or burial sites that tribes have asked to be kept private.</p>
+                        </div>
+                        <div class="ethics-principle">
+                            <p class="ethics-principle-title">Ongoing Process</p>
+                            <p>Repatriation is not presented as complete or resolved. The map reflects a snapshot of an ongoing, dynamic relationship.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <span class="footer-left">Ancestral Ties</span>
+        <span class="footer-right">2026</span>
+    </footer>
 
 </body>
 </html>
