@@ -91,6 +91,71 @@
         nav a:hover { color: var(--ink); background: var(--parchment-2); }
         nav a.active { color: var(--terra); background: var(--terra-light); }
 
+        /* ─── Nav dropdown ────────────────────── */
+        .nav-dropdown { position: relative; }
+
+        .nav-dropdown-trigger {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.78rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--terra);
+            background: var(--terra-light);
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: color 0.15s, background 0.15s;
+        }
+
+        .nav-dropdown-trigger:hover { background: var(--terra-mid); }
+        .nav-dropdown-trigger.open  { background: var(--terra-mid); }
+
+        .nav-dropdown-caret {
+            font-size: 8px;
+            transition: transform 0.2s;
+            opacity: 0.7;
+        }
+
+        .nav-dropdown-trigger.open .nav-dropdown-caret { transform: rotate(180deg); }
+
+        .nav-dropdown-menu {
+            position: absolute;
+            top: calc(100% + 6px);
+            right: 0;
+            background: rgba(242, 237, 230, 0.99);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            box-shadow: 0 4px 16px rgba(15,12,8,0.12);
+            min-width: 160px;
+            overflow: hidden;
+            display: none;
+            z-index: 20;
+        }
+
+        .nav-dropdown-menu.open { display: block; }
+
+        .nav-dropdown-menu a {
+            display: block;
+            padding: 8px 14px;
+            font-size: 0.78rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: var(--ink-muted);
+            border-radius: 0;
+            transition: color 0.12s, background 0.12s;
+            border-bottom: 1px solid rgba(15,12,8,0.07);
+        }
+
+        .nav-dropdown-menu a:last-child { border-bottom: none; }
+        .nav-dropdown-menu a:hover { color: var(--ink); background: var(--parchment-2); }
+        .nav-dropdown-menu a.active { color: var(--terra); background: var(--terra-light); }
+
+
         /* ─── Hero ────────────────────────────── */
         .hero {
             position: relative;
@@ -541,10 +606,18 @@
             <h1>Ancestral Ties</h1>
             <span>A Mapping Project</span>
         </div>
-        <nav>
-            <a href="index.html" class="active">Home</a>
-            <a href="map.html">Map</a>
-            <a href="about.html">About</a>
+          <nav>
+            <a href="index.html">Home</a>
+            <a href="map.html" class="active">Map</a>
+            <div class="nav-dropdown">
+                <button class="nav-dropdown-trigger" onclick="toggleNavDropdown(event)">
+                    About <span class="nav-dropdown-caret">▾</span>
+                </button>
+                <div class="nav-dropdown-menu" id="nav-dropdown-menu">
+                    <a href="about.html">About the Author</a>
+                    <a href="define.html">Terminology</a>
+                </div>
+            </div>
             <a href="sources.html">Sources</a>
         </nav>
     </header>
@@ -679,40 +752,6 @@
     </div>
 
     <hr class="section-rule">
-
-    <!-- ── Ethics Positioning ─────────────────── -->
-    <div class="section-wrap">
-        <p class="section-label">Ethics & Positionality</p>
-        <h2 class="section-heading">How This Map Takes a Position</h2>
-        <div class="ethics-block">
-            <div class="ethics-inner">
-                <div class="ethics-bar"></div>
-                <div class="ethics-content">
-                    <p>This map does not claim to be neutral. Mapping is always an interpretive act, and mapping Indigenous land, ancestors, and cultural relationships carries particular ethical weight. The decisions made here — what to show, what to name, how to draw connections — reflect a set of commitments to transparency, care, and Indigenous-centered framing.</p>
-                    <p>Connections shown between institutions and Tribal Nations do not imply ownership or resolved repatriation. They document relationships established through archaeological, historical, and Tribal evidence as recorded -- evidence produced within a legal system that itself has a complicated relationship with Indigenous sovereignty.</p>
-
-                    <div class="ethics-principles">
-                        <div class="ethics-principle">
-                            <p class="ethics-principle-title">Transparency</p>
-                            <p>All data sources are cited. The methods and limitations of the dataset are disclosed in the Sources page.</p>
-                        </div>
-                        <div class="ethics-principle">
-                            <p class="ethics-principle-title">Tribal Sovereignty</p>
-                            <p>Tribal nations are named and treated as sovereign political entities, not ethnic categories or archaeological groupings.</p>
-                        </div>
-                        <div class="ethics-principle">
-                            <p class="ethics-principle-title">Avoiding Harm</p>
-                            <p>This project does not display sensitive information about individual human remains, sacred objects, or burial sites that tribes have asked to be kept private.</p>
-                        </div>
-                        <div class="ethics-principle">
-                            <p class="ethics-principle-title">Ongoing Process</p>
-                            <p>Repatriation is not presented as complete or resolved. The map reflects a snapshot of an ongoing, dynamic relationship.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <footer>
         <span class="footer-left">Ancestral Ties</span>

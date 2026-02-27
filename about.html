@@ -95,6 +95,70 @@
             color: var(--terra);
             background: var(--terra-light);
         }
+        /* ─── Nav dropdown ────────────────────── */
+        .nav-dropdown { position: relative; }
+
+        .nav-dropdown-trigger {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.78rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--terra);
+            background: var(--terra-light);
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: color 0.15s, background 0.15s;
+        }
+
+        .nav-dropdown-trigger:hover { background: var(--terra-mid); }
+        .nav-dropdown-trigger.open  { background: var(--terra-mid); }
+
+        .nav-dropdown-caret {
+            font-size: 8px;
+            transition: transform 0.2s;
+            opacity: 0.7;
+        }
+
+        .nav-dropdown-trigger.open .nav-dropdown-caret { transform: rotate(180deg); }
+
+        .nav-dropdown-menu {
+            position: absolute;
+            top: calc(100% + 6px);
+            right: 0;
+            background: rgba(242, 237, 230, 0.99);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            box-shadow: 0 4px 16px rgba(15,12,8,0.12);
+            min-width: 160px;
+            overflow: hidden;
+            display: none;
+            z-index: 20;
+        }
+
+        .nav-dropdown-menu.open { display: block; }
+
+        .nav-dropdown-menu a {
+            display: block;
+            padding: 8px 14px;
+            font-size: 0.78rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: var(--ink-muted);
+            border-radius: 0;
+            transition: color 0.12s, background 0.12s;
+            border-bottom: 1px solid rgba(15,12,8,0.07);
+        }
+
+        .nav-dropdown-menu a:last-child { border-bottom: none; }
+        .nav-dropdown-menu a:hover { color: var(--ink); background: var(--parchment-2); }
+        .nav-dropdown-menu a.active { color: var(--terra); background: var(--terra-light); }
+
 
         /* ─── Page layout ─────────────────────── */
         main {
@@ -398,7 +462,15 @@
         <nav>
             <a href="index.html">Home</a>
             <a href="map.html">Map</a>
-            <a href="about.html" class="active">About</a>
+            <div class="nav-dropdown">
+                <button class="nav-dropdown-trigger" onclick="toggleNavDropdown(event)">
+                    About <span class="nav-dropdown-caret">▾</span>
+                </button>
+                <div class="nav-dropdown-menu" id="nav-dropdown-menu">
+                    <a href="about.html" class="active">About the Author</a>
+                    <a href="define.html">Terminology</a>
+                </div>
+            </div>
             <a href="sources.html">Sources</a>
         </nav>
     </header>

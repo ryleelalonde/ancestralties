@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Definitions — Ancestral Ties</title>
+    <title>Terminology — Ancestral Ties</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,9 +21,6 @@
             --terra-light: rgba(139, 58, 30, 0.10);
             --terra-mid:   rgba(139, 58, 30, 0.30);
             --border:      rgba(15, 12, 8, 0.20);
-            --dark-bg:     #19140e;
-            --dark-text:   #f2ede6;
-            --dark-muted:  #b8a898;
         }
 
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -33,6 +30,7 @@
             background: var(--parchment);
             color: var(--ink);
             line-height: 1.6;
+            min-height: 100vh;
         }
 
         /* ─── Header ──────────────────────────── */
@@ -89,30 +87,85 @@
         nav a:hover { color: var(--ink); background: var(--parchment-2); }
         nav a.active { color: var(--terra); background: var(--terra-light); }
 
-        /* ─── Main content ────────────────────── */
-        main {
-            max-width: 760px;
-            margin: 0 auto;
-            padding: 52px 60px 100px;
+        /* ─── Nav dropdown ────────────────────── */
+        .nav-dropdown { position: relative; }
+
+        .nav-dropdown-trigger {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.78rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--terra);
+            background: var(--terra-light);
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: color 0.15s, background 0.15s;
         }
 
+        .nav-dropdown-trigger:hover { background: var(--terra-mid); }
+        .nav-dropdown-trigger.open  { background: var(--terra-mid); }
+
+        .nav-dropdown-caret {
+            font-size: 8px;
+            transition: transform 0.2s;
+            opacity: 0.7;
+        }
+
+        .nav-dropdown-trigger.open .nav-dropdown-caret { transform: rotate(180deg); }
+
+        .nav-dropdown-menu {
+            position: absolute;
+            top: calc(100% + 6px);
+            right: 0;
+            background: rgba(242, 237, 230, 0.99);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            box-shadow: 0 4px 16px rgba(15,12,8,0.12);
+            min-width: 160px;
+            overflow: hidden;
+            display: none;
+            z-index: 20;
+        }
+
+        .nav-dropdown-menu.open { display: block; }
+
+        .nav-dropdown-menu a {
+            display: block;
+            padding: 8px 14px;
+            font-size: 0.78rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: var(--ink-muted);
+            border-radius: 0;
+            transition: color 0.12s, background 0.12s;
+            border-bottom: 1px solid rgba(15,12,8,0.07);
+        }
+
+        .nav-dropdown-menu a:last-child { border-bottom: none; }
+        .nav-dropdown-menu a:hover { color: var(--ink); background: var(--parchment-2); }
+        .nav-dropdown-menu a.active { color: var(--terra); background: var(--terra-light); }
+
+
+        /* ─── Page layout ─────────────────────── */
+        main {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 72px 32px 120px;
+        }
+
+        /* ─── Page header ─────────────────────── */
         .page-eyebrow {
             font-size: 0.7rem;
-            letter-spacing: 0.16em;
+            letter-spacing: 0.14em;
             text-transform: uppercase;
             color: var(--terra);
             margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .page-eyebrow::after {
-            content: '';
-            display: inline-block;
-            width: 32px; height: 1px;
-            background: var(--terra);
-            opacity: 0.5;
         }
 
         .page-heading {
@@ -121,7 +174,7 @@
             font-weight: 400;
             line-height: 1.15;
             color: var(--ink);
-            margin-bottom: 12px;
+            margin-bottom: 16px;
         }
 
         .page-heading em {
@@ -129,138 +182,172 @@
             color: var(--terra);
         }
 
+        .page-rule {
+            width: 48px;
+            height: 1px;
+            background: var(--terra);
+            margin-bottom: 40px;
+        }
+
         .page-intro {
-            font-size: 0.9rem;
+            font-size: 0.93rem;
             color: var(--ink-muted);
             line-height: 1.75;
-            max-width: 580px;
-            margin-bottom: 16px;
-        }
-
-        .page-rule {
-            width: 48px; height: 1px;
-            background: var(--terra);
-            margin-bottom: 52px;
-        }
-
-        /* ─── Category sections ───────────────── */
-        .def-category {
+            max-width: 620px;
             margin-bottom: 60px;
-            scroll-margin-top: 80px;
         }
 
-        .category-label {
+        /* ─── Section label ───────────────────── */
+        .section-label {
             font-size: 0.67rem;
             letter-spacing: 0.14em;
             text-transform: uppercase;
             color: var(--ink-faint);
+            margin-bottom: 20px;
             padding-bottom: 10px;
             border-bottom: 1px solid var(--border);
-            margin-bottom: 28px;
         }
 
-        .category-heading {
+        /* ─── Filter bar ──────────────────────── */
+        .filter-bar {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .filter-btn {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--ink-muted);
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            padding: 5px 12px;
+            cursor: pointer;
+            transition: background 0.15s, color 0.15s, border-color 0.15s;
+        }
+
+        .filter-btn:hover { background: var(--parchment-2); }
+
+        .filter-btn.active {
+            background: var(--terra-light);
+            border-color: var(--terra-mid);
+            color: var(--terra);
+        }
+
+        /* ─── Term sections ───────────────────── */
+        .term-section {
+            margin-bottom: 56px;
+        }
+
+        .term-section[data-hidden="true"] { display: none; }
+
+        /* ─── Term entries ────────────────────── */
+        .term-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .term-entry {
+            background: white;
+            border: 1px solid var(--parchment-3);
+            border-radius: 3px;
+            overflow: hidden;
+            transition: box-shadow 0.15s;
+        }
+
+        .term-entry:hover { box-shadow: 0 2px 8px rgba(15,12,8,0.07); }
+
+        .term-entry-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 14px 20px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .term-entry-left {
+            display: flex;
+            align-items: baseline;
+            gap: 14px;
+            flex: 1;
+        }
+
+        .term-name {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.5rem;
-            font-weight: 500;
-            color: var(--ink);
-            margin-bottom: 4px;
-        }
-
-        /* ─── Definition entries ──────────────── */
-        .def-entry {
-            margin-bottom: 28px;
-            padding-bottom: 28px;
-            border-bottom: 1px solid rgba(15,12,8,0.08);
-            scroll-margin-top: 80px;
-        }
-
-        .def-entry:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-
-        .def-entry.hidden { display: none; }
-
-        .def-term {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.25rem;
+            font-size: 1.1rem;
             font-weight: 600;
             color: var(--ink);
-            margin-bottom: 4px;
-            line-height: 1.2;
+            letter-spacing: 0.01em;
         }
 
-        .def-term-alt {
-            font-size: 0.75rem;
-            color: var(--terra);
-            font-style: italic;
-            margin-bottom: 8px;
-            font-family: 'Cormorant Garamond', serif;
-        }
-
-        .def-tags {
-            display: flex;
-            gap: 5px;
-            flex-wrap: wrap;
-            margin-bottom: 10px;
-        }
-
-        .def-tag {
-            font-size: 0.68rem;
-            letter-spacing: 0.07em;
+        .term-abbr {
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
             text-transform: uppercase;
-            padding: 2px 7px;
-            border-radius: 2px;
-            border: 1px solid var(--terra-mid);
             color: var(--terra);
             background: var(--terra-light);
-        }
-
-        .def-body {
-            font-size: 0.88rem;
-            color: var(--ink-muted);
-            line-height: 1.8;
-        }
-
-        .def-body p + p { margin-top: 10px; }
-
-        .def-cite {
-            font-size: 0.75rem;
-            color: var(--ink-faint);
-            font-style: italic;
-            margin-top: 10px;
-            padding-top: 8px;
-            border-top: 1px solid rgba(15,12,8,0.07);
-        }
-
-        /* Highlighted search match */
-        mark {
-            background: rgba(139, 58, 30, 0.15);
-            color: var(--terra);
+            border: 1px solid var(--terra-mid);
             border-radius: 2px;
-            padding: 0 1px;
+            padding: 2px 6px;
+            white-space: nowrap;
         }
 
-        /* ─── No results message ──────────────── */
-        #no-results {
-            display: none;
-            text-align: center;
-            padding: 60px 0;
+        .term-caret {
+            font-size: 9px;
             color: var(--ink-faint);
-            font-size: 0.9rem;
+            transition: transform 0.2s;
+            flex-shrink: 0;
         }
 
-        /* ─── Letter anchor ───────────────────── */
-        .letter-anchor {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 2rem;
-            font-weight: 300;
-            color: var(--parchment-3);
-            margin-bottom: 16px;
-            margin-top: 40px;
-            line-height: 1;
+        .term-caret.open { transform: rotate(180deg); }
+
+        .term-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, opacity 0.25s ease;
+            opacity: 0;
+        }
+
+        .term-body.open {
+            max-height: 600px;
+            opacity: 1;
+        }
+
+        .term-body-inner {
+            padding: 0 20px 18px 20px;
+            border-top: 1px solid var(--parchment-3);
+        }
+
+        .term-definition {
+            font-size: 0.875rem;
+            color: var(--ink-muted);
+            line-height: 1.75;
+            padding-top: 14px;
+        }
+
+        .term-definition p + p { margin-top: 10px; }
+
+        .term-definition strong {
+            color: var(--ink);
+            font-weight: 500;
+        }
+
+        .term-note {
+            margin-top: 12px;
+            padding: 10px 14px;
+            background: var(--parchment);
+            border-left: 3px solid var(--terra-mid);
+            border-radius: 0 2px 2px 0;
+            font-size: 0.8rem;
+            color: var(--ink-faint);
+            line-height: 1.6;
         }
 
         /* ─── Footer ──────────────────────────── */
@@ -284,11 +371,11 @@
         }
 
         /* ─── Responsive ──────────────────────── */
-        @media (max-width: 740px) {
-            .page-wrap { grid-template-columns: 1fr; }
-            .def-nav { display: none; }
-            main { padding: 40px 24px 80px; }
+        @media (max-width: 600px) {
+            main { padding: 48px 20px 80px; }
             .page-heading { font-size: 2rem; }
+            header { padding: 0 20px; }
+            footer { padding: 20px; }
         }
     </style>
 </head>
@@ -299,278 +386,329 @@
             <h1>Ancestral Ties</h1>
             <span>A Mapping Project</span>
         </div>
-        <nav>
+          <nav>
             <a href="index.html">Home</a>
             <a href="map.html">Map</a>
-            <a href="about.html">About</a>
-            <a href="definitions.html" class="active">Definitions</a>
+            <div class="nav-dropdown">
+                <button class="nav-dropdown-trigger" onclick="toggleNavDropdown(event)">
+                    About <span class="nav-dropdown-caret">▾</span>
+                </button>
+                <div class="nav-dropdown-menu" id="nav-dropdown-menu">
+                    <a href="about.html">About the Author</a>
+                    <a href="define.html" class="active">Terminology</a>
+                </div>
+            </div>
             <a href="sources.html">Sources</a>
         </nav>
     </header>
 
-        <!-- ── Main content ──────────────────── -->
-        <main>
+    <main>
 
-            <p class="page-eyebrow">Reference</p>
-            <h2 class="page-heading">Key <em>Definitions</em></h2>
-            <p class="page-intro">A working glossary of legal, scholarly, and methodological terms used across this project. Definitions draw from federal statute, academic literature, and disciplinary conventions in anthropology and Indigenous studies.</p>
-            <div class="page-rule"></div>
+        <p class="page-eyebrow">Reference</p>
+        <h2 class="page-heading">Key <em>Terminology</em></h2>
+        <div class="page-rule"></div>
 
-            <div id="no-results">No terms match your search.</div>
+        <p class="page-intro">The following terms appear throughout this project and carry specific legal, scholarly, and community meanings. Definitions are provided with attention to how these words function within NAGPRA, federal policy, and Indigenous community contexts — which do not always align.</p>
 
-            <!-- ══ LAW & POLICY ══════════════════════ -->
-            <div class="def-category" id="cat-law">
-                <p class="category-label">Law &amp; Policy</p>
+        <!-- Filter bar -->
+        <div class="filter-bar">
+            <button class="filter-btn active" data-filter="all" onclick="filterTerms('all', this)">All</button>
+            <button class="filter-btn" data-filter="nagpra" onclick="filterTerms('nagpra', this)">NAGPRA</button>
+            <button class="filter-btn" data-filter="repatriation" onclick="filterTerms('repatriation', this)">Repatriation</button>
+            <button class="filter-btn" data-filter="sovereignty" onclick="filterTerms('sovereignty', this)">Tribal Sovereignty</button>
+            <button class="filter-btn" data-filter="institutional" onclick="filterTerms('institutional', this)">Institutional</button>
+        </div>
 
-                <div class="def-entry" id="nagpra" data-terms="nagpra native american graves protection repatriation act federal law 1990">
-                    <p class="def-term">NAGPRA</p>
-                    <p class="def-term-alt">Native American Graves Protection and Repatriation Act</p>
-                    <div class="def-tags"><span class="def-tag">Federal Law</span><span class="def-tag">1990</span></div>
-                    <div class="def-body">
-                        <p>The Native American Graves Protection and Repatriation Act (NAGPRA) is a federal law enacted on November 16, 1990. It requires federal agencies and institutions that receive federal funding to return Native American cultural items and human remains to lineal descendants, and to culturally affiliated Indian tribes and Native Hawaiian organizations.</p>
-                        <p>The law covers five categories of cultural items: human remains, associated funerary objects, unassociated funerary objects, sacred objects, and objects of cultural patrimony. It also establishes criminal penalties for illegal trafficking in Native American human remains and cultural items, and protects Native American graves on federal and tribal lands.</p>
-                        <p>NAGPRA created a process — not a single event. Compliance has been uneven across institutions, and repatriation continues decades after the law's passage. The 2023 revised regulations significantly strengthened tribal consultation requirements and placed a greater burden of proof on holding institutions.</p>
+        <!-- ── NAGPRA Terms ───────────────────── -->
+        <div class="term-section" data-category="nagpra" id="section-nagpra">
+            <p class="section-label">NAGPRA</p>
+            <div class="term-list">
+
+                <div class="term-entry">
+                    <div class="term-entry-head" onclick="toggleTerm(this)">
+                        <div class="term-entry-left">
+                            <span class="term-name">Native American Graves Protection and Repatriation Act</span>
+                            <span class="term-abbr">NAGPRA</span>
+                        </div>
+                        <span class="term-caret">▾</span>
                     </div>
-                    <p class="def-cite">25 U.S.C. §§ 3001–3013 (1990); 43 C.F.R. Part 10</p>
+                    <div class="term-body">
+                        <div class="term-body-inner">
+                            <div class="term-definition">
+                                <p>A federal law enacted in 1990 that requires federal agencies and institutions receiving federal funding to return Native American cultural items and human remains to lineal descendants, culturally affiliated Indian tribes, and Native Hawaiian organizations.</p>
+                                <p>NAGPRA established a process for inventorying and summarizing holdings, notifying affiliated tribes, and transferring ownership or physical custody of covered items. Compliance is overseen by the National NAGPRA Program within the National Park Service.</p>
+                            </div>
+                            <div class="term-note">As used in this map: Institutions shown are those with active NAGPRA inventories or summaries on file with the National NAGPRA Program.</div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="def-entry" id="cultural-affiliation" data-terms="cultural affiliation relationship identity tribe group evidence shared">
-                    <p class="def-term">Cultural Affiliation</p>
-                    <div class="def-tags"><span class="def-tag">Legal Term</span><span class="def-tag">NAGPRA</span></div>
-                    <div class="def-body">
-                        <p>Under NAGPRA, cultural affiliation is defined as "a relationship of shared group identity which can be reasonably traced historically or prehistorically between a present-day Indian tribe or Native Hawaiian organization and an identifiable earlier group."</p>
-                        <p>Establishing affiliation is the central challenge of the repatriation process. It draws on multiple lines of evidence: archaeological, geographical, kinship, biological, linguistic, folkloric, oral tradition, historical, and other relevant data. No single type of evidence is required or sufficient. Tribal oral histories and traditional knowledge are legally recognized as valid evidence alongside scientific data.</p>
-                        <p>Importantly, the standard is "reasonable" connection, not certainty — acknowledging that colonial disruption, incomplete records, and institutional erasure can make definitive proof impossible.</p>
+                <div class="term-entry">
+                    <div class="term-entry-head" onclick="toggleTerm(this)">
+                        <div class="term-entry-left">
+                            <span class="term-name">Inventory</span>
+                        </div>
+                        <span class="term-caret">▾</span>
                     </div>
-                    <p class="def-cite">25 U.S.C. § 3001(2); 43 C.F.R. § 10.14</p>
+                    <div class="term-body">
+                        <div class="term-body-inner">
+                            <div class="term-definition">
+                                <p>Under NAGPRA, an <strong>inventory</strong> is an item-by-item list of human remains and associated funerary objects held by a federal agency or federally-funded museum. Institutions were required to complete inventories in consultation with tribal representatives and submit them to the National NAGPRA Program.</p>
+                                <p>An inventory is distinct from a <em>summary</em>: inventories cover human remains and associated funerary objects, while summaries address unassociated funerary objects, sacred objects, and objects of cultural patrimony.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="def-entry" id="repatriation" data-terms="repatriation return transfer cultural items remains sovereignty">
-                    <p class="def-term">Repatriation</p>
-                    <div class="def-tags"><span class="def-tag">Process</span><span class="def-tag">NAGPRA</span></div>
-                    <div class="def-body">
-                        <p>Repatriation refers to the transfer of cultural items and human remains from holding institutions back to culturally affiliated tribal nations or lineal descendants. Under NAGPRA, this process is both a legal obligation and a political act — one embedded in broader questions of Indigenous sovereignty, historical justice, and the right of communities to care for their own ancestors.</p>
-                        <p>The physical transfer of objects is one part of a longer relationship. Many tribal nations describe repatriation as a spiritual and communal process of healing, and have established specific protocols for receiving and reinterring ancestral remains. For some communities, the process of consultation and recognition is as significant as the transfer itself.</p>
-                        <p>Repatriation is not complete: tens of thousands of Native American individuals remain in institutional collections across the country, and the 2023 regulatory revisions renewed efforts to accelerate return.</p>
+                <div class="term-entry">
+                    <div class="term-entry-head" onclick="toggleTerm(this)">
+                        <div class="term-entry-left">
+                            <span class="term-name">Summary</span>
+                        </div>
+                        <span class="term-caret">▾</span>
                     </div>
-                    <p class="def-cite">National Park Service, National NAGPRA Program</p>
+                    <div class="term-body">
+                        <div class="term-body-inner">
+                            <div class="term-definition">
+                                <p>A written description of collections of unassociated funerary objects, sacred objects, and objects of cultural patrimony held by a museum or federal agency. Summaries are less granular than inventories and describe collections in aggregate rather than item by item.</p>
+                            </div>
+                            <div class="term-note">Summaries do not necessarily trigger repatriation on their own — a tribal claim must still be filed and evaluated.</div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="def-entry" id="federal-register" data-terms="federal register notice publication government inventory completion repatriate">
-                    <p class="def-term">Federal Register</p>
-                    <div class="def-tags"><span class="def-tag">Government Publication</span></div>
-                    <div class="def-body">
-                        <p>The Federal Register is the official daily journal of the United States federal government, published by the National Archives. Under NAGPRA, institutions are required to publish two types of notices in the Federal Register to formalize the repatriation process.</p>
-                        <p>A <em>Notice of Inventory Completion</em> announces that an institution has completed its inventory of human remains and associated funerary objects and has determined cultural affiliation with one or more tribes. A <em>Notice of Intent to Repatriate</em> announces plans to return unassociated funerary objects, sacred objects, or objects of cultural patrimony. Both notices initiate a 30-day public comment period before transfer may proceed.</p>
-                        <p>These notices are the primary data source for this mapping project.</p>
+                <div class="term-entry">
+                    <div class="term-entry-head" onclick="toggleTerm(this)">
+                        <div class="term-entry-left">
+                            <span class="term-name">Cultural Affiliation</span>
+                        </div>
+                        <span class="term-caret">▾</span>
                     </div>
-                    <p class="def-cite">43 C.F.R. § 10.9–10.10</p>
+                    <div class="term-body">
+                        <div class="term-body-inner">
+                            <div class="term-definition">
+                                <p>A relationship of shared group identity that can reasonably be traced between a present-day Indian tribe or Native Hawaiian organization and an identifiable earlier group. Cultural affiliation is established through geographical, kinship, biological, archaeological, anthropological, linguistic, folkloric, oral traditional, historical, or other relevant information.</p>
+                                <p>The determination of cultural affiliation is made by the institution in consultation with tribal representatives. This process is central to — and often contested within — NAGPRA claims.</p>
+                            </div>
+                            <div class="term-note">As used in this map: Dashed lines between institutions and tribal nations represent documented cultural affiliation as recorded in NAGPRA filings.</div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="def-entry" id="inventory" data-terms="inventory list human remains funerary objects collection institution">
-                    <p class="def-term">Inventory</p>
-                    <div class="def-tags"><span class="def-tag">NAGPRA Process</span></div>
-                    <div class="def-body">
-                        <p>Under NAGPRA, an inventory is a written itemized list of human remains and associated funerary objects held by a federal agency or institution. The law required all covered institutions to complete their initial inventories by November 16, 1995, and to consult with potentially affiliated tribes during the process.</p>
-                        <p>Inventories must include the geographic and cultural affiliation of each item where known, and must be shared with all potentially affiliated tribes. Inventories are distinct from summaries, which apply to other categories of cultural items.</p>
+                <div class="term-entry">
+                    <div class="term-entry-head" onclick="toggleTerm(this)">
+                        <div class="term-entry-left">
+                            <span class="term-name">Culturally Unidentifiable Human Remains</span>
+                            <span class="term-abbr">CUHR</span>
+                        </div>
+                        <span class="term-caret">▾</span>
                     </div>
-                    <p class="def-cite">25 U.S.C. § 3003; 43 C.F.R. § 10.9</p>
-                </div>
-
-                <div class="def-entry" id="summary" data-terms="summary written description unassociated funerary sacred patrimony collection">
-                    <p class="def-term">Summary</p>
-                    <div class="def-tags"><span class="def-tag">NAGPRA Process</span></div>
-                    <div class="def-body">
-                        <p>A summary is a written description — not an item-by-item list — of unassociated funerary objects, sacred objects, and objects of cultural patrimony held by a covered institution. The law required summaries to be completed by November 16, 1993, two years before the inventory deadline.</p>
-                        <p>The distinction between inventory and summary reflects the different legal frameworks governing human remains versus cultural objects. Summaries are intended to provide tribal nations with enough information to determine whether to request repatriation of specific items.</p>
+                    <div class="term-body">
+                        <div class="term-body-inner">
+                            <div class="term-definition">
+                                <p>Human remains for which no cultural affiliation can be established using the available evidence. CUHR have historically been among the most disputed categories under NAGPRA, as remains deemed "unidentifiable" by institutions often remain in collections indefinitely.</p>
+                                <p>A 2010 rule and subsequent 2023 regulations updated how CUHR must be handled, requiring institutions to work with tribes geographically associated with the area where remains were found.</p>
+                            </div>
+                        </div>
                     </div>
-                    <p class="def-cite">25 U.S.C. § 3004; 43 C.F.R. § 10.8</p>
-                </div>
-
-                <div class="def-entry" id="lineal-descendant" data-terms="lineal descendant biological ancestor family individual remains">
-                    <p class="def-term">Lineal Descendant</p>
-                    <div class="def-tags"><span class="def-tag">Legal Category</span></div>
-                    <div class="def-body">
-                        <p>A lineal descendant is an individual who can trace direct biological descent from a specific Native American individual whose remains or cultural items are held by an institution. Lineal descendants have the highest priority claim under NAGPRA — above tribal affiliation claims.</p>
-                        <p>In practice, lineal descent is often difficult to establish given the time depth of many collections and the effects of colonial displacement on family and community records.</p>
-                    </div>
-                    <p class="def-cite">25 U.S.C. § 3001(10); 43 C.F.R. § 10.2(b)(1)</p>
-                </div>
-
-                <div class="def-entry" id="consultation" data-terms="consultation tribal government government-to-government process meaningful">
-                    <p class="def-term">Tribal Consultation</p>
-                    <div class="def-tags"><span class="def-tag">Process</span><span class="def-tag">Sovereignty</span></div>
-                    <div class="def-body">
-                        <p>Tribal consultation is the process by which federal agencies and covered institutions engage with tribal governments on a government-to-government basis to discuss NAGPRA inventories, cultural affiliation determinations, and repatriation. It is a legal requirement, not a courtesy.</p>
-                        <p>The quality of consultation varies enormously across institutions. Critics have noted that many institutions treat consultation as a bureaucratic checkbox rather than a genuine partnership. The 2023 regulatory revisions strengthened consultation requirements, including mandating that institutions obtain free, prior, and informed consent before conducting any research on Native American human remains.</p>
-                    </div>
-                    <p class="def-cite">43 C.F.R. § 10.11; Executive Order 13175</p>
-                </div>
-
-                <div class="def-entry" id="culturally-unidentifiable" data-terms="culturally unidentifiable CUI remains no affiliation determined stalled">
-                    <p class="def-term">Culturally Unidentifiable Human Remains</p>
-                    <div class="def-tags"><span class="def-tag">Legal Category</span><span class="def-tag">Contested</span></div>
-                    <div class="def-body">
-                        <p>"Culturally unidentifiable" (CUI) is the designation applied to Native American human remains for which no cultural affiliation has been determined. For two decades after NAGPRA's passage, this category was used to hold tens of thousands of individuals in institutional collections without initiating repatriation.</p>
-                        <p>The 2010 regulations addressed CUI remains for the first time, requiring institutions to offer them to tribes with ancestral ties to the geographic area from which they were excavated. The 2023 revisions went further, essentially ending the use of CUI as a reason to delay repatriation. Many tribal nations and scholars had long argued that "culturally unidentifiable" reflected institutional failure to consult adequately, not a genuine absence of cultural connection.</p>
-                    </div>
-                    <p class="def-cite">43 C.F.R. § 10.11 (2010); 88 Fed. Reg. 92,716 (2023)</p>
                 </div>
 
             </div>
+        </div>
 
-            <!-- ══ CULTURAL ITEMS ══════════════════ -->
-            <div class="def-category" id="cat-items">
-                <p class="category-label">Cultural Items</p>
+        <!-- ── Repatriation Terms ──────────────── -->
+        <div class="term-section" data-category="repatriation" id="section-repatriation">
+            <p class="section-label">Repatriation Process</p>
+            <div class="term-list">
 
-                <div class="def-entry" id="human-remains" data-terms="human remains skeletal teeth biological material burial excavated">
-                    <p class="def-term">Human Remains</p>
-                    <div class="def-tags"><span class="def-tag">NAGPRA Category</span></div>
-                    <div class="def-body">
-                        <p>Under NAGPRA, human remains refers to the physical remains of the body of a person of Native American ancestry. This includes skeletal material, teeth, hair, mummified tissue, and other biological material. It does not include items that were once part of the body but have been severed and transformed into cultural objects (such as certain ceremonial items made from hair or bone).</p>
-                        <p>Human remains are subject to inventory requirements and are the most legally protected category under NAGPRA. Their collection and retention by institutions has been a central issue of Indigenous advocacy for over a century.</p>
+                <div class="term-entry">
+                    <div class="term-entry-head" onclick="toggleTerm(this)">
+                        <div class="term-entry-left">
+                            <span class="term-name">Repatriation</span>
+                        </div>
+                        <span class="term-caret">▾</span>
                     </div>
-                    <p class="def-cite">25 U.S.C. § 3001(9); 43 C.F.R. § 10.2(d)(1)</p>
+                    <div class="term-body">
+                        <div class="term-body-inner">
+                            <div class="term-definition">
+                                <p>The process of returning human remains, funerary objects, sacred objects, and objects of cultural patrimony to affiliated Native American tribes or Native Hawaiian organizations. Under NAGPRA, repatriation refers specifically to the transfer of ownership or physical custody following a valid claim.</p>
+                                <p>The term carries meaning beyond its legal definition: for many tribal nations, repatriation is an act of healing, sovereignty, and cultural continuity — not simply a bureaucratic transaction.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="def-entry" id="funerary-objects" data-terms="funerary objects burial associated unassociated grave goods placed with remains">
-                    <p class="def-term">Funerary Objects</p>
-                    <div class="def-tags"><span class="def-tag">NAGPRA Category</span></div>
-                    <div class="def-body">
-                        <p>Funerary objects are items that, as part of a death rite or ceremony, were intentionally placed with individual human remains either at the time of death or later. NAGPRA distinguishes between <em>associated funerary objects</em> — those held with the human remains they were placed alongside — and <em>unassociated funerary objects</em> — those held separately from the remains, or where the remains cannot be located.</p>
-                        <p>Associated funerary objects are subject to inventory requirements alongside human remains. Unassociated funerary objects are addressed in summaries and require tribal notification but follow slightly different repatriation procedures.</p>
+                <div class="term-entry">
+                    <div class="term-entry-head" onclick="toggleTerm(this)">
+                        <div class="term-entry-left">
+                            <span class="term-name">Place of Acquisition</span>
+                        </div>
+                        <span class="term-caret">▾</span>
                     </div>
-                    <p class="def-cite">25 U.S.C. § 3001(3)(A)–(B)</p>
+                    <div class="term-body">
+                        <div class="term-body-inner">
+                            <div class="term-definition">
+                                <p>The geographic location from which human remains or cultural items were originally removed — through excavation, collection, purchase, or other means. The place of acquisition is relevant to establishing cultural affiliation when direct genealogical or tribal ties are unclear.</p>
+                                <p>In many cases, the place of acquisition reflects sites on or near tribal homelands, and its documentation (or lack thereof) directly affects a tribe's ability to file a successful NAGPRA claim.</p>
+                            </div>
+                            <div class="term-note">As used in this map: Connection lines from acquisition sites to institutions trace the documented movement of ancestral remains into institutional custody.</div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="def-entry" id="sacred-objects" data-terms="sacred objects ceremonial religious specific cultural ongoing use practice">
-                    <p class="def-term">Sacred Objects</p>
-                    <div class="def-tags"><span class="def-tag">NAGPRA Category</span></div>
-                    <div class="def-body">
-                        <p>Sacred objects are defined under NAGPRA as specific ceremonial objects that are needed by traditional Native American religious leaders for the practice of traditional Native American religions by their present-day adherents. The emphasis on present-day religious use distinguishes sacred objects from other categories — an object must have ongoing ceremonial significance, not merely historical or archaeological value.</p>
-                        <p>This definition has been contested, as it places the burden on tribal communities to demonstrate active religious practice and can require disclosure of sensitive ceremonial knowledge in order to assert a claim.</p>
+                <div class="term-entry">
+                    <div class="term-entry-head" onclick="toggleTerm(this)">
+                        <div class="term-entry-left">
+                            <span class="term-name">Consultation</span>
+                        </div>
+                        <span class="term-caret">▾</span>
                     </div>
-                    <p class="def-cite">25 U.S.C. § 3001(3)(C)</p>
+                    <div class="term-body">
+                        <div class="term-body-inner">
+                            <div class="term-definition">
+                                <p>A formal process required by NAGPRA in which institutions must meaningfully engage with affiliated tribes before making decisions about inventories, cultural affiliation determinations, and repatriation. Consultation is a legal obligation, but its quality varies significantly across institutions.</p>
+                                <p>Tribal nations have frequently noted that "consultation" as practiced by many institutions falls short of genuine government-to-government engagement, functioning more as notification than dialogue.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="def-entry" id="cultural-patrimony" data-terms="cultural patrimony inalienable collective ownership community property group identity">
-                    <p class="def-term">Cultural Patrimony</p>
-                    <div class="def-tags"><span class="def-tag">NAGPRA Category</span></div>
-                    <div class="def-body">
-                        <p>Objects of cultural patrimony are items that have ongoing historical, traditional, or cultural importance central to a Native American group or culture itself, and that were not owned by any individual tribal member but were communally owned by the entire group. Because of this collective ownership, such items could not have been legally sold or given away by any individual.</p>
-                        <p>This category is often the most legally complex to establish, requiring demonstration of communal ownership and significance. Examples may include clan regalia, ceremonial poles, and other items central to the political and cultural identity of a tribe or community.</p>
+                <div class="term-entry">
+                    <div class="term-entry-head" onclick="toggleTerm(this)">
+                        <div class="term-entry-left">
+                            <span class="term-name">Federal Register Notice</span>
+                        </div>
+                        <span class="term-caret">▾</span>
                     </div>
-                    <p class="def-cite">25 U.S.C. § 3001(3)(D)</p>
+                    <div class="term-body">
+                        <div class="term-body-inner">
+                            <div class="term-definition">
+                                <p>A formal notice published in the U.S. Federal Register announcing an institution's intention to repatriate specific items to a named tribal nation. Publication of a Federal Register notice officially opens a 30-day window during which other tribes may file competing claims.</p>
+                                <p>Federal Register notices are a matter of public record and serve as a primary data source for this project.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
+        </div>
 
-            <!-- ══ TRIBAL & POLITICAL ══════════════ -->
-            <div class="def-category" id="cat-tribal">
-                <p class="category-label">Tribal &amp; Political Status</p>
+        <!-- ── Tribal Sovereignty Terms ───────── -->
+        <div class="term-section" data-category="sovereignty" id="section-sovereignty">
+            <p class="section-label">Tribal Sovereignty</p>
+            <div class="term-list">
 
-                <div class="def-entry" id="tribal-sovereignty" data-terms="tribal sovereignty self-determination governance nationhood political legal authority">
-                    <p class="def-term">Tribal Sovereignty</p>
-                    <div class="def-tags"><span class="def-tag">Political</span><span class="def-tag">Legal</span></div>
-                    <div class="def-body">
-                        <p>Tribal sovereignty refers to the inherent authority of Indigenous nations to govern themselves, their members, and their territories. It is not a right granted by the federal government but an original, pre-constitutional authority that has been partially — and unevenly — recognized and constrained by U.S. law.</p>
-                        <p>In the context of NAGPRA, tribal sovereignty is foundational: the law treats tribal nations as governments, not ethnic groups or interest organizations, and requires consultation on a government-to-government basis. Repatriation is therefore not merely a cultural or humanitarian gesture but an exercise of tribal sovereignty over ancestral remains and cultural heritage.</p>
+                <div class="term-entry">
+                    <div class="term-entry-head" onclick="toggleTerm(this)">
+                        <div class="term-entry-left">
+                            <span class="term-name">Tribal Sovereignty</span>
+                        </div>
+                        <span class="term-caret">▾</span>
                     </div>
-                    <p class="def-cite">Worcester v. Georgia, 31 U.S. 515 (1832); United States v. Lara, 541 U.S. 193 (2004)</p>
-                </div>
-
-                <div class="def-entry" id="federally-recognized" data-terms="federally recognized tribe acknowledgment list BIA federal trust relationship">
-                    <p class="def-term">Federally Recognized Tribe</p>
-                    <div class="def-tags"><span class="def-tag">Political Status</span></div>
-                    <div class="def-body">
-                        <p>A federally recognized tribe is a Native American tribal entity that the U.S. government has formally acknowledged to have a government-to-government relationship with the United States. Recognition confers eligibility for federal programs and services, protections under federal Indian law, and standing to make NAGPRA claims.</p>
-                        <p>As of 2024, there are 574 federally recognized tribes in the contiguous United States and Alaska. Recognition does not determine the legitimacy or cultural continuity of a tribal nation — many tribes with documented histories remain unrecognized due to historical policies and bureaucratic barriers.</p>
-                    </div>
-                    <p class="def-cite">Bureau of Indian Affairs, Federal Register, Vol. 89 (2024)</p>
-                </div>
-
-                <div class="def-entry" id="state-recognized" data-terms="state recognized tribe state acknowledgment no federal standing limited rights">
-                    <p class="def-term">State Recognized Tribe</p>
-                    <div class="def-tags"><span class="def-tag">Political Status</span></div>
-                    <div class="def-body">
-                        <p>A state recognized tribe is a tribal nation acknowledged by an individual U.S. state but not by the federal government. State recognition does not grant the same legal rights or protections as federal recognition, and state-recognized tribes do not have standing to make NAGPRA claims unless they can demonstrate affiliation with a federally recognized tribe.</p>
-                        <p>Many state-recognized tribes are pursuing federal recognition through the Bureau of Indian Affairs acknowledgment process, a lengthy and often prohibitive administrative procedure.</p>
+                    <div class="term-body">
+                        <div class="term-body-inner">
+                            <div class="term-definition">
+                                <p>The inherent authority of Indigenous tribes to govern themselves as distinct political entities. Tribal sovereignty predates the United States and is recognized — though often imperfectly — through treaties, federal law, and Supreme Court decisions.</p>
+                                <p>In the context of NAGPRA, tribal sovereignty means that tribes engage with federal agencies and institutions as governments, not as interest groups or ethnic communities.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="def-entry" id="nhao" data-terms="native hawaiian organization NHO OHA Kamehameha NAGPRA hawaii">
-                    <p class="def-term">Native Hawaiian Organization (NHO)</p>
-                    <div class="def-tags"><span class="def-tag">Political Status</span><span class="def-tag">NAGPRA</span></div>
-                    <div class="def-body">
-                        <p>Under NAGPRA, a Native Hawaiian Organization is any organization that serves and represents the interests of Native Hawaiians, has as a primary and stated purpose the provision of services to Native Hawaiians, and has expertise in Native Hawaiian affairs. NHOs have the same standing as federally recognized tribes to make NAGPRA claims on behalf of Native Hawaiian ancestors and cultural items.</p>
-                        <p>Native Hawaiians occupy a distinct legal status: they are not a federally recognized tribe under the Indian Self-Determination Act, but NAGPRA specifically extended its protections to include them.</p>
+                <div class="term-entry">
+                    <div class="term-entry-head" onclick="toggleTerm(this)">
+                        <div class="term-entry-left">
+                            <span class="term-name">Federally Recognized Tribe</span>
+                        </div>
+                        <span class="term-caret">▾</span>
                     </div>
-                    <p class="def-cite">25 U.S.C. § 3001(11)</p>
+                    <div class="term-body">
+                        <div class="term-body-inner">
+                            <div class="term-definition">
+                                <p>An American Indian or Alaska Native tribe that holds a government-to-government relationship with the United States. Federal recognition entitles tribes to certain services and legal protections, including the right to file NAGPRA claims.</p>
+                                <p>Not all Indigenous communities are federally recognized. State-recognized or non-recognized tribes may have strong cultural affiliations to items in institutional collections but limited standing under NAGPRA's current framework.</p>
+                            </div>
+                            <div class="term-note">This map focuses primarily on federally recognized tribal nations, as they are the primary claimants under NAGPRA.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="term-entry">
+                    <div class="term-entry-head" onclick="toggleTerm(this)">
+                        <div class="term-entry-left">
+                            <span class="term-name">Lineal Descendant</span>
+                        </div>
+                        <span class="term-caret">▾</span>
+                    </div>
+                    <div class="term-body">
+                        <div class="term-body-inner">
+                            <div class="term-definition">
+                                <p>An individual who can demonstrate direct biological descent from a specific individual whose remains or cultural items are held by an institution. Lineal descendants have priority over tribes in NAGPRA claims when such a relationship can be established.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
+        </div>
 
-            <!-- ══ SCHOLARLY ══════════════════════ -->
-            <div class="def-category" id="cat-scholarly">
-                <p class="category-label">Scholarly &amp; Methodological</p>
+        <!-- ── Institutional Terms ────────────── -->
+        <div class="term-section" data-category="institutional" id="section-institutional">
+            <p class="section-label">Institutional Roles</p>
+            <div class="term-list">
 
-                <div class="def-entry" id="bioarchaeology" data-terms="bioarchaeology skeletal analysis osteology mortuary human remains archaeology science">
-                    <p class="def-term">Bioarchaeology</p>
-                    <div class="def-tags"><span class="def-tag">Discipline</span><span class="def-tag">Anthropology</span></div>
-                    <div class="def-body">
-                        <p>Bioarchaeology is the archaeological study of human skeletal remains recovered from archaeological contexts. It integrates methods from biological anthropology, osteology, and archaeology to reconstruct past lifeways, health, diet, migration, and social organization.</p>
-                        <p>The discipline has a contested relationship with Indigenous communities: much of its foundational data was collected through the excavation of Native American burials — often without consent, and often in violation of Indigenous protocols. The growth of Indigenous critiques of bioarchaeology, and calls to "Indigenize" its methods and ethics, is a central concern of this project's scholarly framework.</p>
+                <div class="term-entry">
+                    <div class="term-entry-head" onclick="toggleTerm(this)">
+                        <div class="term-entry-left">
+                            <span class="term-name">Holding Institution</span>
+                        </div>
+                        <span class="term-caret">▾</span>
                     </div>
-                    <p class="def-cite">Buikstra, J.E. & Lane Beck, L.A. (Eds.) (2006). <em>Bioarchaeology: The Contextual Analysis of Human Remains.</em></p>
-                </div>
-
-                <div class="def-entry" id="indigenizing" data-terms="indigenizing decolonizing methodology practice recentering knowledge framework critique">
-                    <p class="def-term">Indigenizing</p>
-                    <div class="def-tags"><span class="def-tag">Methodology</span><span class="def-tag">Theory</span></div>
-                    <div class="def-body">
-                        <p>Indigenizing refers to the process of recentering Indigenous knowledge systems, values, methods, and voices within academic disciplines that have historically marginalized or excluded them. In anthropology and bioarchaeology specifically, it involves critically examining whose questions are being asked, whose methods are privileged, and who benefits from research on Indigenous peoples and their ancestors.</p>
-                        <p>Indigenizing is distinct from "including" Indigenous perspectives as supplementary — it involves a fundamental reorganization of research priorities, methodologies, and accountability structures, often requiring non-Indigenous scholars to cede interpretive authority to Indigenous communities.</p>
-                    </div>
-                    <p class="def-cite">Smith, L.T. (1999). <em>Decolonizing Methodologies: Research and Indigenous Peoples.</em> Zed Books.</p>
-                </div>
-
-                <div class="def-entry" id="traditional-knowledge" data-terms="traditional knowledge TK indigenous oral history cultural knowledge systems ancestral">
-                    <p class="def-term">Traditional Knowledge</p>
-                    <div class="def-tags"><span class="def-tag">Epistemology</span><span class="def-tag">Legal</span></div>
-                    <div class="def-body">
-                        <p>Traditional knowledge (TK) refers to the knowledge, innovations, and practices of Indigenous and local communities accumulated over generations through direct contact with the environment. In the context of NAGPRA and repatriation, TK includes oral histories, ceremonial knowledge, and community memories that document ancestral connections to specific places, objects, and individuals.</p>
-                        <p>NAGPRA explicitly recognizes oral tradition as a valid form of evidence for establishing cultural affiliation, a significant legal acknowledgment that Western scientific evidence is not the only legitimate form of knowledge. Debates continue about whether TK should be treated as equivalent to, supplementary to, or independent from archaeological and biological evidence.</p>
+                    <div class="term-body">
+                        <div class="term-body-inner">
+                            <div class="term-definition">
+                                <p>Any museum, university, federal agency, or other organization that controls Native American human remains or cultural items subject to NAGPRA. Holding institutions are legally responsible for completing inventories and summaries, conducting consultation, and completing repatriation upon valid claims.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="def-entry" id="epistemology" data-terms="epistemology knowledge ways of knowing indigenous western science framework ontology">
-                    <p class="def-term">Indigenous Epistemology</p>
-                    <div class="def-tags"><span class="def-tag">Theory</span><span class="def-tag">Philosophy</span></div>
-                    <div class="def-body">
-                        <p>Epistemology is the branch of philosophy concerned with the nature, sources, and limits of knowledge — how we know what we know. Indigenous epistemologies are the distinct ways of knowing developed by specific Indigenous communities, often rooted in relationships with land, kinship, ceremony, and oral tradition rather than empiricist or positivist methodologies.</p>
-                        <p>In anthropology and related fields, engaging with Indigenous epistemologies means recognizing that Western science is not the only legitimate framework for understanding the world — and that imposing it on Indigenous subjects and communities can be a form of epistemic violence.</p>
+                <div class="term-entry">
+                    <div class="term-entry-head" onclick="toggleTerm(this)">
+                        <div class="term-entry-left">
+                            <span class="term-name">National NAGPRA Program</span>
+                        </div>
+                        <span class="term-caret">▾</span>
                     </div>
-                    <p class="def-cite">Cajete, G. (2000). <em>Native Science: Natural Laws of Interdependence.</em> Clear Light Publishers.</p>
+                    <div class="term-body">
+                        <div class="term-body-inner">
+                            <div class="term-definition">
+                                <p>The office within the National Park Service (U.S. Department of the Interior) responsible for administering NAGPRA. The program maintains the online database of inventories, summaries, and Federal Register notices used as the primary data source for this project.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="term-entry">
+                    <div class="term-entry-head" onclick="toggleTerm(this)">
+                        <div class="term-entry-left">
+                            <span class="term-name">NAGPRA Review Committee</span>
+                        </div>
+                        <span class="term-caret">▾</span>
+                    </div>
+                    <div class="term-body">
+                        <div class="term-body-inner">
+                            <div class="term-definition">
+                                <p>A seven-member advisory committee established by NAGPRA to monitor and review the implementation of repatriation activities, facilitate the resolution of disputes, and make recommendations to the Secretary of the Interior. Committee members include representatives from Native American communities, museums, and scientific organizations.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
+        </div>
 
-            <!-- ══ MAPPING & DATA ══════════════════ -->
-            <div class="def-category" id="cat-mapping">
-                <p class="category-label">Mapping &amp; Data</p>
-
-                <div class="def-entry" id="cultural-region" data-terms="cultural region area ethnographic map anthropology classification grouping">
-                    <p class="def-term">Cultural Region</p>
-                    <div class="def-tags"><span class="def-tag">Mapping</span><span class="def-tag">Anthropology</span></div>
-                    <div class="def-body">
-                        <p>A cultural region (or culture area) is a geographic area in which several Native American peoples share broadly similar cultural traits, subsistence patterns, and environmental adaptations. The concept was developed by early 20th-century anthropologists — particularly Clark Wissler and Alfred Kroeber — to organize museum collections and comparative research.</p>
-                        <p>Cultural regions are a classification tool, not a statement about tribal identity or political boundaries. They have been criticized for flattening internal diversity, ignoring tribal sovereignty, and reflecting the priorities of the ethnographers who created them rather than the self-understanding of Indigenous communities. On this map, cultural regions provide geographic context for NAGPRA inventories but should not be read as defining or limiting the identities of the tribal nations within them.</p>
-                    </div>
-                    <p class="def-cite">Kroeber, A.L. (1939). <em>Cultural and Natural Areas of Native North America.</em> University of California Press.</p>
-                </div>
-            </div>
-
-        </main>
+    </main>
 
     <footer>
         <span class="footer-left">Ancestral Ties</span>
@@ -578,28 +716,28 @@
     </footer>
 
     <script>
-        /* ── Search / filter ─────────────────── */
-        function filterDefs(query) {
-            const q = query.toLowerCase().trim();
-            const entries = document.querySelectorAll('.def-entry');
-            const categories = document.querySelectorAll('.def-category');
-            let anyVisible = false;
+        function toggleTerm(head) {
+            const body  = head.nextElementSibling;
+            const caret = head.querySelector('.term-caret');
+            const isOpen = body.classList.contains('open');
 
-            entries.forEach(entry => {
-                const terms = (entry.dataset.terms || '').toLowerCase();
-                const term  = entry.querySelector('.def-term')?.textContent.toLowerCase() || '';
-                const body  = entry.querySelector('.def-body')?.textContent.toLowerCase() || '';
-                const match = !q || terms.includes(q) || term.includes(q) || body.includes(q);
-                entry.classList.toggle('hidden', !match);
-                if (match) anyVisible = true;
+            body.classList.toggle('open', !isOpen);
+            caret.classList.toggle('open', !isOpen);
+        }
+
+        function filterTerms(category, btn) {
+            // Update active button
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            // Show/hide sections
+            document.querySelectorAll('.term-section').forEach(section => {
+                if (category === 'all' || section.dataset.category === category) {
+                    section.removeAttribute('data-hidden');
+                } else {
+                    section.setAttribute('data-hidden', 'true');
+                }
             });
-
-            categories.forEach(cat => {
-                const visible = [...cat.querySelectorAll('.def-entry')].some(e => !e.classList.contains('hidden'));
-                cat.style.display = visible ? '' : 'none';
-            });
-
-            document.getElementById('no-results').style.display = anyVisible ? 'none' : 'block';
         }
     </script>
 
