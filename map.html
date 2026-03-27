@@ -64,11 +64,7 @@
 
         .sidebar-hidden header { padding-left: 20px; }
 
-        .header-title {
-            display: flex;
-            align-items: baseline;
-            gap: 10px;
-        }
+        .header-title { display: flex; align-items: baseline; gap: 10px; }
 
         .header-title h1 {
             font-family: 'Cormorant Garamond', serif;
@@ -87,7 +83,8 @@
             font-weight: 300;
         }
 
-        nav { display: flex; gap: 4px; }
+        /* ─── Nav ─────────────────────────────── */
+        nav { display: flex; gap: 4px; align-items: center; }
 
         nav a {
             font-size: 0.78rem;
@@ -101,11 +98,7 @@
         }
 
         nav a:hover { color: var(--ink); background: var(--parchment-2); }
-
-        nav a.active {
-            color: var(--terra);
-            background: var(--terra-light);
-        }
+        nav a.active { color: var(--terra); background: var(--terra-light); }
 
         /* ─── Nav dropdown ────────────────────── */
         .nav-dropdown { position: relative; }
@@ -115,8 +108,8 @@
             font-size: 0.78rem;
             letter-spacing: 0.06em;
             text-transform: uppercase;
-            color: var(--terra);
-            background: var(--terra-light);
+            color: var(--ink-muted);   /* inactive by default */
+            background: none;
             border: none;
             padding: 5px 10px;
             border-radius: 3px;
@@ -127,13 +120,28 @@
             transition: color 0.15s, background 0.15s;
         }
 
-        .nav-dropdown-trigger:hover { background: var(--terra-mid); }
-        .nav-dropdown-trigger.open  { background: var(--terra-mid); }
+        .nav-dropdown-trigger:hover { color: var(--ink); background: var(--parchment-2); }
+
+        /* Active = a child page is current */
+        .nav-dropdown-trigger.active {
+            color: var(--terra);
+            background: var(--terra-light);
+        }
+
+        .nav-dropdown-trigger.open {
+            color: var(--ink);
+            background: var(--parchment-2);
+        }
+
+        .nav-dropdown-trigger.active.open {
+            color: var(--terra);
+            background: var(--terra-mid);
+        }
 
         .nav-dropdown-caret {
             font-size: 8px;
             transition: transform 0.2s;
-            opacity: 0.7;
+            opacity: 0.6;
         }
 
         .nav-dropdown-trigger.open .nav-dropdown-caret { transform: rotate(180deg); }
@@ -146,7 +154,7 @@
             border: 1px solid var(--border);
             border-radius: 4px;
             box-shadow: 0 4px 16px rgba(15,12,8,0.12);
-            min-width: 160px;
+            min-width: 165px;
             overflow: hidden;
             display: none;
             z-index: 20;
@@ -171,7 +179,6 @@
         .nav-dropdown-menu a:hover { color: var(--ink); background: var(--parchment-2); }
         .nav-dropdown-menu a.active { color: var(--terra); background: var(--terra-light); }
 
-
         /* ─── Sidebar ─────────────────────────── */
         aside {
             position: absolute;
@@ -190,7 +197,6 @@
 
         aside::-webkit-scrollbar { width: 4px; }
         aside::-webkit-scrollbar-thumb { background: var(--parchment-3); border-radius: 2px; }
-
         .sidebar-hidden aside { transform: translateX(-100%); }
 
         /* ─── Sidebar toggle ──────────────────── */
@@ -212,18 +218,8 @@
         #sidebar-toggle:hover { background: var(--parchment-2); }
         .sidebar-hidden #sidebar-toggle { left: 12px; }
 
-        .toggle-icon {
-            width: 12px; height: 9px;
-            display: flex; flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .toggle-icon span {
-            display: block;
-            height: 1.5px;
-            background: var(--ink-muted);
-            border-radius: 1px;
-        }
+        .toggle-icon { width: 12px; height: 9px; display: flex; flex-direction: column; justify-content: space-between; }
+        .toggle-icon span { display: block; height: 1.5px; background: var(--ink-muted); border-radius: 1px; }
 
         /* ─── Sidebar sections ────────────────── */
         .sb-section { margin-bottom: 20px; }
@@ -248,22 +244,10 @@
             color: var(--ink);
         }
 
-        .sb-caret {
-            font-size: 9px;
-            color: var(--ink-faint);
-            transition: transform 0.2s;
-            line-height: 1;
-        }
-
+        .sb-caret { font-size: 9px; color: var(--ink-faint); transition: transform 0.2s; line-height: 1; }
         .sb-caret.closed { transform: rotate(-90deg); }
 
-        .sb-body {
-            overflow: hidden;
-            transition: max-height 0.3s ease, opacity 0.25s ease;
-            max-height: 800px;
-            opacity: 1;
-        }
-
+        .sb-body { overflow: hidden; transition: max-height 0.3s ease, opacity 0.25s ease; max-height: 800px; opacity: 1; }
         .sb-body.closed { max-height: 0; opacity: 0; }
 
         /* ─── Legend ──────────────────────────── */
@@ -291,58 +275,30 @@
 
         .legend-item:last-child { margin-bottom: 0; }
 
-        .legend-dot {
-            width: 10px; height: 10px;
-            border-radius: 50%;
-            flex-shrink: 0;
-        }
+        .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+        .legend-dot.tribal    { background: var(--c-tribal); box-shadow: 0 0 0 3px rgba(168, 68, 40, 0.18); }
+        .legend-dot.university { background: var(--c-university); }
+        .legend-dot.museum    { background: var(--c-museum); }
+        .legend-dot.federal   { background: var(--c-federal); }
+        .legend-dot.state     { background: var(--c-state); }
+        .legend-dot.historical { background: var(--c-historical); }
 
-        .legend-dot.tribal {
-            background: var(--c-tribal);
-            box-shadow: 0 0 0 3px rgba(168, 68, 40, 0.18);
-        }
+        .legend-swatch { width: 12px; height: 10px; flex-shrink: 0; border-radius: 2px; }
+        .legend-swatch.cultural { background: rgba(196, 146, 58, 0.35); border: 1.5px solid rgba(196, 146, 58, 0.9); }
 
-        .legend-dot.university  { background: var(--c-university); }
-        .legend-dot.museum      { background: var(--c-museum); }
-        .legend-dot.federal     { background: var(--c-federal); }
-        .legend-dot.state       { background: var(--c-state); }
-        .legend-dot.historical  { background: var(--c-historical); }
+        .legend-dash { width: 20px; height: 0; flex-shrink: 0; border-top: 2px dashed var(--c-affiliation); }
 
-        .legend-swatch {
-            width: 12px; height: 10px;
-            flex-shrink: 0;
-            border-radius: 2px;
-        }
+        .legend-line { width: 24px; height: 0; flex-shrink: 0; }
+        .legend-line.acquisition-line { border-top: 2px solid var(--c-historical); }
+        .legend-line.community-line   { border-top: 2px dashed var(--c-tribal); }
 
-        .legend-swatch.cultural {
-            background: rgba(196, 146, 58, 0.35);
-            border: 1.5px solid rgba(196, 146, 58, 0.9);
-        }
-
-        .legend-dash {
-            width: 20px; height: 0;
-            flex-shrink: 0;
-            border-top: 2px dashed var(--c-affiliation);
-        }
-
-        .legend-divider {
-            border: none;
-            border-top: 1px solid var(--border);
-            margin: 10px 0;
-        }
+        .legend-divider { border: none; border-top: 1px solid var(--border); margin: 10px 0; }
 
         /* ─── Layer controls ──────────────────── */
-        .layer-group {
-            margin-bottom: 6px;
-            border: 1px solid var(--border);
-            border-radius: 4px;
-            overflow: hidden;
-        }
+        .layer-group { margin-bottom: 6px; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
 
         .layer-head {
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            display: flex; align-items: center; gap: 8px;
             padding: 8px 10px;
             background: white;
             cursor: pointer;
@@ -350,103 +306,53 @@
         }
 
         .layer-head:hover { background: var(--parchment-2); }
+        .layer-head input[type="checkbox"] { accent-color: var(--terra); cursor: pointer; }
 
-        .layer-head input[type="checkbox"] {
-            accent-color: var(--terra);
-            cursor: pointer;
-        }
+        .layer-head-label { font-size: 0.83rem; font-weight: 500; color: var(--ink); flex: 1; }
 
-        .layer-head-label {
-            font-size: 0.83rem;
-            font-weight: 500;
-            color: var(--ink);
-            flex: 1;
-        }
-
-        .layer-caret {
-            font-size: 8px;
-            color: var(--ink-faint);
-            transition: transform 0.2s;
-        }
-
+        .layer-caret { font-size: 8px; color: var(--ink-faint); transition: transform 0.2s; }
         .layer-caret.open { transform: rotate(90deg); }
 
-        .layer-options {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.25s ease;
-            background: var(--parchment);
-            border-top: 1px solid var(--border);
-        }
-
+        .layer-options { max-height: 0; overflow: hidden; transition: max-height 0.25s ease; background: var(--parchment); border-top: 1px solid var(--border); }
         .layer-options.open { max-height: 300px; overflow-y: auto; }
 
         .layer-opt {
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            display: flex; align-items: center; gap: 8px;
             padding: 6px 10px 6px 14px;
-            font-size: 0.8rem;
-            color: var(--ink-muted);
+            font-size: 0.8rem; color: var(--ink-muted);
             border-bottom: 1px solid rgba(15,12,8,0.07);
             transition: background 0.12s;
         }
 
         .layer-opt:last-child { border-bottom: none; }
         .layer-opt:hover { background: var(--parchment-2); }
-
-        .layer-opt input[type="checkbox"] {
-            accent-color: var(--terra);
-            cursor: pointer;
-        }
-
+        .layer-opt input[type="checkbox"] { accent-color: var(--terra); cursor: pointer; }
         .layer-opt label { cursor: pointer; flex: 1; }
 
-        .opt-pip {
-            width: 8px; height: 8px;
-            border-radius: 50%;
-            flex-shrink: 0;
-        }
-
+        .opt-pip { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
         .opt-pip.square { border-radius: 2px; }
 
-        /* ─── Map Popup ───────────────────────── */
+        /* ─── Map popup ───────────────────────── */
         .mapboxgl-popup-content {
             padding: 0;
             border-radius: 6px;
             box-shadow: 0 4px 20px rgba(15,12,8,0.18);
-            min-width: 180px;
+            min-width: 210px;
             overflow: hidden;
             font-family: 'DM Sans', sans-serif;
         }
 
-        .popup-head {
-            background: var(--terra);
-            color: white;
-            padding: 10px 14px;
-        }
+        .popup-head { background: var(--terra); color: white; padding: 10px 14px; }
 
-        .popup-head h3 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1rem;
-            font-weight: 500;
-            margin: 0;
-        }
+        .popup-head h3 { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 500; margin: 0; }
 
-        .popup-body {
-            padding: 12px 14px;
-            font-size: 0.82rem;
-            color: var(--ink-muted);
-            line-height: 1.5;
-        }
+        .popup-state { font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.75; margin-top: 2px; }
 
-        .mapboxgl-popup-close-button {
-            color: rgba(255,255,255,0.7);
-            font-size: 16px;
-            padding: 8px;
-            top: 2px; right: 2px;
-        }
+        .popup-body { padding: 12px 14px; font-size: 0.82rem; color: var(--ink-muted); line-height: 1.5; }
+        .popup-body p { margin-bottom: 4px; }
+        .popup-body p:last-child { margin-bottom: 0; }
 
+        .mapboxgl-popup-close-button { color: rgba(255,255,255,0.7); font-size: 16px; padding: 8px; top: 2px; right: 2px; }
         .mapboxgl-popup-close-button:hover { color: white; background: none; }
 
         .mapboxgl-ctrl-group {
@@ -455,257 +361,66 @@
             border: 1px solid var(--border) !important;
         }
 
-        .sb-note {
-            font-size: 0.73rem;
-            color: var(--ink-faint);
-            line-height: 1.5;
-            padding: 10px 0 4px;
-            border-top: 1px solid var(--border);
-            margin-top: 4px;
-        }
+        .sb-note { font-size: 0.73rem; color: var(--ink-faint); line-height: 1.5; padding: 10px 0 4px; border-top: 1px solid var(--border); margin-top: 4px; }
 
-        /* ─── Legend connection lines ─────────── */
-        .legend-line {
-            width: 24px;
-            height: 0;
-            flex-shrink: 0;
-        }
-
-        .legend-line.acquisition-line {
-            border-top: 2px solid var(--c-historical);
-        }
-
-        .legend-line.community-line {
-            border-top: 2px dashed var(--c-tribal);
-        }
-
-        /* ══════════════════════════════════════════
-           ─── Ethics Modal ────────────────────────
-        ══════════════════════════════════════════ */
+        /* ─── Ethics Modal ────────────────────── */
         #ethics-modal-overlay {
-            position: fixed;
-            inset: 0;
-            z-index: 100;
+            position: fixed; inset: 0; z-index: 100;
             background: rgba(15, 12, 8, 0.55);
             backdrop-filter: blur(4px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
             padding: 24px;
             opacity: 0;
             animation: modal-fade-in 0.4s ease 0.25s forwards;
         }
 
-        @keyframes modal-fade-in {
-            to { opacity: 1; }
-        }
+        @keyframes modal-fade-in { to { opacity: 1; } }
 
         #ethics-modal {
             background: var(--parchment);
             border: 1px solid var(--border);
             border-radius: 8px;
-            box-shadow: 0 12px 48px rgba(15, 12, 8, 0.28), 0 2px 8px rgba(15, 12, 8, 0.12);
-            width: 100%;
-            max-width: 640px;
-            max-height: 90vh;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
+            box-shadow: 0 12px 48px rgba(15,12,8,0.28), 0 2px 8px rgba(15,12,8,0.12);
+            width: 100%; max-width: 640px; max-height: 90vh;
+            display: flex; flex-direction: column; overflow: hidden;
             transform: translateY(12px);
             animation: modal-slide-in 0.4s cubic-bezier(.22,.68,0,1.2) 0.25s forwards;
         }
 
-        @keyframes modal-slide-in {
-            to { transform: translateY(0); }
-        }
+        @keyframes modal-slide-in { to { transform: translateY(0); } }
 
-        /* Modal header */
-        .modal-header {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            gap: 16px;
-            padding: 24px 28px 18px;
-            border-bottom: 1px solid var(--border);
-            flex-shrink: 0;
-        }
+        .modal-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; padding: 24px 28px 18px; border-bottom: 1px solid var(--border); flex-shrink: 0; }
+        .modal-header-text { display: flex; flex-direction: column; gap: 4px; }
+        .modal-eyebrow { font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--terra); font-weight: 500; }
+        .modal-header h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.55rem; font-weight: 500; color: var(--ink); line-height: 1.2; letter-spacing: 0.01em; }
+        .modal-close { flex-shrink: 0; width: 30px; height: 30px; background: none; border: 1px solid var(--border); border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--ink-faint); font-size: 14px; line-height: 1; transition: background 0.15s, color 0.15s, border-color 0.15s; margin-top: 2px; }
+        .modal-close:hover { background: var(--parchment-2); color: var(--ink); border-color: var(--ink-muted); }
 
-        .modal-header-text {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .modal-eyebrow {
-            font-size: 0.65rem;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: var(--terra);
-            font-weight: 500;
-        }
-
-        .modal-header h2 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.55rem;
-            font-weight: 500;
-            color: var(--ink);
-            line-height: 1.2;
-            letter-spacing: 0.01em;
-        }
-
-        .modal-close {
-            flex-shrink: 0;
-            width: 30px; height: 30px;
-            background: none;
-            border: 1px solid var(--border);
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--ink-faint);
-            font-size: 14px;
-            line-height: 1;
-            transition: background 0.15s, color 0.15s, border-color 0.15s;
-            margin-top: 2px;
-        }
-
-        .modal-close:hover {
-            background: var(--parchment-2);
-            color: var(--ink);
-            border-color: var(--ink-muted);
-        }
-
-        /* Modal body — scrollable */
-        .modal-body {
-            padding: 22px 28px;
-            overflow-y: auto;
-            flex: 1;
-            scrollbar-width: thin;
-            scrollbar-color: var(--parchment-3) transparent;
-        }
-
+        .modal-body { padding: 22px 28px; overflow-y: auto; flex: 1; scrollbar-width: thin; scrollbar-color: var(--parchment-3) transparent; }
         .modal-body::-webkit-scrollbar { width: 4px; }
         .modal-body::-webkit-scrollbar-thumb { background: var(--parchment-3); border-radius: 2px; }
 
-        /* Ethics bar accent */
-        .ethics-inner {
-            display: flex;
-            gap: 18px;
-        }
+        .ethics-inner { display: flex; gap: 18px; }
+        .ethics-bar { width: 3px; flex-shrink: 0; background: linear-gradient(to bottom, var(--terra), rgba(139,58,30,0.2)); border-radius: 2px; align-self: stretch; }
+        .ethics-content p { font-size: 0.845rem; color: var(--ink-muted); line-height: 1.72; margin-bottom: 14px; }
+        .ethics-content p:last-of-type { margin-bottom: 20px; }
 
-        .ethics-bar {
-            width: 3px;
-            flex-shrink: 0;
-            background: linear-gradient(to bottom, var(--terra), rgba(139,58,30,0.2));
-            border-radius: 2px;
-            align-self: stretch;
-        }
+        .ethics-principles { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .ethics-principle { background: var(--parchment-2); border: 1px solid var(--border); border-radius: 5px; padding: 12px 14px; }
+        .ethics-principle-title { font-family: 'Cormorant Garamond', serif; font-size: 0.95rem; font-weight: 600; color: var(--ink); letter-spacing: 0.02em; margin-bottom: 5px !important; }
+        .ethics-principle p:not(.ethics-principle-title) { font-size: 0.78rem !important; line-height: 1.55 !important; margin-bottom: 0 !important; }
 
-        .ethics-content p {
-            font-size: 0.845rem;
-            color: var(--ink-muted);
-            line-height: 1.72;
-            margin-bottom: 14px;
-        }
+        .modal-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 28px; border-top: 1px solid var(--border); flex-shrink: 0; background: var(--parchment-2); }
+        .modal-footer-note { font-size: 0.72rem; color: var(--ink-faint); line-height: 1.45; flex: 1; }
+        .modal-footer-note strong { color: var(--ink-muted); font-weight: 500; }
 
-        .ethics-content p:last-of-type {
-            margin-bottom: 20px;
-        }
+        .modal-enter-btn { flex-shrink: 0; display: flex; align-items: center; gap: 7px; background: var(--terra); color: white; border: none; border-radius: 4px; padding: 9px 18px; font-family: 'DM Sans', sans-serif; font-size: 0.8rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; cursor: pointer; transition: background 0.15s, transform 0.1s; }
+        .modal-enter-btn:hover { background: #7a3319; }
+        .modal-enter-btn:active { transform: scale(0.98); }
+        .modal-enter-btn svg { width: 13px; height: 13px; opacity: 0.85; }
 
-        /* Principles grid */
-        .ethics-principles {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
+        #ethics-modal-overlay.hidden { pointer-events: none; opacity: 0; transition: opacity 0.25s ease; }
 
-        .ethics-principle {
-            background: var(--parchment-2);
-            border: 1px solid var(--border);
-            border-radius: 5px;
-            padding: 12px 14px;
-        }
-
-        .ethics-principle-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: var(--ink);
-            letter-spacing: 0.02em;
-            margin-bottom: 5px !important;
-        }
-
-        .ethics-principle p:not(.ethics-principle-title) {
-            font-size: 0.78rem !important;
-            line-height: 1.55 !important;
-            margin-bottom: 0 !important;
-        }
-
-        /* Modal footer */
-        .modal-footer {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-            padding: 16px 28px;
-            border-top: 1px solid var(--border);
-            flex-shrink: 0;
-            background: var(--parchment-2);
-        }
-
-        .modal-footer-note {
-            font-size: 0.72rem;
-            color: var(--ink-faint);
-            line-height: 1.45;
-            flex: 1;
-        }
-
-        .modal-footer-note strong {
-            color: var(--ink-muted);
-            font-weight: 500;
-        }
-
-        .modal-enter-btn {
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            gap: 7px;
-            background: var(--terra);
-            color: white;
-            border: none;
-            border-radius: 4px;
-            padding: 9px 18px;
-            font-family: 'DM Sans', sans-serif;
-            font-size: 0.8rem;
-            font-weight: 500;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: background 0.15s, transform 0.1s;
-        }
-
-        .modal-enter-btn:hover {
-            background: #7a3319;
-        }
-
-        .modal-enter-btn:active {
-            transform: scale(0.98);
-        }
-
-        .modal-enter-btn svg {
-            width: 13px; height: 13px;
-            opacity: 0.85;
-        }
-
-        /* Hidden state */
-        #ethics-modal-overlay.hidden {
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.25s ease;
-        }
-
-        /* Responsive: stack principles on small screens */
         @media (max-width: 520px) {
             .ethics-principles { grid-template-columns: 1fr; }
             .modal-footer { flex-direction: column; align-items: flex-start; }
@@ -715,10 +430,9 @@
 </head>
 <body>
 
-    <!--  Ethics & Positionality Modal --> 
+    <!-- Ethics Modal -->
     <div id="ethics-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="ethics-modal-title">
         <div id="ethics-modal">
-
             <div class="modal-header">
                 <div class="modal-header-text">
                     <span class="modal-eyebrow">Ethics &amp; Positionality</span>
@@ -726,40 +440,23 @@
                 </div>
                 <button class="modal-close" onclick="closeModal()" aria-label="Close">✕</button>
             </div>
-
             <div class="modal-body">
                 <div class="ethics-inner">
                     <div class="ethics-bar"></div>
                     <div class="ethics-content">
                         <p>This map does not claim to be neutral. Mapping is always an interpretive act, and mapping Indigenous land, ancestors, and cultural relationships carries particular ethical weight. The decisions made here — what to show, what to name, how to draw connections — reflect a set of commitments to transparency, care, and Indigenous-centered framing.</p>
                         <p>Connections shown between institutions and Tribal Nations do not imply ownership or resolved repatriation. They document relationships established through archaeological, historical, and Tribal evidence as recorded — evidence produced within a legal system that itself has a complicated relationship with Indigenous sovereignty.</p>
-
                         <div class="ethics-principles">
-                            <div class="ethics-principle">
-                                <p class="ethics-principle-title">Transparency</p>
-                                <p>All data sources are cited. The methods and limitations of the dataset are disclosed in the Sources page.</p>
-                            </div>
-                            <div class="ethics-principle">
-                                <p class="ethics-principle-title">Tribal Sovereignty</p>
-                                <p>Tribal nations are named and treated as sovereign political entities, not ethnic categories or archaeological groupings.</p>
-                            </div>
-                            <div class="ethics-principle">
-                                <p class="ethics-principle-title">Avoiding Harm</p>
-                                <p>This project does not display sensitive information about individual human remains, sacred objects, or burial sites that tribes have asked to be kept private.</p>
-                            </div>
-                            <div class="ethics-principle">
-                                <p class="ethics-principle-title">Ongoing Process</p>
-                                <p>Repatriation is not presented as complete or resolved. The map reflects a snapshot of an ongoing, dynamic relationship.</p>
-                            </div>
+                            <div class="ethics-principle"><p class="ethics-principle-title">Transparency</p><p>All data sources are cited. The methods and limitations of the dataset are disclosed in the Sources page.</p></div>
+                            <div class="ethics-principle"><p class="ethics-principle-title">Tribal Sovereignty</p><p>Tribal nations are named and treated as sovereign political entities, not ethnic categories or archaeological groupings.</p></div>
+                            <div class="ethics-principle"><p class="ethics-principle-title">Avoiding Harm</p><p>This project does not display sensitive information about individual human remains, sacred objects, or burial sites that tribes have asked to be kept private.</p></div>
+                            <div class="ethics-principle"><p class="ethics-principle-title">Ongoing Process</p><p>Repatriation is not presented as complete or resolved. The map reflects a snapshot of an ongoing, dynamic relationship.</p></div>
                         </div>
                     </div>
                 </div>
             </div>
-
             <div class="modal-footer">
-                <p class="modal-footer-note">
-                    <strong>Before you begin</strong> — This statement applies to all layers and connections shown on the map.
-                </p>
+                <p class="modal-footer-note"><strong>Before you begin</strong> — This statement applies to all layers and connections shown on the map.</p>
                 <button class="modal-enter-btn" onclick="closeModal()">
                     Enter Map
                     <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -767,17 +464,15 @@
                     </svg>
                 </button>
             </div>
-
         </div>
     </div>
 
-    <!-- Page Structure-->
     <header>
         <div class="header-title">
             <h1>Ancestral Ties</h1>
             <span>A Mapping Project</span>
         </div>
-           <nav>
+        <nav>
             <a href="index.html">Home</a>
             <a href="map.html" class="active">Map</a>
             <div class="nav-dropdown">
@@ -794,36 +489,24 @@
     </header>
 
     <button id="sidebar-toggle" aria-label="Toggle sidebar">
-        <div class="toggle-icon">
-            <span></span><span></span><span></span>
-        </div>
+        <div class="toggle-icon"><span></span><span></span><span></span></div>
     </button>
 
     <aside id="sidebar">
 
-        <!-- How to Read -->
         <div class="sb-section">
             <div class="sb-section-head" onclick="toggleSection('how-to-read')">
                 <h2>How to Read</h2>
                 <span class="sb-caret" id="how-to-read-caret">▾</span>
             </div>
             <div class="sb-body" id="how-to-read-body">
-                <p style="font-size:0.81rem; color:var(--ink-muted); line-height:1.65; margin-bottom:8px;">
-                    This map visualizes NAGPRA (Native American Graves Protection and Repatriation Act) inventories and cultural affiliation claims across the United States.
-                </p>
-                <p style="font-size:0.81rem; color:var(--ink-muted); line-height:1.65; margin-bottom:8px;">
-                    <strong style="color:var(--ink); font-weight:500;">Institutions</strong> — universities, museums, and agencies — are shown as colored dots based on type. Each holds NAGPRA inventories of human remains and cultural items.
-                </p>
-                <p style="font-size:0.81rem; color:var(--ink-muted); line-height:1.65; margin-bottom:8px;">
-                    <strong style="color:var(--ink); font-weight:500;">Tribal Nations</strong> are shown as terracotta dots. Dashed lines connect tribes to the institutions with which they share a documented cultural affiliation.
-                </p>
-                <p style="font-size:0.81rem; color:var(--ink-muted); line-height:1.65;">
-                    Shaded <strong style="color:var(--ink); font-weight:500;">cultural regions</strong> provide geographic and cultural context. Click any point to see inventory details and affiliation status.
-                </p>
+                <p style="font-size:0.81rem; color:var(--ink-muted); line-height:1.65; margin-bottom:8px;">This map visualizes NAGPRA inventories and cultural affiliation claims for federally recognized Tribal Nations across Michigan, Wisconsin, and Minnesota.</p>
+                <p style="font-size:0.81rem; color:var(--ink-muted); line-height:1.65; margin-bottom:8px;"><strong style="color:var(--ink); font-weight:500;">Institutions</strong> — universities, museums, and agencies — are shown as colored dots based on type.</p>
+                <p style="font-size:0.81rem; color:var(--ink-muted); line-height:1.65; margin-bottom:8px;"><strong style="color:var(--ink); font-weight:500;">Tribal Nations</strong> are shown as terracotta dots. Dashed lines connect tribes to affiliated institutions.</p>
+                <p style="font-size:0.81rem; color:var(--ink-muted); line-height:1.65;">Click any point to see details and affiliation status.</p>
             </div>
         </div>
 
-        <!-- Legend -->
         <div class="sb-section">
             <div class="sb-section-head" onclick="toggleSection('legend')">
                 <h2>Legend</h2>
@@ -832,10 +515,7 @@
             <div class="sb-body" id="legend-body">
                 <div class="legend-group">
                     <div class="legend-group-label">Tribal Nations</div>
-                    <div class="legend-item">
-                        <div class="legend-dot tribal"></div>
-                        Federally Recognized Tribal Nation
-                    </div>
+                    <div class="legend-item"><div class="legend-dot tribal"></div> Federally Recognized Tribal Nation</div>
                 </div>
                 <hr class="legend-divider">
                 <div class="legend-group">
@@ -852,24 +532,15 @@
                     <div class="legend-item"><div class="legend-swatch cultural"></div> Cultural Region</div>
                     <div class="legend-item"><div class="legend-dash"></div> Cultural Affiliation (Institution ↔ Tribe)</div>
                 </div>
-
                 <hr class="legend-divider">
-
                 <div class="legend-group">
                     <div class="legend-group-label">Connection Lines</div>
-                    <div class="legend-item">
-                        <div class="legend-line acquisition-line"></div>
-                        Acquisition → Institution
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-line community-line"></div>
-                        Institution → Community
-                    </div>
+                    <div class="legend-item"><div class="legend-line acquisition-line"></div> Acquisition → Institution</div>
+                    <div class="legend-item"><div class="legend-line community-line"></div> Institution → Community</div>
                 </div>
             </div>
         </div>
 
-        <!-- Layers -->
         <div class="sb-section">
             <div class="sb-section-head" onclick="toggleSection('layers')">
                 <h2>Layers</h2>
@@ -884,16 +555,8 @@
                         <span class="layer-caret" id="tribal-caret">▶</span>
                     </div>
                     <div class="layer-options" id="tribal-options">
-                        <div class="layer-opt">
-                            <div class="opt-pip" style="background:var(--c-tribal)"></div>
-                            <input type="checkbox" id="t-federally-recognized" checked/>
-                            <label for="t-federally-recognized">Federally Recognized Tribes</label>
-                        </div>
-                        <div class="layer-opt">
-                            <div class="opt-pip" style="background:var(--c-tribal); opacity:0.45;"></div>
-                            <input type="checkbox" id="t-state-recognized" checked/>
-                            <label for="t-state-recognized">State Recognized Tribes</label>
-                        </div>
+                        <div class="layer-opt"><div class="opt-pip" style="background:var(--c-tribal)"></div><input type="checkbox" id="t-federally-recognized" checked/><label for="t-federally-recognized">Federally Recognized Tribes</label></div>
+                        <div class="layer-opt"><div class="opt-pip" style="background:var(--c-tribal); opacity:0.45;"></div><input type="checkbox" id="t-state-recognized" checked/><label for="t-state-recognized">State Recognized Tribes</label></div>
                     </div>
                 </div>
 
@@ -904,16 +567,7 @@
                         <span class="layer-caret" id="cultural-caret">▶</span>
                     </div>
                     <div class="layer-options" id="cultural-options">
-                        <div class="layer-opt"><div class="opt-pip square" style="background:rgba(196,146,58,0.55);border:1px solid rgba(196,146,58,0.95)"></div><input type="checkbox" id="r-arctic" checked/><label for="r-arctic">Arctic</label></div>
-                        <div class="layer-opt"><div class="opt-pip square" style="background:rgba(196,146,58,0.55);border:1px solid rgba(196,146,58,0.95)"></div><input type="checkbox" id="r-california" checked/><label for="r-california">California</label></div>
-                        <div class="layer-opt"><div class="opt-pip square" style="background:rgba(196,146,58,0.55);border:1px solid rgba(196,146,58,0.95)"></div><input type="checkbox" id="r-great-basin" checked/><label for="r-great-basin">Great Basin</label></div>
-                        <div class="layer-opt"><div class="opt-pip square" style="background:rgba(196,146,58,0.55);border:1px solid rgba(196,146,58,0.95)"></div><input type="checkbox" id="r-midwest" checked onchange="handleMidwestToggle(this)"/><label for="r-midwest">Midwest</label></div>
-                        <div class="layer-opt"><div class="opt-pip square" style="background:rgba(196,146,58,0.55);border:1px solid rgba(196,146,58,0.95)"></div><input type="checkbox" id="r-northeast" checked/><label for="r-northeast">Northeast</label></div>
-                        <div class="layer-opt"><div class="opt-pip square" style="background:rgba(196,146,58,0.55);border:1px solid rgba(196,146,58,0.95)"></div><input type="checkbox" id="r-northwest" checked/><label for="r-northwest">Northwest Coast</label></div>
-                        <div class="layer-opt"><div class="opt-pip square" style="background:rgba(196,146,58,0.55);border:1px solid rgba(196,146,58,0.95)"></div><input type="checkbox" id="r-plains" checked/><label for="r-plains">Plains</label></div>
-                        <div class="layer-opt"><div class="opt-pip square" style="background:rgba(196,146,58,0.55);border:1px solid rgba(196,146,58,0.95)"></div><input type="checkbox" id="r-plateau" checked/><label for="r-plateau">Plateau</label></div>
-                        <div class="layer-opt"><div class="opt-pip square" style="background:rgba(196,146,58,0.55);border:1px solid rgba(196,146,58,0.95)"></div><input type="checkbox" id="r-southeast" checked/><label for="r-southeast">Southeast</label></div>
-                        <div class="layer-opt"><div class="opt-pip square" style="background:rgba(196,146,58,0.55);border:1px solid rgba(196,146,58,0.95)"></div><input type="checkbox" id="r-southwest" checked/><label for="r-southwest">Southwest</label></div>
+                        <div class="layer-opt"><div class="opt-pip square" style="background:rgba(196,146,58,0.55);border:1px solid rgba(196,146,58,0.95)"></div><input type="checkbox" id="r-midwest" checked onchange="handleMidwestToggle(this)"/><label for="r-midwest">Great Lakes / Midwest</label></div>
                     </div>
                 </div>
 
@@ -962,25 +616,13 @@
                         <span class="layer-caret" id="inventory-caret">▶</span>
                     </div>
                     <div class="layer-options" id="inventory-options">
-                        <div class="layer-opt">
-                            <div class="opt-pip" style="background:var(--c-university)"></div>
-                            <input type="checkbox" id="inv-inventories" checked/>
-                            <label for="inv-inventories">NAGPRA Inventories</label>
-                        </div>
-                        <div class="layer-opt">
-                            <div class="opt-pip" style="background:var(--c-museum)"></div>
-                            <input type="checkbox" id="inv-summaries" checked/>
-                            <label for="inv-summaries">NAGPRA Summaries</label>
-                        </div>
-                        <div class="layer-opt">
-                            <div class="opt-pip" style="background:var(--c-federal)"></div>
-                            <input type="checkbox" id="inv-notices" checked/>
-                            <label for="inv-notices">Federal Register Notices</label>
-                        </div>
+                        <div class="layer-opt"><div class="opt-pip" style="background:var(--c-university)"></div><input type="checkbox" id="inv-inventories" checked/><label for="inv-inventories">NAGPRA Inventories</label></div>
+                        <div class="layer-opt"><div class="opt-pip" style="background:var(--c-museum)"></div><input type="checkbox" id="inv-summaries" checked/><label for="inv-summaries">NAGPRA Summaries</label></div>
+                        <div class="layer-opt"><div class="opt-pip" style="background:var(--c-federal)"></div><input type="checkbox" id="inv-notices" checked/><label for="inv-notices">Federal Register Notices</label></div>
                     </div>
                 </div>
 
-                <p class="sb-note">Click a layer name to show or hide sub-categories. Click any point on the map to view NAGPRA inventory details.</p>
+                <p class="sb-note">Click a layer name to show or hide sub-categories. Click any point on the map to view details.</p>
             </div>
         </div>
 
@@ -993,20 +635,27 @@
         function closeModal() {
             const overlay = document.getElementById('ethics-modal-overlay');
             overlay.classList.add('hidden');
-            // Remove from DOM after transition so it doesn't block interactions
             setTimeout(() => overlay.remove(), 300);
         }
 
-        // Also close on overlay click (outside the modal card)
         document.getElementById('ethics-modal-overlay').addEventListener('click', (e) => {
-            if (e.target === document.getElementById('ethics-modal-overlay')) {
-                closeModal();
-            }
+            if (e.target === document.getElementById('ethics-modal-overlay')) closeModal();
         });
 
-        // Close on Escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeModal();
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+        /* ─── Nav dropdown ────────────────────── */
+        function toggleNavDropdown(e) {
+            e.stopPropagation();
+            const trigger = e.currentTarget;
+            const menu    = document.getElementById('nav-dropdown-menu');
+            trigger.classList.toggle('open');
+            menu.classList.toggle('open');
+        }
+
+        document.addEventListener('click', () => {
+            document.querySelector('.nav-dropdown-trigger')?.classList.remove('open');
+            document.getElementById('nav-dropdown-menu')?.classList.remove('open');
         });
 
         /* ─── Sidebar ─────────────────────────── */
@@ -1015,23 +664,64 @@
         });
 
         function toggleSection(name) {
-            const body  = document.getElementById(name + '-body');
-            const caret = document.getElementById(name + '-caret');
-            body.classList.toggle('closed');
-            caret.classList.toggle('closed');
+            document.getElementById(name + '-body').classList.toggle('closed');
+            document.getElementById(name + '-caret').classList.toggle('closed');
         }
 
         function toggleLayerOptions(optionsId, caretId) {
-            const opts  = document.getElementById(optionsId);
-            const caret = document.getElementById(caretId);
-            opts.classList.toggle('open');
-            caret.classList.toggle('open');
+            document.getElementById(optionsId).classList.toggle('open');
+            document.getElementById(caretId).classList.toggle('open');
         }
 
         function handleLayerToggle(layerId) {
-            const checked = document.getElementById(layerId).checked;
-            console.log(layerId, 'toggled:', checked);
+            console.log(layerId, 'toggled:', document.getElementById(layerId).checked);
         }
+
+        /* ─── Tribal nations data ─────────────── */
+        const tribalNationsData = {
+            type: 'FeatureCollection',
+            features: [
+                // ── Michigan ──────────────────────────────────────────
+                { type: 'Feature', properties: { name: 'Bay Mills Indian Community', location: 'Brimley, MI', state: 'Michigan', nation: 'Ojibwe (Chippewa)', status: 'Federally Recognized', url: 'https://baymills.org' }, geometry: { type: 'Point', coordinates: [-84.5617, 46.4197] } },
+                { type: 'Feature', properties: { name: 'Grand Traverse Band of Ottawa and Chippewa Indians', location: 'Peshawbestown, MI', state: 'Michigan', nation: 'Ottawa / Ojibwe', status: 'Federally Recognized', url: 'https://gtbindians.org' }, geometry: { type: 'Point', coordinates: [-85.618, 44.947] } },
+                { type: 'Feature', properties: { name: 'Hannahville Indian Community', location: 'Wilson, MI', state: 'Michigan', nation: 'Potawatomi', status: 'Federally Recognized', url: 'https://hannahville.net' }, geometry: { type: 'Point', coordinates: [-87.274, 45.907] } },
+                { type: 'Feature', properties: { name: 'Keweenaw Bay Indian Community', location: 'Baraga, MI', state: 'Michigan', nation: 'Lake Superior Chippewa', status: 'Federally Recognized', url: 'https://www.kbic-nsn.gov' }, geometry: { type: 'Point', coordinates: [-88.490, 46.777] } },
+                { type: 'Feature', properties: { name: 'Lac Vieux Desert Band of Lake Superior Chippewa Indians', location: 'Watersmeet, MI', state: 'Michigan', nation: 'Lake Superior Chippewa', status: 'Federally Recognized', url: 'https://www.lvdtribal.com' }, geometry: { type: 'Point', coordinates: [-89.173, 46.383] } },
+                { type: 'Feature', properties: { name: 'Little River Band of Ottawa Indians', location: 'Manistee, MI', state: 'Michigan', nation: 'Ottawa (Odawa)', status: 'Federally Recognized', url: 'https://lrboi-nsn.gov' }, geometry: { type: 'Point', coordinates: [-86.324, 44.254] } },
+                { type: 'Feature', properties: { name: 'Little Traverse Bay Bands of Odawa Indians', location: 'Petoskey, MI', state: 'Michigan', nation: 'Ottawa (Odawa)', status: 'Federally Recognized', url: 'https://ltbbodawa-nsn.gov' }, geometry: { type: 'Point', coordinates: [-84.958, 45.372] } },
+                { type: 'Feature', properties: { name: 'Match-e-be-nash-she-wish Band of Pottawatomi Indians (Gun Lake Tribe)', location: 'Bradley, MI', state: 'Michigan', nation: 'Potawatomi', status: 'Federally Recognized', url: 'https://gunlaketribe-nsn.gov' }, geometry: { type: 'Point', coordinates: [-85.645, 42.722] } },
+                { type: 'Feature', properties: { name: 'Nottawaseppi Huron Band of the Potawatomi', location: 'Fulton, MI', state: 'Michigan', nation: 'Potawatomi', status: 'Federally Recognized', url: 'https://nhbpi.com' }, geometry: { type: 'Point', coordinates: [-85.167, 42.331] } },
+                { type: 'Feature', properties: { name: 'Pokagon Band of Potawatomi Indians', location: 'Dowagiac, MI', state: 'Michigan', nation: 'Potawatomi', status: 'Federally Recognized', url: 'https://www.pokagonband-nsn.gov' }, geometry: { type: 'Point', coordinates: [-86.191, 41.984] } },
+                { type: 'Feature', properties: { name: 'Saginaw Chippewa Indian Tribe of Michigan', location: 'Mount Pleasant, MI', state: 'Michigan', nation: 'Ojibwe (Chippewa)', status: 'Federally Recognized', url: 'https://www.sagchip.org' }, geometry: { type: 'Point', coordinates: [-84.741, 43.597] } },
+                { type: 'Feature', properties: { name: 'Sault Ste. Marie Tribe of Chippewa Indians', location: 'Sault Ste. Marie, MI', state: 'Michigan', nation: 'Ojibwe (Chippewa)', status: 'Federally Recognized', url: 'https://saulttribe.com' }, geometry: { type: 'Point', coordinates: [-84.349, 46.495] } },
+
+                // ── Wisconsin ─────────────────────────────────────────
+                { type: 'Feature', properties: { name: 'Bad River Band of the Lake Superior Tribe of Chippewa Indians', location: 'Odanah, WI', state: 'Wisconsin', nation: 'Lake Superior Chippewa', status: 'Federally Recognized', url: 'https://www.badriver-nsn.gov' }, geometry: { type: 'Point', coordinates: [-90.618, 46.583] } },
+                { type: 'Feature', properties: { name: 'Forest County Potawatomi Community', location: 'Crandon, WI', state: 'Wisconsin', nation: 'Potawatomi', status: 'Federally Recognized', url: 'https://www.fcpotawatomi.com' }, geometry: { type: 'Point', coordinates: [-88.761, 45.528] } },
+                { type: 'Feature', properties: { name: 'Ho-Chunk Nation', location: 'Black River Falls, WI', state: 'Wisconsin', nation: 'Ho-Chunk (Winnebago)', status: 'Federally Recognized', url: 'https://ho-chunknation.com' }, geometry: { type: 'Point', coordinates: [-90.852, 44.297] } },
+                { type: 'Feature', properties: { name: 'Lac Courte Oreilles Band of Lake Superior Chippewa Indians', location: 'Hayward, WI', state: 'Wisconsin', nation: 'Lake Superior Chippewa', status: 'Federally Recognized', url: 'https://www.lco-nsn.gov' }, geometry: { type: 'Point', coordinates: [-91.233, 45.922] } },
+                { type: 'Feature', properties: { name: 'Lac du Flambeau Band of Lake Superior Chippewa Indians', location: 'Lac du Flambeau, WI', state: 'Wisconsin', nation: 'Lake Superior Chippewa', status: 'Federally Recognized', url: 'https://ldftribe.com' }, geometry: { type: 'Point', coordinates: [-89.889, 45.967] } },
+                { type: 'Feature', properties: { name: 'Menominee Indian Tribe of Wisconsin', location: 'Keshena, WI', state: 'Wisconsin', nation: 'Menominee', status: 'Federally Recognized', url: 'https://www.menominee-nsn.gov' }, geometry: { type: 'Point', coordinates: [-88.631, 44.882] } },
+                { type: 'Feature', properties: { name: 'Oneida Nation', location: 'Oneida, WI', state: 'Wisconsin', nation: 'Oneida (Haudenosaunee)', status: 'Federally Recognized', url: 'https://oneida-nsn.gov' }, geometry: { type: 'Point', coordinates: [-88.193, 44.493] } },
+                { type: 'Feature', properties: { name: 'Red Cliff Band of Lake Superior Chippewa', location: 'Bayfield, WI', state: 'Wisconsin', nation: 'Lake Superior Chippewa', status: 'Federally Recognized', url: 'https://www.redcliff-nsn.gov' }, geometry: { type: 'Point', coordinates: [-90.797, 46.852] } },
+                { type: 'Feature', properties: { name: 'Sokaogon Chippewa Community (Mole Lake)', location: 'Crandon, WI', state: 'Wisconsin', nation: 'Lake Superior Chippewa', status: 'Federally Recognized', url: 'https://www.sokaogonchippewa.com' }, geometry: { type: 'Point', coordinates: [-88.972, 45.603] } },
+                { type: 'Feature', properties: { name: 'St. Croix Chippewa Indians of Wisconsin', location: 'Hertel, WI', state: 'Wisconsin', nation: 'Lake Superior Chippewa', status: 'Federally Recognized', url: 'https://www.stcroixojibwe-nsn.gov' }, geometry: { type: 'Point', coordinates: [-92.150, 45.803] } },
+                { type: 'Feature', properties: { name: 'Stockbridge-Munsee Community', location: 'Bowler, WI', state: 'Wisconsin', nation: 'Mohican / Munsee', status: 'Federally Recognized', url: 'https://www.mohican.com' }, geometry: { type: 'Point', coordinates: [-89.072, 44.839] } },
+
+                // ── Minnesota ─────────────────────────────────────────
+                { type: 'Feature', properties: { name: 'Bois Forte Band of Chippewa (Nett Lake)', location: 'Nett Lake, MN', state: 'Minnesota', nation: 'Ojibwe (Chippewa)', status: 'Federally Recognized', url: 'https://www.boisforte.com' }, geometry: { type: 'Point', coordinates: [-93.072, 47.882] } },
+                { type: 'Feature', properties: { name: 'Fond du Lac Band of Lake Superior Chippewa', location: 'Cloquet, MN', state: 'Minnesota', nation: 'Lake Superior Chippewa', status: 'Federally Recognized', url: 'https://www.fdlrez.com' }, geometry: { type: 'Point', coordinates: [-92.536, 46.716] } },
+                { type: 'Feature', properties: { name: 'Grand Portage Band of Lake Superior Chippewa', location: 'Grand Portage, MN', state: 'Minnesota', nation: 'Lake Superior Chippewa', status: 'Federally Recognized', url: 'https://www.grandportage.com' }, geometry: { type: 'Point', coordinates: [-89.678, 47.964] } },
+                { type: 'Feature', properties: { name: 'Leech Lake Band of Ojibwe', location: 'Cass Lake, MN', state: 'Minnesota', nation: 'Ojibwe (Chippewa)', status: 'Federally Recognized', url: 'https://www.llojibwe.org' }, geometry: { type: 'Point', coordinates: [-94.569, 47.378] } },
+                { type: 'Feature', properties: { name: 'Lower Sioux Indian Community', location: 'Morton, MN', state: 'Minnesota', nation: 'Dakota (Sioux)', status: 'Federally Recognized', url: 'https://www.lowersioux.com' }, geometry: { type: 'Point', coordinates: [-94.978, 44.553] } },
+                { type: 'Feature', properties: { name: 'Mille Lacs Band of Ojibwe', location: 'Onamia, MN', state: 'Minnesota', nation: 'Ojibwe (Chippewa)', status: 'Federally Recognized', url: 'https://www.millelacsband.com' }, geometry: { type: 'Point', coordinates: [-93.667, 46.073] } },
+                { type: 'Feature', properties: { name: 'Prairie Island Indian Community', location: 'Welch, MN', state: 'Minnesota', nation: 'Dakota (Sioux)', status: 'Federally Recognized', url: 'https://www.prairieisland.org' }, geometry: { type: 'Point', coordinates: [-92.617, 44.617] } },
+                { type: 'Feature', properties: { name: 'Red Lake Nation', location: 'Red Lake, MN', state: 'Minnesota', nation: 'Ojibwe (Chippewa)', status: 'Federally Recognized', url: 'https://www.redlakenation.org' }, geometry: { type: 'Point', coordinates: [-95.014, 47.877] } },
+                { type: 'Feature', properties: { name: 'Shakopee Mdewakanton Sioux Community', location: 'Prior Lake, MN', state: 'Minnesota', nation: 'Dakota (Sioux)', status: 'Federally Recognized', url: 'https://www.shakopeedakota.org' }, geometry: { type: 'Point', coordinates: [-93.535, 44.773] } },
+                { type: 'Feature', properties: { name: 'Upper Sioux Community', location: 'Granite Falls, MN', state: 'Minnesota', nation: 'Dakota (Sioux)', status: 'Federally Recognized', url: 'https://uppersiouxcommunity-nsn.gov' }, geometry: { type: 'Point', coordinates: [-95.476, 44.763] } },
+                { type: 'Feature', properties: { name: 'White Earth Nation', location: 'White Earth, MN', state: 'Minnesota', nation: 'Ojibwe (Chippewa)', status: 'Federally Recognized', url: 'https://www.whiteearth.com' }, geometry: { type: 'Point', coordinates: [-95.836, 47.123] } }
+            ]
+        };
 
         /* ─── Map ─────────────────────────────── */
         mapboxgl.accessToken = 'pk.eyJ1IjoicnlsZWUtbGFsb25kZSIsImEiOiJjbWxheWJ5OXYwYjY0M2RxMmh1NDR5MjRxIn0.C9DGK_0soHehFbajEFkyoA';
@@ -1039,104 +729,41 @@
         const map = new mapboxgl.Map({
             container: 'map',
             style: 'mapbox://styles/mapbox/light-v11',
-            center: [-86.25, 40],
-            zoom: 4,
+            center: [-89.5, 45.5],
+            zoom: 5.2,
         });
 
         map.addControl(new mapboxgl.NavigationControl(), 'top-right');
 
+        /* ── Region polygons ──────────────────── */
         const upMichiganRegion = {
             type: 'FeatureCollection',
-            features: [{
-                type: 'Feature',
-                properties: {
-                    name: 'Sault Tribe of Chippewa Indians',
-                    counties: 'Alger, Chippewa, Delta, Luce, Mackinac, Marquette, Schoolcraft',
-                    region: 'Great Lakes / Midwest'
-                },
-                geometry: {
-                    type: 'Polygon',
-                    coordinates: [[
-                        [-87.60, 46.98], [-87.55, 46.90], [-87.42, 46.82], [-87.35, 46.68],
-                        [-87.10, 46.60], [-86.82, 46.62], [-86.65, 46.57], [-86.35, 46.60],
-                        [-86.00, 46.68], [-85.75, 46.68], [-85.52, 46.66], [-85.28, 46.70],
-                        [-85.02, 46.78], [-84.82, 46.88], [-84.65, 46.93], [-84.50, 46.90],
-                        [-84.37, 46.75], [-84.37, 46.49], [-84.28, 46.35], [-84.12, 46.20],
-                        [-84.08, 46.05], [-84.25, 45.95], [-84.55, 45.88], [-84.73, 45.82],
-                        [-85.05, 45.73], [-85.30, 45.72], [-85.60, 45.78], [-85.88, 45.74],
-                        [-86.20, 45.70], [-86.55, 45.65], [-86.90, 45.62], [-87.08, 45.62],
-                        [-87.18, 45.70], [-87.22, 45.90], [-87.22, 46.08], [-87.42, 46.10],
-                        [-87.55, 46.20], [-87.60, 46.50], [-87.60, 46.98]
-                    ]]
-                }
-            }]
+            features: [{ type: 'Feature', properties: { name: 'Sault Tribe of Chippewa Indians', counties: 'Alger, Chippewa, Delta, Luce, Mackinac, Marquette, Schoolcraft', region: 'Great Lakes / Midwest' }, geometry: { type: 'Polygon', coordinates: [[ [-87.60,46.98],[-87.55,46.90],[-87.42,46.82],[-87.35,46.68],[-87.10,46.60],[-86.82,46.62],[-86.65,46.57],[-86.35,46.60],[-86.00,46.68],[-85.75,46.68],[-85.52,46.66],[-85.28,46.70],[-85.02,46.78],[-84.82,46.88],[-84.65,46.93],[-84.50,46.90],[-84.37,46.75],[-84.37,46.49],[-84.28,46.35],[-84.12,46.20],[-84.08,46.05],[-84.25,45.95],[-84.55,45.88],[-84.73,45.82],[-85.05,45.73],[-85.30,45.72],[-85.60,45.78],[-85.88,45.74],[-86.20,45.70],[-86.55,45.65],[-86.90,45.62],[-87.08,45.62],[-87.18,45.70],[-87.22,45.90],[-87.22,46.08],[-87.42,46.10],[-87.55,46.20],[-87.60,46.50],[-87.60,46.98] ]] } }]
         };
 
         const gogebicRegion = {
             type: 'FeatureCollection',
-            features: [{
-                type: 'Feature',
-                properties: {
-                    name: 'Lac Vieux Desert Band of Lake Superior Chippewa Indians',
-                    counties: 'Gogebic',
-                    region: 'Great Lakes / Midwest'
-                },
-                geometry: {
-                    type: 'Polygon',
-                    coordinates: [[
-                        [-90.42, 46.88], [-90.20, 46.84], [-89.85, 46.78], [-89.50, 46.70],
-                        [-89.10, 46.58], [-89.04, 46.07], [-89.50, 46.07], [-90.00, 46.07],
-                        [-90.42, 46.07], [-90.42, 46.88]
-                    ]]
-                }
-            }]
+            features: [{ type: 'Feature', properties: { name: 'Lac Vieux Desert Band of Lake Superior Chippewa Indians', counties: 'Gogebic', region: 'Great Lakes / Midwest' }, geometry: { type: 'Polygon', coordinates: [[ [-90.42,46.88],[-90.20,46.84],[-89.85,46.78],[-89.50,46.70],[-89.10,46.58],[-89.04,46.07],[-89.50,46.07],[-90.00,46.07],[-90.42,46.07],[-90.42,46.88] ]] } }]
         };
 
         const menomineeDeltaRegion = {
             type: 'FeatureCollection',
-            features: [{
-                type: 'Feature',
-                properties: {
-                    name: 'Hannahville Indian Community Area',
-                    counties: 'Menominee, Delta',
-                    region: 'Great Lakes / Midwest'
-                },
-                geometry: {
-                    type: 'Polygon',
-                    coordinates: [[
-                        [-87.22, 46.10], [-87.00, 46.10], [-86.65, 46.10], [-86.40, 46.12],
-                        [-86.25, 45.95], [-86.15, 45.80], [-86.10, 45.65], [-86.10, 45.45],
-                        [-86.25, 45.22], [-86.50, 45.08], [-87.00, 45.02], [-87.20, 45.02],
-                        [-87.55, 45.10], [-87.85, 45.28], [-88.05, 45.55], [-88.10, 45.78],
-                        [-87.95, 45.98], [-87.70, 46.05], [-87.50, 46.08], [-87.35, 46.08],
-                        [-87.22, 46.10]
-                    ]]
-                }
-            }]
+            features: [{ type: 'Feature', properties: { name: 'Hannahville Indian Community Area', counties: 'Menominee, Delta', region: 'Great Lakes / Midwest' }, geometry: { type: 'Polygon', coordinates: [[ [-87.22,46.10],[-87.00,46.10],[-86.65,46.10],[-86.40,46.12],[-86.25,45.95],[-86.15,45.80],[-86.10,45.65],[-86.10,45.45],[-86.25,45.22],[-86.50,45.08],[-87.00,45.02],[-87.20,45.02],[-87.55,45.10],[-87.85,45.28],[-88.05,45.55],[-88.10,45.78],[-87.95,45.98],[-87.70,46.05],[-87.50,46.08],[-87.35,46.08],[-87.22,46.10] ]] } }]
         };
 
         map.on('load', () => {
 
             function addRegionLayer(id, geojson) {
                 map.addSource(id, { type: 'geojson', data: geojson });
-                map.addLayer({ id: id + '-fill', type: 'fill', source: id, paint: { 'fill-color': 'rgba(196, 146, 58, 0.18)', 'fill-opacity': 1 } });
-                map.addLayer({ id: id + '-outline', type: 'line', source: id, paint: { 'line-color': 'rgba(196, 146, 58, 0.90)', 'line-width': 1.5, 'line-dasharray': [3, 2] } });
-                map.addLayer({ id: id + '-hover', type: 'fill', source: id, paint: { 'fill-color': 'rgba(196, 146, 58, 0.08)', 'fill-opacity': 0 } });
-
+                map.addLayer({ id: id + '-fill',    type: 'fill', source: id, paint: { 'fill-color': 'rgba(196,146,58,0.18)', 'fill-opacity': 1 } });
+                map.addLayer({ id: id + '-outline', type: 'line', source: id, paint: { 'line-color': 'rgba(196,146,58,0.90)', 'line-width': 1.5, 'line-dasharray': [3,2] } });
+                map.addLayer({ id: id + '-hover',   type: 'fill', source: id, paint: { 'fill-color': 'rgba(196,146,58,0.08)', 'fill-opacity': 0 } });
                 map.on('click', id + '-fill', (e) => {
-                    const props = e.features[0].properties;
-                    new mapboxgl.Popup({ offset: 8 })
-                        .setLngLat(e.lngLat)
-                        .setHTML(`
-                            <div class="popup-head"><h3>${props.name}</h3></div>
-                            <div class="popup-body">
-                                <p><strong>Counties:</strong> ${props.counties}</p>
-                                <p><strong>Region:</strong> ${props.region}</p>
-                            </div>
-                        `)
+                    const p = e.features[0].properties;
+                    new mapboxgl.Popup({ offset: 8 }).setLngLat(e.lngLat)
+                        .setHTML(`<div class="popup-head"><h3>${p.name}</h3></div><div class="popup-body"><p><strong>Counties:</strong> ${p.counties}</p><p><strong>Region:</strong> ${p.region}</p></div>`)
                         .addTo(map);
                 });
-
                 map.on('mouseenter', id + '-fill', () => { map.getCanvas().style.cursor = 'pointer'; map.setPaintProperty(id + '-hover', 'fill-opacity', 1); });
                 map.on('mouseleave', id + '-fill', () => { map.getCanvas().style.cursor = ''; map.setPaintProperty(id + '-hover', 'fill-opacity', 0); });
             }
@@ -1145,33 +772,39 @@
             addRegionLayer('gogebic-region',         gogebicRegion);
             addRegionLayer('menominee-delta-region', menomineeDeltaRegion);
 
-            map.addSource('tribal-nations', {
-                type: 'geojson',
-                data: {
-                    type: 'FeatureCollection',
-                    features: [{
-                        type: 'Feature',
-                        properties: { name: 'Bay Mills Indian Community', location: 'Brimley, MI', status: 'Federally Recognized', url: 'https://baymills.org' },
-                        geometry: { type: 'Point', coordinates: [-84.5617, 46.4197] }
-                    }]
-                }
+            /* ── Tribal Nations ───────────────── */
+            map.addSource('tribal-nations', { type: 'geojson', data: tribalNationsData });
+
+            map.addLayer({
+                id: 'tribal-nations-glow', type: 'circle', source: 'tribal-nations',
+                paint: { 'circle-radius': 11, 'circle-color': 'rgba(168,68,40,0.14)', 'circle-stroke-width': 0 }
             });
 
-            map.addLayer({ id: 'tribal-nations-glow', type: 'circle', source: 'tribal-nations', paint: { 'circle-radius': 10, 'circle-color': 'rgba(168, 68, 40, 0.18)', 'circle-stroke-width': 0 } });
-            map.addLayer({ id: 'tribal-nations-dot',  type: 'circle', source: 'tribal-nations', paint: { 'circle-radius': 6, 'circle-color': '#a84428', 'circle-stroke-width': 1.5, 'circle-stroke-color': 'rgba(255,255,255,0.8)' } });
+            map.addLayer({
+                id: 'tribal-nations-dot', type: 'circle', source: 'tribal-nations',
+                paint: { 'circle-radius': 5.5, 'circle-color': '#a84428', 'circle-stroke-width': 1.5, 'circle-stroke-color': 'rgba(255,255,255,0.85)' }
+            });
 
             map.on('click', 'tribal-nations-dot', (e) => {
-                const props = e.features[0].properties;
-                new mapboxgl.Popup({ offset: 10 })
+                const p = e.features[0].properties;
+                new mapboxgl.Popup({ offset: 12 })
                     .setLngLat(e.features[0].geometry.coordinates)
                     .setHTML(`
-                        <div class="popup-head"><h3>${props.name}</h3></div>
-                        <div class="popup-body">
-                            <p><strong>Location:</strong> ${props.location}</p>
-                            <p><strong>Status:</strong> ${props.status}</p>
-                            <p style="margin-top:8px;"><a href="${props.url}" target="_blank" rel="noopener" style="color:var(--terra);font-size:0.78rem;text-decoration:none;">↗ ${props.url.replace('https://','')}</a></p>
+                        <div class="popup-head">
+                            <h3>${p.name}</h3>
+                            <div class="popup-state">${p.state}</div>
                         </div>
-                    `)
+                        <div class="popup-body">
+                            <p><strong>Location:</strong> ${p.location}</p>
+                            <p><strong>Nation:</strong> ${p.nation}</p>
+                            <p><strong>Status:</strong> ${p.status}</p>
+                            <p style="margin-top:8px;">
+                                <a href="${p.url}" target="_blank" rel="noopener"
+                                   style="color:var(--terra);font-size:0.78rem;text-decoration:none;">
+                                    ↗ ${p.url.replace('https://','').replace('http://','')}
+                                </a>
+                            </p>
+                        </div>`)
                     .addTo(map);
             });
 
