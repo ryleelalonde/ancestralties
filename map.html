@@ -24,6 +24,7 @@
             --terra-mid:   rgba(139, 58, 30, 0.30);
             --border:      rgba(15, 12, 8, 0.20);
             --sidebar-w:   300px;
+            --header-h:    52px;
 
             --c-tribal:      #a84428;
             --c-university:  #3d2e22;
@@ -46,6 +47,11 @@
 
         #map { position: absolute; inset: 0; }
 
+        /* ─── Push zoom controls below the header ─ */
+        .mapboxgl-ctrl-top-right {
+            top: calc(var(--header-h) + 12px) !important;
+        }
+
         /* ─── Header ──────────────────────────── */
         header {
             position: absolute;
@@ -55,7 +61,7 @@
             align-items: center;
             justify-content: space-between;
             padding: 0 20px 0 calc(var(--sidebar-w) + 20px);
-            height: 52px;
+            height: var(--header-h);
             background: rgba(242, 237, 230, 0.97);
             backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--border);
@@ -108,7 +114,7 @@
             font-size: 0.78rem;
             letter-spacing: 0.06em;
             text-transform: uppercase;
-            color: var(--ink-muted);   /* inactive by default */
+            color: var(--ink-muted);
             background: none;
             border: none;
             padding: 5px 10px;
@@ -122,7 +128,6 @@
 
         .nav-dropdown-trigger:hover { color: var(--ink); background: var(--parchment-2); }
 
-        /* Active = a child page is current */
         .nav-dropdown-trigger.active {
             color: var(--terra);
             background: var(--terra-light);
@@ -154,7 +159,7 @@
             border: 1px solid var(--border);
             border-radius: 4px;
             box-shadow: 0 4px 16px rgba(15,12,8,0.12);
-            min-width: 165px;
+            min-width: 200px;
             overflow: hidden;
             display: none;
             z-index: 20;
@@ -179,10 +184,30 @@
         .nav-dropdown-menu a:hover { color: var(--ink); background: var(--parchment-2); }
         .nav-dropdown-menu a.active { color: var(--terra); background: var(--terra-light); }
 
+        .nav-dropdown-menu .menu-section-label {
+            display: block;
+            padding: 10px 14px 4px;
+            font-size: 0.62rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            border-bottom: 1px solid rgba(15,12,8,0.07);
+            cursor: default;
+            background: rgba(15,12,8,0.03);
+        }
+
+        .nav-dropdown-menu a.nested {
+            padding-left: 22px;
+            font-size: 0.75rem;
+            color: var(--ink-faint);
+        }
+
+        .nav-dropdown-menu a.nested:hover { color: var(--ink); background: var(--parchment-2); }
+
         /* ─── Sidebar ─────────────────────────── */
         aside {
             position: absolute;
-            top: 52px; left: 0; bottom: 0;
+            top: var(--header-h); left: 0; bottom: 0;
             width: var(--sidebar-w);
             background: rgba(242, 237, 230, 0.98);
             backdrop-filter: blur(14px);
@@ -203,7 +228,7 @@
         #sidebar-toggle {
             position: absolute;
             left: calc(var(--sidebar-w) + 12px);
-            top: 64px;
+            top: calc(var(--header-h) + 12px);
             z-index: 10;
             width: 28px; height: 28px;
             background: rgba(242, 237, 230, 0.98);
@@ -337,15 +362,14 @@
             padding: 0;
             border-radius: 6px;
             box-shadow: 0 4px 20px rgba(15,12,8,0.18);
-            min-width: 210px;
+            min-width: 220px;
+            max-width: 280px;
             overflow: hidden;
             font-family: 'DM Sans', sans-serif;
         }
 
         .popup-head { background: var(--terra); color: white; padding: 10px 14px; }
-
-        .popup-head h3 { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 500; margin: 0; }
-
+        .popup-head h3 { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 500; margin: 0; line-height: 1.3; }
         .popup-state { font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.75; margin-top: 2px; }
 
         .popup-body { padding: 12px 14px; font-size: 0.82rem; color: var(--ink-muted); line-height: 1.5; }
@@ -444,19 +468,18 @@
                 <div class="ethics-inner">
                     <div class="ethics-bar"></div>
                     <div class="ethics-content">
-                        <p>This map does not claim to be neutral. Mapping is always an interpretive act, and mapping Indigenous land, ancestors, and cultural relationships carries particular ethical weight. The decisions made here — what to show, what to name, how to draw connections — reflect a set of commitments to transparency, care, and Indigenous-centered framing.</p>
+                        <p>This map does not claim to be neutral. Mapping is always an interpretive act, and mapping Indigenous land, Ancestors, and cultural relationships carries particular ethical weight. The decisions made here — what to show, what to name, how to draw connections — reflect a set of commitments to transparency, care, and Indigenous-centered framing.</p>
                         <p>Connections shown between institutions and Tribal Nations do not imply ownership or resolved repatriation. They document relationships established through archaeological, historical, and Tribal evidence as recorded — evidence produced within a legal system that itself has a complicated relationship with Indigenous sovereignty.</p>
                         <div class="ethics-principles">
-                            <div class="ethics-principle"><p class="ethics-principle-title">Transparency</p><p>All data sources are cited. The methods and limitations of the dataset are disclosed in the Sources page.</p></div>
+                            <div class="ethics-principle"><p class="ethics-principle-title">Transparency</p><p>All data sources are cited. All citations are disclosed in the Sources page.</p></div>
                             <div class="ethics-principle"><p class="ethics-principle-title">Tribal Sovereignty</p><p>Tribal nations are named and treated as sovereign political entities, not ethnic categories or archaeological groupings.</p></div>
-                            <div class="ethics-principle"><p class="ethics-principle-title">Avoiding Harm</p><p>This project does not display sensitive information about individual human remains, sacred objects, or burial sites that tribes have asked to be kept private.</p></div>
+                            <div class="ethics-principle"><p class="ethics-principle-title">Avoiding Harm</p><p>This project does not display sensitive information about individual human remains, sacred objects, or burial sites.</p></div>
                             <div class="ethics-principle"><p class="ethics-principle-title">Ongoing Process</p><p>Repatriation is not presented as complete or resolved. The map reflects a snapshot of an ongoing, dynamic relationship.</p></div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <p class="modal-footer-note"><strong>Before you begin</strong> — This statement applies to all layers and connections shown on the map.</p>
                 <button class="modal-enter-btn" onclick="closeModal()">
                     Enter Map
                     <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -482,6 +505,8 @@
                 <div class="nav-dropdown-menu" id="nav-dropdown-menu">
                     <a href="about.html">About the Author</a>
                     <a href="define.html">Terminology</a>
+                    <span class="menu-section-label">The Law</span>
+                    <a href="nagpra.html" class="nested">How NAGPRA Works</a>
                 </div>
             </div>
             <a href="sources.html">Sources</a>
@@ -503,7 +528,7 @@
                 <p style="font-size:0.81rem; color:var(--ink-muted); line-height:1.65; margin-bottom:8px;">This map visualizes NAGPRA inventories and cultural affiliation claims for federally recognized Tribal Nations across Michigan, Wisconsin, and Minnesota.</p>
                 <p style="font-size:0.81rem; color:var(--ink-muted); line-height:1.65; margin-bottom:8px;"><strong style="color:var(--ink); font-weight:500;">Institutions</strong> — universities, museums, and agencies — are shown as colored dots based on type.</p>
                 <p style="font-size:0.81rem; color:var(--ink-muted); line-height:1.65; margin-bottom:8px;"><strong style="color:var(--ink); font-weight:500;">Tribal Nations</strong> are shown as terracotta dots. Dashed lines connect tribes to affiliated institutions.</p>
-                <p style="font-size:0.81rem; color:var(--ink-muted); line-height:1.65;">Click any point to see details and affiliation status.</p>
+                <p style="font-size:0.81rem; color:var(--ink-muted); line-height:1.65;">Click any dot to see details.</p>
             </div>
         </div>
 
@@ -622,7 +647,7 @@
                     </div>
                 </div>
 
-                <p class="sb-note">Click a layer name to show or hide sub-categories. Click any point on the map to view details.</p>
+                <p class="sb-note">Click a layer name to show or hide sub-categories. Click any dot on the map to view details.</p>
             </div>
         </div>
 
@@ -683,22 +708,22 @@
             features: [
                 // ── Michigan ──────────────────────────────────────────
                 { type: 'Feature', properties: { name: 'Bay Mills Indian Community', location: 'Brimley, MI', state: 'Michigan', nation: 'Ojibwe (Chippewa)', status: 'Federally Recognized', url: 'https://baymills.org' }, geometry: { type: 'Point', coordinates: [-84.5617, 46.4197] } },
-                { type: 'Feature', properties: { name: 'Grand Traverse Band of Ottawa and Chippewa Indians', location: 'Peshawbestown, MI', state: 'Michigan', nation: 'Ottawa / Ojibwe', status: 'Federally Recognized', url: 'https://gtbindians.org' }, geometry: { type: 'Point', coordinates: [-85.618, 44.947] } },
+                { type: 'Feature', properties: { name: 'Grand Traverse Band of Ottawa and Chippewa Indians', location: 'Peshawbestown, MI', state: 'Michigan', nation: 'Odawa / Ojibwe', status: 'Federally Recognized', url: 'https://gtbindians.org' }, geometry: { type: 'Point', coordinates: [-85.618, 44.947] } },
                 { type: 'Feature', properties: { name: 'Hannahville Indian Community', location: 'Wilson, MI', state: 'Michigan', nation: 'Potawatomi', status: 'Federally Recognized', url: 'https://hannahville.net' }, geometry: { type: 'Point', coordinates: [-87.274, 45.907] } },
                 { type: 'Feature', properties: { name: 'Keweenaw Bay Indian Community', location: 'Baraga, MI', state: 'Michigan', nation: 'Lake Superior Chippewa', status: 'Federally Recognized', url: 'https://www.kbic-nsn.gov' }, geometry: { type: 'Point', coordinates: [-88.490, 46.777] } },
                 { type: 'Feature', properties: { name: 'Lac Vieux Desert Band of Lake Superior Chippewa Indians', location: 'Watersmeet, MI', state: 'Michigan', nation: 'Lake Superior Chippewa', status: 'Federally Recognized', url: 'https://www.lvdtribal.com' }, geometry: { type: 'Point', coordinates: [-89.173, 46.383] } },
-                { type: 'Feature', properties: { name: 'Little River Band of Ottawa Indians', location: 'Manistee, MI', state: 'Michigan', nation: 'Ottawa (Odawa)', status: 'Federally Recognized', url: 'https://lrboi-nsn.gov' }, geometry: { type: 'Point', coordinates: [-86.324, 44.254] } },
-                { type: 'Feature', properties: { name: 'Little Traverse Bay Bands of Odawa Indians', location: 'Petoskey, MI', state: 'Michigan', nation: 'Ottawa (Odawa)', status: 'Federally Recognized', url: 'https://ltbbodawa-nsn.gov' }, geometry: { type: 'Point', coordinates: [-84.958, 45.372] } },
+                { type: 'Feature', properties: { name: 'Little River Band of Ottawa Indians', location: 'Manistee, MI', state: 'Michigan', nation: 'Odawa', status: 'Federally Recognized', url: 'https://lrboi-nsn.gov' }, geometry: { type: 'Point', coordinates: [-86.324, 44.254] } },
+                { type: 'Feature', properties: { name: 'Little Traverse Bay Bands of Odawa Indians', location: 'Petoskey, MI', state: 'Michigan', nation: 'Odawa', status: 'Federally Recognized', url: 'https://ltbbodawa-nsn.gov' }, geometry: { type: 'Point', coordinates: [-84.958, 45.372] } },
                 { type: 'Feature', properties: { name: 'Match-e-be-nash-she-wish Band of Pottawatomi Indians (Gun Lake Tribe)', location: 'Bradley, MI', state: 'Michigan', nation: 'Potawatomi', status: 'Federally Recognized', url: 'https://gunlaketribe-nsn.gov' }, geometry: { type: 'Point', coordinates: [-85.645, 42.722] } },
-                { type: 'Feature', properties: { name: 'Nottawaseppi Huron Band of the Potawatomi', location: 'Fulton, MI', state: 'Michigan', nation: 'Potawatomi', status: 'Federally Recognized', url: 'https://nhbpi.com' }, geometry: { type: 'Point', coordinates: [-85.167, 42.331] } },
+                { type: 'Feature', properties: { name: 'Nottawaseppi Huron Band of the Potawatomi', location: 'Fulton, MI', state: 'Michigan', nation: 'Potawatomi', status: 'Federally Recognized', url: 'https://nhbp-nsn.gov/' }, geometry: { type: 'Point', coordinates: [-85.167, 42.331] } },
                 { type: 'Feature', properties: { name: 'Pokagon Band of Potawatomi Indians', location: 'Dowagiac, MI', state: 'Michigan', nation: 'Potawatomi', status: 'Federally Recognized', url: 'https://www.pokagonband-nsn.gov' }, geometry: { type: 'Point', coordinates: [-86.191, 41.984] } },
-                { type: 'Feature', properties: { name: 'Saginaw Chippewa Indian Tribe of Michigan', location: 'Mount Pleasant, MI', state: 'Michigan', nation: 'Ojibwe (Chippewa)', status: 'Federally Recognized', url: 'https://www.sagchip.org' }, geometry: { type: 'Point', coordinates: [-84.741, 43.597] } },
-                { type: 'Feature', properties: { name: 'Sault Ste. Marie Tribe of Chippewa Indians', location: 'Sault Ste. Marie, MI', state: 'Michigan', nation: 'Ojibwe (Chippewa)', status: 'Federally Recognized', url: 'https://saulttribe.com' }, geometry: { type: 'Point', coordinates: [-84.349, 46.495] } },
+                { type: 'Feature', properties: { name: 'Saginaw Chippewa Indian Tribe of Michigan', location: 'Mount Pleasant, MI', state: 'Michigan', nation: 'Ojibwe', status: 'Federally Recognized', url: 'https://www.sagchip.org' }, geometry: { type: 'Point', coordinates: [-84.741, 43.597] } },
+                { type: 'Feature', properties: { name: 'Sault Ste. Marie Tribe of Chippewa Indians', location: 'Sault Ste. Marie, MI', state: 'Michigan', nation: 'Ojibwe', status: 'Federally Recognized', url: 'https://saulttribe.com' }, geometry: { type: 'Point', coordinates: [-84.349, 46.495] } },
 
                 // ── Wisconsin ─────────────────────────────────────────
                 { type: 'Feature', properties: { name: 'Bad River Band of the Lake Superior Tribe of Chippewa Indians', location: 'Odanah, WI', state: 'Wisconsin', nation: 'Lake Superior Chippewa', status: 'Federally Recognized', url: 'https://www.badriver-nsn.gov' }, geometry: { type: 'Point', coordinates: [-90.618, 46.583] } },
                 { type: 'Feature', properties: { name: 'Forest County Potawatomi Community', location: 'Crandon, WI', state: 'Wisconsin', nation: 'Potawatomi', status: 'Federally Recognized', url: 'https://www.fcpotawatomi.com' }, geometry: { type: 'Point', coordinates: [-88.761, 45.528] } },
-                { type: 'Feature', properties: { name: 'Ho-Chunk Nation', location: 'Black River Falls, WI', state: 'Wisconsin', nation: 'Ho-Chunk (Winnebago)', status: 'Federally Recognized', url: 'https://ho-chunknation.com' }, geometry: { type: 'Point', coordinates: [-90.852, 44.297] } },
+                { type: 'Feature', properties: { name: 'Ho-Chunk Nation', location: 'Black River Falls, WI', state: 'Wisconsin', nation: 'Ho-Chunk', status: 'Federally Recognized', url: 'https://ho-chunknation.com' }, geometry: { type: 'Point', coordinates: [-90.852, 44.297] } },
                 { type: 'Feature', properties: { name: 'Lac Courte Oreilles Band of Lake Superior Chippewa Indians', location: 'Hayward, WI', state: 'Wisconsin', nation: 'Lake Superior Chippewa', status: 'Federally Recognized', url: 'https://www.lco-nsn.gov' }, geometry: { type: 'Point', coordinates: [-91.233, 45.922] } },
                 { type: 'Feature', properties: { name: 'Lac du Flambeau Band of Lake Superior Chippewa Indians', location: 'Lac du Flambeau, WI', state: 'Wisconsin', nation: 'Lake Superior Chippewa', status: 'Federally Recognized', url: 'https://ldftribe.com' }, geometry: { type: 'Point', coordinates: [-89.889, 45.967] } },
                 { type: 'Feature', properties: { name: 'Menominee Indian Tribe of Wisconsin', location: 'Keshena, WI', state: 'Wisconsin', nation: 'Menominee', status: 'Federally Recognized', url: 'https://www.menominee-nsn.gov' }, geometry: { type: 'Point', coordinates: [-88.631, 44.882] } },
@@ -709,17 +734,17 @@
                 { type: 'Feature', properties: { name: 'Stockbridge-Munsee Community', location: 'Bowler, WI', state: 'Wisconsin', nation: 'Mohican / Munsee', status: 'Federally Recognized', url: 'https://www.mohican.com' }, geometry: { type: 'Point', coordinates: [-89.072, 44.839] } },
 
                 // ── Minnesota ─────────────────────────────────────────
-                { type: 'Feature', properties: { name: 'Bois Forte Band of Chippewa (Nett Lake)', location: 'Nett Lake, MN', state: 'Minnesota', nation: 'Ojibwe (Chippewa)', status: 'Federally Recognized', url: 'https://www.boisforte.com' }, geometry: { type: 'Point', coordinates: [-93.072, 47.882] } },
+                { type: 'Feature', properties: { name: 'Bois Forte Band of Chippewa (Nett Lake)', location: 'Nett Lake, MN', state: 'Minnesota', nation: 'Ojibwe', status: 'Federally Recognized', url: 'https://www.boisforte.com' }, geometry: { type: 'Point', coordinates: [-93.072, 47.882] } },
                 { type: 'Feature', properties: { name: 'Fond du Lac Band of Lake Superior Chippewa', location: 'Cloquet, MN', state: 'Minnesota', nation: 'Lake Superior Chippewa', status: 'Federally Recognized', url: 'https://www.fdlrez.com' }, geometry: { type: 'Point', coordinates: [-92.536, 46.716] } },
                 { type: 'Feature', properties: { name: 'Grand Portage Band of Lake Superior Chippewa', location: 'Grand Portage, MN', state: 'Minnesota', nation: 'Lake Superior Chippewa', status: 'Federally Recognized', url: 'https://www.grandportage.com' }, geometry: { type: 'Point', coordinates: [-89.678, 47.964] } },
-                { type: 'Feature', properties: { name: 'Leech Lake Band of Ojibwe', location: 'Cass Lake, MN', state: 'Minnesota', nation: 'Ojibwe (Chippewa)', status: 'Federally Recognized', url: 'https://www.llojibwe.org' }, geometry: { type: 'Point', coordinates: [-94.569, 47.378] } },
-                { type: 'Feature', properties: { name: 'Lower Sioux Indian Community', location: 'Morton, MN', state: 'Minnesota', nation: 'Dakota (Sioux)', status: 'Federally Recognized', url: 'https://www.lowersioux.com' }, geometry: { type: 'Point', coordinates: [-94.978, 44.553] } },
-                { type: 'Feature', properties: { name: 'Mille Lacs Band of Ojibwe', location: 'Onamia, MN', state: 'Minnesota', nation: 'Ojibwe (Chippewa)', status: 'Federally Recognized', url: 'https://www.millelacsband.com' }, geometry: { type: 'Point', coordinates: [-93.667, 46.073] } },
-                { type: 'Feature', properties: { name: 'Prairie Island Indian Community', location: 'Welch, MN', state: 'Minnesota', nation: 'Dakota (Sioux)', status: 'Federally Recognized', url: 'https://www.prairieisland.org' }, geometry: { type: 'Point', coordinates: [-92.617, 44.617] } },
-                { type: 'Feature', properties: { name: 'Red Lake Nation', location: 'Red Lake, MN', state: 'Minnesota', nation: 'Ojibwe (Chippewa)', status: 'Federally Recognized', url: 'https://www.redlakenation.org' }, geometry: { type: 'Point', coordinates: [-95.014, 47.877] } },
-                { type: 'Feature', properties: { name: 'Shakopee Mdewakanton Sioux Community', location: 'Prior Lake, MN', state: 'Minnesota', nation: 'Dakota (Sioux)', status: 'Federally Recognized', url: 'https://www.shakopeedakota.org' }, geometry: { type: 'Point', coordinates: [-93.535, 44.773] } },
-                { type: 'Feature', properties: { name: 'Upper Sioux Community', location: 'Granite Falls, MN', state: 'Minnesota', nation: 'Dakota (Sioux)', status: 'Federally Recognized', url: 'https://uppersiouxcommunity-nsn.gov' }, geometry: { type: 'Point', coordinates: [-95.476, 44.763] } },
-                { type: 'Feature', properties: { name: 'White Earth Nation', location: 'White Earth, MN', state: 'Minnesota', nation: 'Ojibwe (Chippewa)', status: 'Federally Recognized', url: 'https://www.whiteearth.com' }, geometry: { type: 'Point', coordinates: [-95.836, 47.123] } }
+                { type: 'Feature', properties: { name: 'Leech Lake Band of Ojibwe', location: 'Cass Lake, MN', state: 'Minnesota', nation: 'Ojibwe', status: 'Federally Recognized', url: 'https://www.llojibwe.org' }, geometry: { type: 'Point', coordinates: [-94.569, 47.378] } },
+                { type: 'Feature', properties: { name: 'Lower Sioux Indian Community', location: 'Morton, MN', state: 'Minnesota', nation: 'Dakota', status: 'Federally Recognized', url: 'https://www.lowersioux.com' }, geometry: { type: 'Point', coordinates: [-94.978, 44.553] } },
+                { type: 'Feature', properties: { name: 'Mille Lacs Band of Ojibwe', location: 'Onamia, MN', state: 'Minnesota', nation: 'Ojibwe', status: 'Federally Recognized', url: 'https://www.millelacsband.com' }, geometry: { type: 'Point', coordinates: [-93.667, 46.073] } },
+                { type: 'Feature', properties: { name: 'Prairie Island Indian Community', location: 'Welch, MN', state: 'Minnesota', nation: 'Dakota', status: 'Federally Recognized', url: 'https://www.prairieisland.org' }, geometry: { type: 'Point', coordinates: [-92.617, 44.617] } },
+                { type: 'Feature', properties: { name: 'Red Lake Nation', location: 'Red Lake, MN', state: 'Minnesota', nation: 'Ojibwe', status: 'Federally Recognized', url: 'https://www.redlakenation.org' }, geometry: { type: 'Point', coordinates: [-95.014, 47.877] } },
+                { type: 'Feature', properties: { name: 'Shakopee Mdewakanton Sioux Community', location: 'Prior Lake, MN', state: 'Minnesota', nation: 'Dakota', status: 'Federally Recognized', url: 'https://www.shakopeedakota.org' }, geometry: { type: 'Point', coordinates: [-93.535, 44.773] } },
+                { type: 'Feature', properties: { name: 'Upper Sioux Community', location: 'Granite Falls, MN', state: 'Minnesota', nation: 'Dakota', status: 'Federally Recognized', url: 'https://uppersiouxcommunity-nsn.gov' }, geometry: { type: 'Point', coordinates: [-95.476, 44.763] } },
+                { type: 'Feature', properties: { name: 'White Earth Nation', location: 'White Earth, MN', state: 'Minnesota', nation: 'Ojibwe', status: 'Federally Recognized', url: 'https://www.whiteearth.com' }, geometry: { type: 'Point', coordinates: [-95.836, 47.123] } }
             ]
         };
 
@@ -731,9 +756,40 @@
             style: 'mapbox://styles/mapbox/light-v11',
             center: [-89.5, 45.5],
             zoom: 5.2,
+            // Offset the visible viewport so the header and sidebar don't obscure content
+            padding: { top: 52, left: 300, right: 0, bottom: 0 }
         });
 
         map.addControl(new mapboxgl.NavigationControl(), 'top-right');
+
+        /* ─── Hide all basemap labels ─────────── */
+        map.on('style.load', () => {
+            map.getStyle().layers.forEach(layer => {
+                if (layer.type === 'symbol') {
+                    map.setLayoutProperty(layer.id, 'visibility', 'none');
+                }
+            });
+        });
+
+        /* ─── Single shared tribal popup ─────────
+           One instance reused across all dots so
+           only one popup is ever open at a time.   */
+        const tribalPopup = new mapboxgl.Popup({
+            closeButton:  true,
+            closeOnClick: false,
+            maxWidth:     '280px',
+            offset: {
+                'top':          [0,  10],
+                'top-left':     [0,  10],
+                'top-right':    [0,  10],
+                'bottom':       [0, -14],
+                'bottom-left':  [0, -14],
+                'bottom-right': [0, -14],
+                'left':         [10,   0],
+                'right':        [-10,  0],
+                'center':       [0,    0]
+            }
+        });
 
         /* ── Region polygons ──────────────────── */
         const upMichiganRegion = {
@@ -753,19 +809,38 @@
 
         map.on('load', () => {
 
+            /* ── Region layers ────────────────── */
             function addRegionLayer(id, geojson) {
                 map.addSource(id, { type: 'geojson', data: geojson });
                 map.addLayer({ id: id + '-fill',    type: 'fill', source: id, paint: { 'fill-color': 'rgba(196,146,58,0.18)', 'fill-opacity': 1 } });
                 map.addLayer({ id: id + '-outline', type: 'line', source: id, paint: { 'line-color': 'rgba(196,146,58,0.90)', 'line-width': 1.5, 'line-dasharray': [3,2] } });
                 map.addLayer({ id: id + '-hover',   type: 'fill', source: id, paint: { 'fill-color': 'rgba(196,146,58,0.08)', 'fill-opacity': 0 } });
+
+                // Only open a region popup if no tribal dot sits under the click
                 map.on('click', id + '-fill', (e) => {
+                    const tribalHit = map.queryRenderedFeatures(e.point, { layers: ['tribal-nations-dot'] });
+                    if (tribalHit.length > 0) return;
+
                     const p = e.features[0].properties;
-                    new mapboxgl.Popup({ offset: 8 }).setLngLat(e.lngLat)
-                        .setHTML(`<div class="popup-head"><h3>${p.name}</h3></div><div class="popup-body"><p><strong>Counties:</strong> ${p.counties}</p><p><strong>Region:</strong> ${p.region}</p></div>`)
+                    new mapboxgl.Popup({ offset: 8 })
+                        .setLngLat(e.lngLat)
+                        .setHTML(`
+                            <div class="popup-head"><h3>${p.name}</h3></div>
+                            <div class="popup-body">
+                                <p><strong>Counties:</strong> ${p.counties}</p>
+                                <p><strong>Region:</strong> ${p.region}</p>
+                            </div>`)
                         .addTo(map);
                 });
-                map.on('mouseenter', id + '-fill', () => { map.getCanvas().style.cursor = 'pointer'; map.setPaintProperty(id + '-hover', 'fill-opacity', 1); });
-                map.on('mouseleave', id + '-fill', () => { map.getCanvas().style.cursor = ''; map.setPaintProperty(id + '-hover', 'fill-opacity', 0); });
+
+                map.on('mouseenter', id + '-fill', () => {
+                    map.getCanvas().style.cursor = 'pointer';
+                    map.setPaintProperty(id + '-hover', 'fill-opacity', 1);
+                });
+                map.on('mouseleave', id + '-fill', () => {
+                    map.getCanvas().style.cursor = '';
+                    map.setPaintProperty(id + '-hover', 'fill-opacity', 0);
+                });
             }
 
             addRegionLayer('up-michigan-region',    upMichiganRegion);
@@ -782,13 +857,24 @@
 
             map.addLayer({
                 id: 'tribal-nations-dot', type: 'circle', source: 'tribal-nations',
-                paint: { 'circle-radius': 5.5, 'circle-color': '#a84428', 'circle-stroke-width': 1.5, 'circle-stroke-color': 'rgba(255,255,255,0.85)' }
+                paint: {
+                    'circle-radius': 5.5,
+                    'circle-color': '#a84428',
+                    'circle-stroke-width': 1.5,
+                    'circle-stroke-color': 'rgba(255,255,255,0.85)'
+                }
             });
 
+            // Tribal dot click — reuse the single popup so only one is ever open
             map.on('click', 'tribal-nations-dot', (e) => {
-                const p = e.features[0].properties;
-                new mapboxgl.Popup({ offset: 12 })
-                    .setLngLat(e.features[0].geometry.coordinates)
+                // Stop the click from falling through to any polygon layer below
+                e.originalEvent.stopPropagation();
+
+                const coords = e.features[0].geometry.coordinates.slice();
+                const p      = e.features[0].properties;
+
+                tribalPopup
+                    .setLngLat(coords)
                     .setHTML(`
                         <div class="popup-head">
                             <h3>${p.name}</h3>

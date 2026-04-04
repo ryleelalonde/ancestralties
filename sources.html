@@ -91,7 +91,7 @@
         nav a:hover { color: var(--ink); background: var(--parchment-2); }
         nav a.active { color: var(--terra); background: var(--terra-light); }
 
-         /* ─── Nav dropdown ────────────────────── */
+          /* ─── Nav dropdown ────────────────────── */
         .nav-dropdown { position: relative; }
 
         .nav-dropdown-trigger {
@@ -99,8 +99,8 @@
             font-size: 0.78rem;
             letter-spacing: 0.06em;
             text-transform: uppercase;
-            color: var(--terra);
-            background: var(--terra-light);
+            color: var(--ink-muted);
+            background: transparent;
             border: none;
             padding: 5px 10px;
             border-radius: 3px;
@@ -111,8 +111,8 @@
             transition: color 0.15s, background 0.15s;
         }
 
-        .nav-dropdown-trigger:hover { background: var(--terra-mid); }
-        .nav-dropdown-trigger.open  { background: var(--terra-mid); }
+        .nav-dropdown-trigger:hover { color: var(--ink); background: var(--parchment-2); }
+        .nav-dropdown-trigger.open  { color: var(--ink); background: var(--parchment-2); }
 
         .nav-dropdown-caret {
             font-size: 8px;
@@ -130,7 +130,7 @@
             border: 1px solid var(--border);
             border-radius: 4px;
             box-shadow: 0 4px 16px rgba(15,12,8,0.12);
-            min-width: 160px;
+            min-width: 200px;
             overflow: hidden;
             display: none;
             z-index: 20;
@@ -154,6 +154,26 @@
         .nav-dropdown-menu a:last-child { border-bottom: none; }
         .nav-dropdown-menu a:hover { color: var(--ink); background: var(--parchment-2); }
         .nav-dropdown-menu a.active { color: var(--terra); background: var(--terra-light); }
+
+        .nav-dropdown-menu .menu-section-label {
+            display: block;
+            padding: 10px 14px 4px;
+            font-size: 0.62rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            border-bottom: 1px solid rgba(15,12,8,0.07);
+            cursor: default;
+            background: rgba(15,12,8,0.03);
+        }
+
+        .nav-dropdown-menu a.nested {
+            padding-left: 22px;
+            font-size: 0.75rem;
+            color: var(--ink-faint);
+        }
+
+        .nav-dropdown-menu a.nested:hover { color: var(--ink); background: var(--parchment-2); }
 
 
         /* ─── Main content ────────────────────── */
@@ -375,12 +395,12 @@
 </head>
 <body>
 
-    <header>
+   <header>
         <div class="header-title">
             <h1>Ancestral Ties</h1>
             <span>A Mapping Project</span>
         </div>
-         <nav>
+        <nav>
             <a href="index.html">Home</a>
             <a href="map.html">Map</a>
             <div class="nav-dropdown">
@@ -390,6 +410,8 @@
                 <div class="nav-dropdown-menu" id="nav-dropdown-menu">
                     <a href="about.html">About the Author</a>
                     <a href="define.html">Terminology</a>
+                    <span class="menu-section-label">The Law</span>
+                    <a href="nagpra.html" class="nested">How NAGPRA Works</a>
                 </div>
             </div>
             <a href="sources.html" class="active">Sources</a>
@@ -531,14 +553,6 @@
                     <div class="src-content">
                         <div class="src-tags"><span class="src-tag">Book</span><span class="src-tag">Epistemology</span></div>
                         <p class="src-citation">Cajete, Gregory. <em>Native Science: Natural Laws of Interdependence.</em> Santa Fe: Clear Light Publishers, 2000.</p>
-                    </div>
-                </div>
-
-                <div class="src-entry" data-terms="Kroeber cultural natural areas native north america 1939 culture area anthropology">
-                    <div class="src-bar"></div>
-                    <div class="src-content">
-                        <div class="src-tags"><span class="src-tag">Book</span><span class="src-tag">Mapping</span><span class="src-tag">Anthropology</span></div>
-                        <p class="src-citation">Kroeber, Alfred L. <em>Cultural and Natural Areas of Native North America.</em> Berkeley: University of California Press, 1939.</p>
                     </div>
                 </div>
 
