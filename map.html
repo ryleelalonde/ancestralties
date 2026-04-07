@@ -26,10 +26,10 @@
             --sidebar-w:   300px;
             --header-h:    52px;
 
-            --c-tribal:      #a84428;
-            --c-university:  #3d2e22;
-            --c-museum:      #7a5530;
-            --c-state:       #556645;
+            --c-tribal:    #a84428;
+            --c-university:#3d2e22;
+            --c-museum:    #7a5530;
+            --c-state:     #556645;
         }
 
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -43,7 +43,7 @@
             display: flex; align-items: center; justify-content: space-between;
             padding: 0 20px 0 calc(var(--sidebar-w) + 20px);
             height: var(--header-h);
-            background: rgba(242, 237, 230, 0.97);
+            background: rgba(242,237,230,0.97);
             backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--border);
             transition: padding-left 0.3s ease;
@@ -64,7 +64,7 @@
         .nav-dropdown-trigger.open  { color: var(--ink); background: var(--parchment-2); }
         .nav-dropdown-caret { font-size: 8px; transition: transform 0.2s; opacity: 0.7; }
         .nav-dropdown-trigger.open .nav-dropdown-caret { transform: rotate(180deg); }
-        .nav-dropdown-menu { position: absolute; top: calc(100% + 6px); right: 0; background: rgba(242, 237, 230, 0.99); border: 1px solid var(--border); border-radius: 4px; box-shadow: 0 4px 16px rgba(15,12,8,0.12); min-width: 200px; overflow: hidden; display: none; z-index: 20; }
+        .nav-dropdown-menu { position: absolute; top: calc(100% + 6px); right: 0; background: rgba(242,237,230,0.99); border: 1px solid var(--border); border-radius: 4px; box-shadow: 0 4px 16px rgba(15,12,8,0.12); min-width: 200px; overflow: hidden; display: none; z-index: 20; }
         .nav-dropdown-menu.open { display: block; }
         .nav-dropdown-menu a { display: block; padding: 8px 14px; font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; color: var(--ink-muted); border-radius: 0; transition: color 0.12s, background 0.12s; border-bottom: 1px solid rgba(15,12,8,0.07); }
         .nav-dropdown-menu a:last-child { border-bottom: none; }
@@ -75,12 +75,12 @@
         .nav-dropdown-menu a.nested:hover { color: var(--ink); background: var(--parchment-2); }
 
         /* ─── Sidebar ─────────────────────────── */
-        aside { position: absolute; top: var(--header-h); left: 0; bottom: 0; width: var(--sidebar-w); background: rgba(242, 237, 230, 0.98); backdrop-filter: blur(14px); border-right: 1px solid var(--border); overflow-y: auto; z-index: 9; padding: 20px 18px; transition: transform 0.3s cubic-bezier(.4,0,.2,1); scrollbar-width: thin; scrollbar-color: var(--parchment-3) transparent; }
+        aside { position: absolute; top: var(--header-h); left: 0; bottom: 0; width: var(--sidebar-w); background: rgba(242,237,230,0.98); backdrop-filter: blur(14px); border-right: 1px solid var(--border); overflow-y: auto; z-index: 9; padding: 20px 18px; transition: transform 0.3s cubic-bezier(.4,0,.2,1); scrollbar-width: thin; scrollbar-color: var(--parchment-3) transparent; }
         aside::-webkit-scrollbar { width: 4px; }
         aside::-webkit-scrollbar-thumb { background: var(--parchment-3); border-radius: 2px; }
         .sidebar-hidden aside { transform: translateX(-100%); }
 
-        #sidebar-toggle { position: absolute; left: calc(var(--sidebar-w) + 12px); top: calc(var(--header-h) + 12px); z-index: 10; width: 28px; height: 28px; background: rgba(242, 237, 230, 0.98); border: 1px solid var(--border); border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 1px 6px rgba(15,12,8,0.14); transition: left 0.3s cubic-bezier(.4,0,.2,1), background 0.15s; }
+        #sidebar-toggle { position: absolute; left: calc(var(--sidebar-w) + 12px); top: calc(var(--header-h) + 12px); z-index: 10; width: 28px; height: 28px; background: rgba(242,237,230,0.98); border: 1px solid var(--border); border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 1px 6px rgba(15,12,8,0.14); transition: left 0.3s cubic-bezier(.4,0,.2,1), background 0.15s; }
         #sidebar-toggle:hover { background: var(--parchment-2); }
         .sidebar-hidden #sidebar-toggle { left: 12px; }
         .toggle-icon { width: 12px; height: 9px; display: flex; flex-direction: column; justify-content: space-between; }
@@ -91,8 +91,30 @@
         .sb-section-head h2 { font-family: 'Cormorant Garamond', serif; font-size: 0.95rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink); }
         .sb-caret { font-size: 9px; color: var(--ink-faint); transition: transform 0.2s; line-height: 1; }
         .sb-caret.closed { transform: rotate(-90deg); }
-        .sb-body { overflow: hidden; transition: max-height 0.3s ease, opacity 0.25s ease; max-height: 900px; opacity: 1; }
+        .sb-body { overflow: hidden; transition: max-height 0.35s ease, opacity 0.28s ease; max-height: 900px; opacity: 1; }
         .sb-body.closed { max-height: 0; opacity: 0; }
+
+        /* ─── Tribe Selector ──────────────────── */
+        .state-picker-wrap { margin-bottom: 14px; }
+        .state-picker-label { font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-faint); font-weight: 500; margin-bottom: 8px; display: block; }
+        .state-select-wrap { position: relative; }
+        .state-select-wrap::after { content: '▾'; position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-size: 9px; color: var(--ink-faint); pointer-events: none; }
+        #state-select { width: 100%; appearance: none; -webkit-appearance: none; background: white; border: 1px solid var(--border); border-radius: 4px; padding: 8px 28px 8px 10px; font-family: 'DM Sans', sans-serif; font-size: 0.82rem; color: var(--ink-muted); cursor: pointer; transition: border-color 0.15s, background 0.15s; }
+        #state-select:hover { background: var(--parchment-2); border-color: rgba(15,12,8,0.35); }
+        #state-select:focus { outline: none; border-color: var(--terra); }
+        .state-count { font-size: 0.7rem; color: var(--ink-faint); margin-top: 5px; display: block; }
+        .state-count strong { color: var(--terra); font-weight: 500; }
+        .state-data-notice { display: none; background: var(--parchment-2); border: 1px solid var(--border); border-left: 3px solid var(--ink-faint); border-radius: 0 3px 3px 0; padding: 9px 12px; font-size: 0.76rem; color: var(--ink-faint); line-height: 1.5; margin-top: 10px; }
+        .state-data-notice.visible { display: block; }
+
+        /* ─── Tribe selector (new) ────────────── */
+        .tribe-select-wrap { position: relative; margin-top: 12px; }
+        .tribe-select-wrap::after { content: '▾'; position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-size: 9px; color: var(--ink-faint); pointer-events: none; }
+        #tribe-select { width: 100%; appearance: none; -webkit-appearance: none; background: white; border: 1px solid var(--border); border-radius: 4px; padding: 8px 28px 8px 10px; font-family: 'DM Sans', sans-serif; font-size: 0.82rem; color: var(--ink-muted); cursor: pointer; transition: border-color 0.15s, background 0.15s; }
+        #tribe-select:hover { background: var(--parchment-2); border-color: rgba(15,12,8,0.35); }
+        #tribe-select:focus { outline: none; border-color: var(--terra); }
+        .tribe-notice-count { font-size: 0.7rem; color: var(--ink-faint); margin-top: 5px; display: block; }
+        .tribe-notice-count strong { color: var(--terra); font-weight: 500; }
 
         /* ─── Legend ──────────────────────────── */
         .legend-group { margin-bottom: 14px; }
@@ -104,7 +126,7 @@
         .legend-dot.tribal    { background: var(--c-tribal); box-shadow: 0 0 0 3px rgba(168,68,40,0.18); }
         .legend-dot.university { background: var(--c-university); }
         .legend-dot.museum    { background: var(--c-museum); }
-        .legend-dot.state     { background: var(--c-state); }
+        .legend-dot.state-dot { background: var(--c-state); }
         .legend-swatch { width: 12px; height: 10px; flex-shrink: 0; border-radius: 2px; }
         .legend-swatch.cultural { background: rgba(196,146,58,0.35); border: 1.5px solid rgba(196,146,58,0.9); }
         .legend-divider { border: none; border-top: 1px solid var(--border); margin: 10px 0; }
@@ -199,7 +221,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <span class="modal-footer-note">Data compiled from Federal Register notices (2000–2026).</span>
+                <span class="modal-footer-note">Data compiled from Federal Register notices (2020–2026).</span>
                 <button class="modal-enter-btn" onclick="closeModal()">
                     Enter Map
                     <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7h12M7 1l6 6-6 6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -236,18 +258,59 @@
     </button>
 
     <aside id="sidebar">
+
+        <!-- ── Tribal State Filter ──────────────── -->
+        <div class="sb-section">
+            <div class="sb-section-head" onclick="toggleSection('tribes')">
+                <h2>Tribes</h2>
+                <span class="sb-caret" id="tribes-caret">▾</span>
+            </div>
+            <div class="sb-body" id="tribes-body">
+                <div class="state-picker-wrap">
+                    <span class="state-picker-label">Filter by State</span>
+                    <div class="state-select-wrap">
+                        <select id="state-select" onchange="onStateChange(this.value)">
+                            <option value="Michigan">Michigan</option>
+                            <option value="Wisconsin">Wisconsin</option>
+                            <option value="Minnesota">Minnesota</option>
+                            <option value="all">All States</option>
+                        </select>
+                    </div>
+                    <span class="state-count" id="state-count"><strong>12</strong> federally recognized tribes</span>
+                    <div class="state-data-notice" id="state-data-notice">
+                        NAGPRA inventory data for this state is not yet included in this dataset. Showing tribal nation locations only.
+                    </div>
+                </div>
+
+                <!-- Tribe selector — only shown when state has data -->
+                <div id="tribe-selector-wrap" class="state-picker-wrap" style="border-top: 1px solid var(--border); padding-top: 12px;">
+                    <span class="state-picker-label">Affiliated Tribe (NAGPRA)</span>
+                    <div class="tribe-select-wrap">
+                        <select id="tribe-select" onchange="onTribeChange(this.value)">
+                            <option value="bay-mills">Bay Mills Indian Community</option>
+                            <option value="hannahville">Hannahville Indian Community</option>
+                            <option value="gun-lake">Match-e-be-nash-she-wish Band (Gun Lake)</option>
+                        </select>
+                    </div>
+                    <span class="tribe-notice-count" id="tribe-notice-count"><strong>106</strong> Federal Register notices</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── How to Read ──────────────────────── -->
         <div class="sb-section">
             <div class="sb-section-head" onclick="toggleSection('how-to-read')">
                 <h2>How to Read</h2>
                 <span class="sb-caret" id="how-to-read-caret">▾</span>
             </div>
             <div class="sb-body" id="how-to-read-body">
-                <p style="font-size:0.81rem;color:var(--ink-muted);line-height:1.65;margin-bottom:8px;">This map visualizes NAGPRA inventory completion notices connecting institutions to the <strong style="color:var(--ink);font-weight:500;">Bay Mills Indian Community</strong> (2000–2026).</p>
-                <p style="font-size:0.81rem;color:var(--ink-muted);line-height:1.65;margin-bottom:8px;">Arc lines connect each holding institution to the affiliated Tribal dot. <strong style="color:var(--ink);font-weight:500;">Thicker arcs</strong> indicate more Federal Register notices from that institution.</p>
-                <p style="font-size:0.81rem;color:var(--ink-muted);line-height:1.65;">Click any dot to see details and notice count.</p>
+                <p style="font-size:0.81rem;color:var(--ink-muted);line-height:1.65;margin-bottom:8px;">This map visualizes NAGPRA inventory completion notices connecting holding institutions to affiliated Tribal Nations (2020–2026).</p>
+                <p style="font-size:0.81rem;color:var(--ink-muted);line-height:1.65;margin-bottom:8px;">Arc lines connect each institution to its affiliated Tribal dot. <strong style="color:var(--ink);font-weight:500;">Thicker arcs</strong> = more Federal Register notices from that institution.</p>
+                <p style="font-size:0.81rem;color:var(--ink-muted);line-height:1.65;">Click any dot to see details and notice count. Use the tribe selector above to switch between affiliated nations.</p>
             </div>
         </div>
 
+        <!-- ── Legend ──────────────────────────── -->
         <div class="sb-section">
             <div class="sb-section-head" onclick="toggleSection('legend')">
                 <h2>Legend</h2>
@@ -256,23 +319,23 @@
             <div class="sb-body" id="legend-body">
                 <div class="legend-group">
                     <div class="legend-group-label">Tribal Nations</div>
-                    <div class="legend-item"><div class="legend-dot tribal"></div> Federally Recognized Tribal Nation</div>
+                    <div class="legend-item"><div class="legend-dot tribal"></div> Federally Recognized Nation</div>
                 </div>
                 <hr class="legend-divider">
-                <div class="legend-group">
+                <div class="legend-group" id="legend-institutions">
                     <div class="legend-group-label">Institutions (NAGPRA Inventory)</div>
                     <div class="legend-item"><div class="legend-dot university"></div> University / College</div>
                     <div class="legend-item"><div class="legend-dot museum"></div> Museum</div>
-                    <div class="legend-item"><div class="legend-dot state"></div> State / Government Agency</div>
+                    <div class="legend-item"><div class="legend-dot state-dot"></div> State / Gov Agency</div>
                 </div>
-                <hr class="legend-divider">
-                <div class="legend-group">
+                <hr class="legend-divider" id="legend-arc-divider">
+                <div class="legend-group" id="legend-arcs">
                     <div class="legend-group-label">Affiliation Arcs</div>
                     <div class="legend-item">
                         <svg width="28" height="14" viewBox="0 0 28 14" style="flex-shrink:0;">
-                            <path d="M 2 11 Q 14 1 26 11" stroke="rgba(176,120,56,0.6)" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+                            <path d="M 2 11 Q 14 1 26 11" stroke="rgba(160,100,40,0.6)" stroke-width="1.3" fill="none" stroke-linecap="round"/>
                         </svg>
-                        Institution → Bay Mills
+                        Institution → Tribal Nation
                     </div>
                     <div class="legend-item" style="font-size:0.74rem;color:var(--ink-faint);padding-left:37px;margin-top:-4px;">Weight = notice count</div>
                 </div>
@@ -284,19 +347,20 @@
             </div>
         </div>
 
+        <!-- ── Layers ───────────────────────────── -->
         <div class="sb-section">
             <div class="sb-section-head" onclick="toggleSection('layers')">
                 <h2>Layers</h2>
                 <span class="sb-caret" id="layers-caret">▾</span>
             </div>
             <div class="sb-body" id="layers-body">
-                <div class="layer-group">
+                <div class="layer-group" id="layer-arcs-group">
                     <div class="layer-head">
                         <input type="checkbox" id="layer-arcs" checked onclick="toggleArcs(this)"/>
                         <span class="layer-head-label">Affiliation Arcs</span>
                     </div>
                 </div>
-                <div class="layer-group">
+                <div class="layer-group" id="layer-inst-group">
                     <div class="layer-head" onclick="toggleLayerOptions('inst-options','inst-caret')">
                         <input type="checkbox" id="layer-institutions" checked onclick="event.stopPropagation();toggleInstitutions(this)"/>
                         <span class="layer-head-label">Institutions</span>
@@ -309,12 +373,6 @@
                     </div>
                 </div>
                 <div class="layer-group">
-                    <div class="layer-head">
-                        <input type="checkbox" id="layer-tribal" checked onclick="toggleTribal(this)"/>
-                        <span class="layer-head-label">Tribal Nations</span>
-                    </div>
-                </div>
-                <div class="layer-group">
                     <div class="layer-head" onclick="toggleLayerOptions('cultural-options','cultural-caret')">
                         <input type="checkbox" id="layer-cultural" checked onclick="event.stopPropagation();toggleCultural(this)"/>
                         <span class="layer-head-label">Cultural Regions</span>
@@ -324,9 +382,10 @@
                         <div class="layer-opt"><div class="opt-pip square" style="background:rgba(196,146,58,0.55);border:1px solid rgba(196,146,58,0.95)"></div><input type="checkbox" id="r-midwest" checked onchange="handleMidwestToggle(this)"/><label for="r-midwest">Great Lakes / Midwest</label></div>
                     </div>
                 </div>
-                <p class="sb-note">Click any dot on the map to view institution details and Federal Register citation count.</p>
+                <p class="sb-note">Click any dot on the map to view details and Federal Register notice count.</p>
             </div>
         </div>
+
     </aside>
 
     <div id="map"></div>
@@ -343,7 +402,7 @@
         });
         document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-        /* ─── Nav dropdown ──────────────────── */
+        /* ─── Nav ───────────────────────────── */
         function toggleNavDropdown(e) {
             e.stopPropagation();
             e.currentTarget.classList.toggle('open');
@@ -365,15 +424,12 @@
             document.getElementById(cid).classList.toggle('open');
         }
 
-        /* ─── Arc helper ─────────────────────
-           Quadratic bezier with northward bow,
-           matching the Land Grab U arc style.  */
+        /* ─── Arc curve helper ──────────────── */
         function makeArc(from, to, steps = 80) {
             const [x0, y0] = from, [x1, y1] = to;
             const mx = (x0 + x1) / 2, my = (y0 + y1) / 2;
             const dx = x1 - x0, dy = y1 - y0;
             const dist = Math.sqrt(dx*dx + dy*dy);
-            // Control point: midpoint + perpendicular offset bowing northward
             const cx = mx + (dy / dist) * dist * 0.15;
             const cy = my + dist * 0.20;
             const pts = [];
@@ -387,110 +443,220 @@
             return pts;
         }
 
-        /* ─── Data ──────────────────────────── */
-        const BAY_MILLS = [-84.5617, 46.4197];
-
-        const institutions = [
-            // Universities
-            { name:'Mercyhurst University',                              city:'Erie',         state:'PA', type:'university', notices:13, coords:[-80.0851,42.1292] },
-            { name:'Beloit College, Logan Museum of Anthropology',       city:'Beloit',       state:'WI', type:'university', notices:12, coords:[-89.0318,42.5083] },
-            { name:'University of Wisconsin Oshkosh',                    city:'Oshkosh',      state:'WI', type:'university', notices:12, coords:[-88.5426,44.0247] },
-            { name:'University of Wisconsin-Milwaukee',                  city:'Milwaukee',    state:'WI', type:'university', notices:7,  coords:[-87.9065,43.0389] },
-            { name:'Michigan State University',                          city:'East Lansing', state:'MI', type:'university', notices:6,  coords:[-84.4842,42.7367] },
-            { name:'The Peabody Museum of Archaeology and Ethnology',    city:'Cambridge',    state:'MA', type:'university', notices:5,  coords:[-71.1056,42.3736] },
-            { name:'University of Michigan',                             city:'Ann Arbor',    state:'MI', type:'university', notices:5,  coords:[-83.7430,42.2808] },
-            { name:'University of Toledo',                               city:'Toledo',       state:'OH', type:'university', notices:5,  coords:[-83.5553,41.6639] },
-            { name:'The University of Wisconsin-Madison',                city:'Madison',      state:'WI', type:'university', notices:4,  coords:[-89.4012,43.0731] },
-            { name:'Marshall University',                                city:'Huntington',   state:'WV', type:'university', notices:3,  coords:[-82.4452,38.4192] },
-            { name:'Princeton University',                               city:'Princeton',    state:'NJ', type:'university', notices:2,  coords:[-74.6672,40.3573] },
-            { name:'Oregon State University',                            city:'Corvallis',    state:'OR', type:'university', notices:1,  coords:[-123.2620,44.5646] },
-            // Museums
-            { name:'Grand Rapids Public Museum',                         city:'Grand Rapids', state:'MI', type:'museum',     notices:5,  coords:[-85.6681,42.9634] },
-            { name:'Field Museum of Natural History',                    city:'Chicago',      state:'IL', type:'museum',     notices:1,  coords:[-87.6298,41.8781] },
-            { name:'Gordon L. Grosscup Museum of Anthropology',          city:'Detroit',      state:'MI', type:'museum',     notices:1,  coords:[-83.0458,42.3314] },
-            { name:'Detroit Institute of Arts',                          city:'Detroit',      state:'MI', type:'museum',     notices:1,  coords:[-83.0658,42.3514] },
-            { name:'The Museum of Ojibwa Culture and Marquette Mission', city:'St. Ignace',   state:'MI', type:'museum',     notices:1,  coords:[-84.7274,45.8717] },
-            { name:'Indiana State Museum and Historic Sites',            city:'Indianapolis', state:'IN', type:'museum',     notices:1,  coords:[-86.1581,39.7684] },
-            { name:'Huntington Museum of Art',                           city:'Huntington',   state:'WV', type:'museum',     notices:1,  coords:[-82.4052,38.4292] },
-            // State / Gov Agencies
-            { name:'Ohio History Connection',                            city:'Columbus',     state:'OH', type:'state',      notices:6,  coords:[-82.9988,39.9612] },
-            { name:'Michigan State Police',                              city:'Lansing',      state:'MI', type:'state',      notices:5,  coords:[-84.5155,42.7525] },
-            { name:'Michigan State Historic Preservation Office',        city:'Lansing',      state:'MI', type:'state',      notices:4,  coords:[-84.5555,42.7325] },
-            { name:'Office of the State Archaeology Bioarchaeology Program', city:'Iowa City', state:'IA', type:'state',    notices:1,  coords:[-91.5302,41.6611] },
-            { name:"Washtenaw County Medical Examiner's Office",         city:'Ann Arbor',    state:'MI', type:'state',      notices:1,  coords:[-83.7830,42.2908] },
-            { name:'The Metropolitan Park District of Toledo Area',      city:'Toledo',       state:'OH', type:'state',      notices:1,  coords:[-83.5153,41.6539] },
-            { name:'Huron-Clinton Metropolitan Authority',               city:'Brighton',     state:'MI', type:'state',      notices:1,  coords:[-83.7813,42.5292] },
-        ];
+        /* ─── State config ──────────────────── */
+        const STATE_CONFIG = {
+            Michigan:  { center:[-84.8, 44.6],  zoom: 6.2, hasData: true,  count: 12 },
+            Wisconsin: { center:[-89.8, 44.6],  zoom: 6.5, hasData: false, count: 11 },
+            Minnesota: { center:[-93.8, 46.5],  zoom: 6.2, hasData: false, count: 11 },
+            all:       { center:[-89.5, 45.5],  zoom: 5.2, hasData: true,  count: 34 },
+        };
 
         const COLOR_MAP = { university:'#3d2e22', museum:'#7a5530', state:'#556645' };
 
-        const institutionGeoJSON = {
-            type:'FeatureCollection',
-            features: institutions.map(d => ({
-                type:'Feature',
-                properties:{ ...d, color: COLOR_MAP[d.type] },
-                geometry:{ type:'Point', coordinates: d.coords }
-            }))
+        /* ─── Tribe anchor coords ───────────── */
+        const TRIBE_COORDS = {
+            'bay-mills':   [-84.5617, 46.4197],
+            'hannahville': [-87.274,  45.907],
+            'gun-lake':    [-85.645,  42.722],
         };
 
-        const arcGeoJSON = {
-            type:'FeatureCollection',
-            features: institutions.map(d => ({
-                type:'Feature',
-                properties:{
-                    name: d.name,
-                    notices: d.notices,
-                    type: d.type,
-                    // Width: 0.6 → 3.2 scaled to notice count
-                    width: Math.max(0.6, Math.min(3.2, 0.5 + d.notices * 0.22))
-                },
-                geometry:{ type:'LineString', coordinates: makeArc(d.coords, BAY_MILLS) }
-            }))
+        const TRIBE_INFO = {
+            'bay-mills':   { name: 'Bay Mills Indian Community',                              totalNotices: 106 },
+            'hannahville': { name: 'Hannahville Indian Community',                            totalNotices: 113 },
+            'gun-lake':    { name: 'Match-e-be-nash-she-wish Band of Pottawatomi (Gun Lake)', totalNotices: 128 },
         };
 
+        /* ─── Institution data per tribe ────── */
+        // Institutions are deduplicated and consolidated by location.
+        // notices = count of Federal Register notices from Federal Register (2000-2026).
+
+        const INSTITUTIONS_BY_TRIBE = {
+
+            'bay-mills': [
+                { name:'Mercyhurst University',                              city:'Erie',          state:'PA', type:'university', notices:13, coords:[-80.0851,42.1292] },
+                { name:'Beloit College, Logan Museum of Anthropology',       city:'Beloit',        state:'WI', type:'university', notices:12, coords:[-89.0318,42.5083] },
+                { name:'University of Wisconsin Oshkosh',                    city:'Oshkosh',       state:'WI', type:'university', notices:12, coords:[-88.5426,44.0247] },
+                { name:'University of Wisconsin-Milwaukee',                  city:'Milwaukee',     state:'WI', type:'university', notices:7,  coords:[-87.9065,43.0389] },
+                { name:'Michigan State University',                          city:'East Lansing',  state:'MI', type:'university', notices:6,  coords:[-84.4842,42.7367] },
+                { name:'The Peabody Museum of Archaeology and Ethnology',    city:'Cambridge',     state:'MA', type:'university', notices:5,  coords:[-71.1056,42.3736] },
+                { name:'University of Michigan',                             city:'Ann Arbor',     state:'MI', type:'university', notices:5,  coords:[-83.7430,42.2808] },
+                { name:'University of Toledo',                               city:'Toledo',        state:'OH', type:'university', notices:5,  coords:[-83.5553,41.6639] },
+                { name:'The University of Wisconsin-Madison',                city:'Madison',       state:'WI', type:'university', notices:4,  coords:[-89.4012,43.0731] },
+                { name:'Marshall University',                                city:'Huntington',    state:'WV', type:'university', notices:3,  coords:[-82.4452,38.4192] },
+                { name:'Princeton University',                               city:'Princeton',     state:'NJ', type:'university', notices:2,  coords:[-74.6672,40.3573] },
+                { name:'Oregon State University',                            city:'Corvallis',     state:'OR', type:'university', notices:1,  coords:[-123.262,44.5646] },
+                { name:'Grand Rapids Public Museum',                         city:'Grand Rapids',  state:'MI', type:'museum',     notices:5,  coords:[-85.6681,42.9634] },
+                { name:'Field Museum of Natural History',                    city:'Chicago',       state:'IL', type:'museum',     notices:1,  coords:[-87.6298,41.8781] },
+                { name:'Gordon L. Grosscup Museum of Anthropology',          city:'Detroit',       state:'MI', type:'museum',     notices:1,  coords:[-83.0458,42.3314] },
+                { name:'Detroit Institute of Arts',                          city:'Detroit',       state:'MI', type:'museum',     notices:1,  coords:[-83.0658,42.3514] },
+                { name:'The Museum of Ojibwa Culture and Marquette Mission', city:'St. Ignace',    state:'MI', type:'museum',     notices:1,  coords:[-84.7274,45.8717] },
+                { name:'Indiana State Museum and Historic Sites',            city:'Indianapolis',  state:'IN', type:'museum',     notices:1,  coords:[-86.1581,39.7684] },
+                { name:'Huntington Museum of Art',                           city:'Huntington',    state:'WV', type:'museum',     notices:1,  coords:[-82.4052,38.4292] },
+                { name:'Ohio History Connection',                            city:'Columbus',      state:'OH', type:'state',      notices:7,  coords:[-82.9988,39.9612] },
+                { name:'Michigan State Police',                              city:'Lansing',       state:'MI', type:'state',      notices:5,  coords:[-84.5155,42.7525] },
+                { name:'Michigan State Historic Preservation Office',        city:'Lansing',       state:'MI', type:'state',      notices:4,  coords:[-84.5555,42.7325] },
+                { name:'Office of State Archaeology Bioarchaeology Program', city:'Iowa City',     state:'IA', type:'state',      notices:1,  coords:[-91.5302,41.6611] },
+                { name:"Washtenaw County Medical Examiner's Office",         city:'Ann Arbor',     state:'MI', type:'state',      notices:1,  coords:[-83.7830,42.2908] },
+                { name:'The Metropolitan Park District of Toledo Area',      city:'Toledo',        state:'OH', type:'state',      notices:1,  coords:[-83.5153,41.6539] },
+                { name:'Huron-Clinton Metropolitan Authority',               city:'Brighton',      state:'MI', type:'state',      notices:1,  coords:[-83.7813,42.5292] },
+            ],
+
+            'hannahville': [
+                { name:'University of Wisconsin Oshkosh',                    city:'Oshkosh',       state:'WI', type:'university', notices:14, coords:[-88.5426,44.0247] },
+                { name:'Mercyhurst University',                              city:'Erie',          state:'PA', type:'university', notices:13, coords:[-80.0851,42.1292] },
+                { name:'Beloit College, Logan Museum of Anthropology',       city:'Beloit',        state:'WI', type:'university', notices:12, coords:[-89.0318,42.5083] },
+                { name:'University of Wisconsin-Milwaukee',                  city:'Milwaukee',     state:'WI', type:'university', notices:7,  coords:[-87.9065,43.0389] },
+                { name:'University of Michigan',                             city:'Ann Arbor',     state:'MI', type:'university', notices:7,  coords:[-83.7430,42.2808] },
+                { name:'Michigan State University',                          city:'East Lansing',  state:'MI', type:'university', notices:6,  coords:[-84.4842,42.7367] },
+                { name:'The Peabody Museum of Archaeology and Ethnology',    city:'Cambridge',     state:'MA', type:'university', notices:5,  coords:[-71.1056,42.3736] },
+                { name:'University of Toledo',                               city:'Toledo',        state:'OH', type:'university', notices:4,  coords:[-83.5553,41.6639] },
+                { name:'Princeton University',                               city:'Princeton',     state:'NJ', type:'university', notices:3,  coords:[-74.6672,40.3573] },
+                { name:'Indiana University',                                 city:'Bloomington',   state:'IN', type:'university', notices:1,  coords:[-86.5264,39.1653] },
+                { name:'Northwestern University',                            city:'Evanston',      state:'IL', type:'university', notices:1,  coords:[-87.6753,42.0565] },
+                { name:'University of Illinois Urbana-Champaign',            city:'Champaign',     state:'IL', type:'university', notices:1,  coords:[-88.2272,40.1020] },
+                { name:'University of Wisconsin-Madison',                    city:'Madison',       state:'WI', type:'university', notices:1,  coords:[-89.4012,43.0731] },
+                { name:'Yale Peabody Museum',                                city:'New Haven',     state:'CT', type:'university', notices:1,  coords:[-72.9223,41.3163] },
+                { name:'Coe College',                                        city:'Cedar Rapids',  state:'IA', type:'university', notices:1,  coords:[-91.6557,41.9814] },
+                { name:'Grand Rapids Public Museum',                         city:'Grand Rapids',  state:'MI', type:'museum',     notices:5,  coords:[-85.6681,42.9634] },
+                { name:'Illinois State Museum',                              city:'Springfield',   state:'IL', type:'museum',     notices:4,  coords:[-89.6501,39.7984] },
+                { name:'Field Museum of Natural History',                    city:'Chicago',       state:'IL', type:'museum',     notices:1,  coords:[-87.6298,41.8781] },
+                { name:'Detroit Institute of Arts',                          city:'Detroit',       state:'MI', type:'museum',     notices:1,  coords:[-83.0658,42.3514] },
+                { name:'Gordon L. Grosscup Museum of Anthropology',          city:'Detroit',       state:'MI', type:'museum',     notices:1,  coords:[-83.0458,42.3314] },
+                { name:'Indiana State Museum and Historic Sites',            city:'Indianapolis',  state:'IN', type:'museum',     notices:1,  coords:[-86.1581,39.7684] },
+                { name:'Museum of Ojibwa Culture and Marquette Park',        city:'St. Ignace',    state:'MI', type:'museum',     notices:1,  coords:[-84.7274,45.8717] },
+                { name:'American Museum of Natural History',                 city:'New York',      state:'NY', type:'museum',     notices:1,  coords:[-73.9742,40.7813] },
+                { name:'Ohio History Connection',                            city:'Columbus',      state:'OH', type:'state',      notices:7,  coords:[-82.9988,39.9612] },
+                { name:'Michigan State Police',                              city:'Dimondale',     state:'MI', type:'state',      notices:3,  coords:[-84.5155,42.7525] },
+                { name:'Michigan State Historic Preservation Office',        city:'Lansing',       state:'MI', type:'state',      notices:3,  coords:[-84.5555,42.7325] },
+                { name:'Office of State Archaeology Bioarchaeology Program', city:'Iowa City',     state:'IA', type:'state',      notices:3,  coords:[-91.5302,41.6611] },
+                { name:'Huron-Clinton Metropolitan Authority',               city:'Brighton',      state:'MI', type:'state',      notices:1,  coords:[-83.7813,42.5292] },
+                { name:'City of Saugatuck',                                  city:'Saugatuck',     state:'MI', type:'state',      notices:1,  coords:[-86.2003,42.6564] },
+                { name:'Metropolitan Park District of the Toledo Area',      city:'Toledo',        state:'OH', type:'state',      notices:1,  coords:[-83.5153,41.6539] },
+                { name:"Washtenaw County Medical Examiner's Office",         city:'Ann Arbor',     state:'MI', type:'state',      notices:1,  coords:[-83.7830,42.2908] },
+            ],
+
+            'gun-lake': [
+                { name:'Mercyhurst University',                              city:'Erie',          state:'PA', type:'university', notices:13, coords:[-80.0851,42.1292] },
+                { name:'University of Wisconsin Oshkosh',                    city:'Oshkosh',       state:'WI', type:'university', notices:14, coords:[-88.5426,44.0247] },
+                { name:'Beloit College, Logan Museum of Anthropology',       city:'Beloit',        state:'WI', type:'university', notices:13, coords:[-89.0318,42.5083] },
+                { name:'University of Wisconsin-Milwaukee',                  city:'Milwaukee',     state:'WI', type:'university', notices:9,  coords:[-87.9065,43.0389] },
+                { name:'University of Michigan',                             city:'Ann Arbor',     state:'MI', type:'university', notices:8,  coords:[-83.7430,42.2808] },
+                { name:'Michigan State University',                          city:'East Lansing',  state:'MI', type:'university', notices:6,  coords:[-84.4842,42.7367] },
+                { name:'The Peabody Museum of Archaeology and Ethnology',    city:'Cambridge',     state:'MA', type:'university', notices:5,  coords:[-71.1056,42.3736] },
+                { name:'Indiana University',                                 city:'Bloomington',   state:'IN', type:'university', notices:4,  coords:[-86.5264,39.1653] },
+                { name:'University of Toledo',                               city:'Toledo',        state:'OH', type:'university', notices:4,  coords:[-83.5553,41.6639] },
+                { name:'Princeton University',                               city:'Princeton',     state:'NJ', type:'university', notices:3,  coords:[-74.6672,40.3573] },
+                { name:'Oberlin College',                                    city:'Oberlin',       state:'OH', type:'university', notices:2,  coords:[-82.2174,41.2939] },
+                { name:'Northwestern University',                            city:'Evanston',      state:'IL', type:'university', notices:1,  coords:[-87.6753,42.0565] },
+                { name:'University of Illinois Urbana-Champaign',            city:'Champaign',     state:'IL', type:'university', notices:1,  coords:[-88.2272,40.1020] },
+                { name:'University of Wisconsin-Madison',                    city:'Madison',       state:'WI', type:'university', notices:1,  coords:[-89.4012,43.0731] },
+                { name:'Western Michigan University',                        city:'Kalamazoo',     state:'MI', type:'university', notices:1,  coords:[-85.5872,42.2845] },
+                { name:'Yale Peabody Museum',                                city:'New Haven',     state:'CT', type:'university', notices:1,  coords:[-72.9223,41.3163] },
+                { name:'SUNY Broome Community College',                      city:'Binghamton',    state:'NY', type:'university', notices:1,  coords:[-75.9180,42.1167] },
+                { name:'University of Missouri, Museum of Anthropology',     city:'Columbia',      state:'MO', type:'university', notices:1,  coords:[-92.3341,38.9517] },
+                { name:'Department of Anthropology, Northern Illinois Univ.',city:'DeKalb',        state:'IL', type:'university', notices:1,  coords:[-88.7748,41.9314] },
+                { name:'Robert S. Peabody Institute of Archaeology',         city:'Andover',       state:'MA', type:'university', notices:1,  coords:[-71.1336,42.6584] },
+                { name:'Grand Rapids Public Museum',                         city:'Grand Rapids',  state:'MI', type:'museum',     notices:2,  coords:[-85.6681,42.9634] },
+                { name:'Illinois State Museum',                              city:'Springfield',   state:'IL', type:'museum',     notices:7,  coords:[-89.6501,39.7984] },
+                { name:'Gilcrease Museum',                                   city:'Tulsa',         state:'OK', type:'museum',     notices:2,  coords:[-95.9988,36.1845] },
+                { name:'Field Museum of Natural History',                    city:'Chicago',       state:'IL', type:'museum',     notices:1,  coords:[-87.6298,41.8781] },
+                { name:'Detroit Institute of Arts',                          city:'Detroit',       state:'MI', type:'museum',     notices:1,  coords:[-83.0658,42.3514] },
+                { name:'Gordon L. Grosscup Museum of Anthropology',          city:'Detroit',       state:'MI', type:'museum',     notices:1,  coords:[-83.0458,42.3314] },
+                { name:'Indiana State Museum and Historic Sites',            city:'Indianapolis',  state:'IN', type:'museum',     notices:2,  coords:[-86.1581,39.7684] },
+                { name:'Museum of Ojibwa Culture and Marquette Park',        city:'St. Ignace',    state:'MI', type:'museum',     notices:1,  coords:[-84.7274,45.8717] },
+                { name:'American Museum of Natural History',                 city:'New York',      state:'NY', type:'museum',     notices:1,  coords:[-73.9742,40.7813] },
+                { name:'Milwaukee Public Museum',                            city:'Milwaukee',     state:'WI', type:'museum',     notices:1,  coords:[-87.9290,43.0434] },
+                { name:'Missouri Historical Society',                        city:'St. Louis',     state:'MO', type:'museum',     notices:1,  coords:[-90.2847,38.6488] },
+                { name:'Santa Barbara Museum of Natural History',            city:'Santa Barbara', state:'CA', type:'museum',     notices:1,  coords:[-119.7195,34.4358] },
+                { name:'Augusta Museum of History',                          city:'Augusta',       state:'GA', type:'museum',     notices:1,  coords:[-81.9748,33.4735] },
+                { name:'Hopewell Culture National Historical Park',          city:'Chillicothe',   state:'OH', type:'museum',     notices:1,  coords:[-83.0132,39.3798] },
+                { name:'Ohio History Connection',                            city:'Columbus',      state:'OH', type:'state',      notices:9,  coords:[-82.9988,39.9612] },
+                { name:'Michigan State Historic Preservation Office',        city:'Lansing',       state:'MI', type:'state',      notices:3,  coords:[-84.5555,42.7325] },
+                { name:'Michigan State Police',                              city:'Lansing',       state:'MI', type:'state',      notices:1,  coords:[-84.5155,42.7525] },
+                { name:'Huron-Clinton Metropolitan Authority',               city:'Brighton',      state:'MI', type:'state',      notices:1,  coords:[-83.7813,42.5292] },
+                { name:'City of Saugatuck',                                  city:'Saugatuck',     state:'MI', type:'state',      notices:1,  coords:[-86.2003,42.6564] },
+                { name:'Metropolitan Park District of the Toledo Area',      city:'Toledo',        state:'OH', type:'state',      notices:1,  coords:[-83.5153,41.6539] },
+                { name:"Washtenaw County Medical Examiner's Office",         city:'Ann Arbor',     state:'MI', type:'state',      notices:1,  coords:[-83.7830,42.2908] },
+            ],
+        };
+
+        /* ─── Build GeoJSON for a given tribe ── */
+        function buildInstGeoJSON(tribeKey) {
+            const list = INSTITUTIONS_BY_TRIBE[tribeKey];
+            return {
+                type:'FeatureCollection',
+                features: list.map(d => ({
+                    type:'Feature',
+                    properties:{ ...d, color: COLOR_MAP[d.type] },
+                    geometry:{ type:'Point', coordinates: d.coords }
+                }))
+            };
+        }
+
+        function buildArcGeoJSON(tribeKey) {
+            const list = INSTITUTIONS_BY_TRIBE[tribeKey];
+            const dest = TRIBE_COORDS[tribeKey];
+            return {
+                type:'FeatureCollection',
+                features: list.map(d => ({
+                    type:'Feature',
+                    properties:{
+                        name: d.name, notices: d.notices, type: d.type,
+                        tribeName: TRIBE_INFO[tribeKey].name,
+                        width: Math.max(0.6, Math.min(3.2, 0.5 + d.notices * 0.22))
+                    },
+                    geometry:{ type:'LineString', coordinates: makeArc(d.coords, dest) }
+                }))
+            };
+        }
+
+        /* ─── Tribal nations data ───────────── */
         const tribalNationsData = {
             type:'FeatureCollection',
             features:[
-                { type:'Feature', properties:{ name:'Bay Mills Indian Community', location:'Brimley, MI', state:'Michigan', nation:'Ojibwe (Chippewa)', status:'Federally Recognized', url:'https://baymills.org' }, geometry:{ type:'Point', coordinates:[-84.5617,46.4197] } },
-                { type:'Feature', properties:{ name:'Grand Traverse Band of Ottawa and Chippewa Indians', location:'Peshawbestown, MI', state:'Michigan', nation:'Odawa / Ojibwe', status:'Federally Recognized', url:'https://gtbindians.org' }, geometry:{ type:'Point', coordinates:[-85.618,44.947] } },
-                { type:'Feature', properties:{ name:'Hannahville Indian Community', location:'Wilson, MI', state:'Michigan', nation:'Potawatomi', status:'Federally Recognized', url:'https://hannahville.net' }, geometry:{ type:'Point', coordinates:[-87.274,45.907] } },
-                { type:'Feature', properties:{ name:'Keweenaw Bay Indian Community', location:'Baraga, MI', state:'Michigan', nation:'Lake Superior Chippewa', status:'Federally Recognized', url:'https://www.kbic-nsn.gov' }, geometry:{ type:'Point', coordinates:[-88.490,46.777] } },
-                { type:'Feature', properties:{ name:'Lac Vieux Desert Band of Lake Superior Chippewa Indians', location:'Watersmeet, MI', state:'Michigan', nation:'Lake Superior Chippewa', status:'Federally Recognized', url:'https://www.lvdtribal.com' }, geometry:{ type:'Point', coordinates:[-89.173,46.383] } },
-                { type:'Feature', properties:{ name:'Little River Band of Ottawa Indians', location:'Manistee, MI', state:'Michigan', nation:'Odawa', status:'Federally Recognized', url:'https://lrboi-nsn.gov' }, geometry:{ type:'Point', coordinates:[-86.324,44.254] } },
-                { type:'Feature', properties:{ name:'Little Traverse Bay Bands of Odawa Indians', location:'Petoskey, MI', state:'Michigan', nation:'Odawa', status:'Federally Recognized', url:'https://ltbbodawa-nsn.gov' }, geometry:{ type:'Point', coordinates:[-84.958,45.372] } },
-                { type:'Feature', properties:{ name:'Match-e-be-nash-she-wish Band of Pottawatomi (Gun Lake)', location:'Bradley, MI', state:'Michigan', nation:'Potawatomi', status:'Federally Recognized', url:'https://gunlaketribe-nsn.gov' }, geometry:{ type:'Point', coordinates:[-85.645,42.722] } },
-                { type:'Feature', properties:{ name:'Nottawaseppi Huron Band of the Potawatomi', location:'Fulton, MI', state:'Michigan', nation:'Potawatomi', status:'Federally Recognized', url:'https://nhbp-nsn.gov/' }, geometry:{ type:'Point', coordinates:[-85.167,42.331] } },
-                { type:'Feature', properties:{ name:'Pokagon Band of Potawatomi Indians', location:'Dowagiac, MI', state:'Michigan', nation:'Potawatomi', status:'Federally Recognized', url:'https://www.pokagonband-nsn.gov' }, geometry:{ type:'Point', coordinates:[-86.191,41.984] } },
-                { type:'Feature', properties:{ name:'Saginaw Chippewa Indian Tribe of Michigan', location:'Mount Pleasant, MI', state:'Michigan', nation:'Ojibwe', status:'Federally Recognized', url:'https://www.sagchip.org' }, geometry:{ type:'Point', coordinates:[-84.741,43.597] } },
-                { type:'Feature', properties:{ name:'Sault Ste. Marie Tribe of Chippewa Indians', location:'Sault Ste. Marie, MI', state:'Michigan', nation:'Ojibwe', status:'Federally Recognized', url:'https://saulttribe.com' }, geometry:{ type:'Point', coordinates:[-84.349,46.495] } },
-                { type:'Feature', properties:{ name:'Bad River Band of Lake Superior Chippewa', location:'Odanah, WI', state:'Wisconsin', nation:'Lake Superior Chippewa', status:'Federally Recognized', url:'https://www.badriver-nsn.gov' }, geometry:{ type:'Point', coordinates:[-90.618,46.583] } },
-                { type:'Feature', properties:{ name:'Forest County Potawatomi Community', location:'Crandon, WI', state:'Wisconsin', nation:'Potawatomi', status:'Federally Recognized', url:'https://www.fcpotawatomi.com' }, geometry:{ type:'Point', coordinates:[-88.761,45.528] } },
-                { type:'Feature', properties:{ name:'Ho-Chunk Nation', location:'Black River Falls, WI', state:'Wisconsin', nation:'Ho-Chunk', status:'Federally Recognized', url:'https://ho-chunknation.com' }, geometry:{ type:'Point', coordinates:[-90.852,44.297] } },
-                { type:'Feature', properties:{ name:'Lac Courte Oreilles Band of Lake Superior Chippewa', location:'Hayward, WI', state:'Wisconsin', nation:'Lake Superior Chippewa', status:'Federally Recognized', url:'https://www.lco-nsn.gov' }, geometry:{ type:'Point', coordinates:[-91.233,45.922] } },
-                { type:'Feature', properties:{ name:'Lac du Flambeau Band of Lake Superior Chippewa', location:'Lac du Flambeau, WI', state:'Wisconsin', nation:'Lake Superior Chippewa', status:'Federally Recognized', url:'https://ldftribe.com' }, geometry:{ type:'Point', coordinates:[-89.889,45.967] } },
-                { type:'Feature', properties:{ name:'Menominee Indian Tribe of Wisconsin', location:'Keshena, WI', state:'Wisconsin', nation:'Menominee', status:'Federally Recognized', url:'https://www.menominee-nsn.gov' }, geometry:{ type:'Point', coordinates:[-88.631,44.882] } },
-                { type:'Feature', properties:{ name:'Oneida Nation', location:'Oneida, WI', state:'Wisconsin', nation:'Oneida (Haudenosaunee)', status:'Federally Recognized', url:'https://oneida-nsn.gov' }, geometry:{ type:'Point', coordinates:[-88.193,44.493] } },
-                { type:'Feature', properties:{ name:'Red Cliff Band of Lake Superior Chippewa', location:'Bayfield, WI', state:'Wisconsin', nation:'Lake Superior Chippewa', status:'Federally Recognized', url:'https://www.redcliff-nsn.gov' }, geometry:{ type:'Point', coordinates:[-90.797,46.852] } },
-                { type:'Feature', properties:{ name:'Sokaogon Chippewa Community (Mole Lake)', location:'Crandon, WI', state:'Wisconsin', nation:'Lake Superior Chippewa', status:'Federally Recognized', url:'https://www.sokaogonchippewa.com' }, geometry:{ type:'Point', coordinates:[-88.972,45.603] } },
-                { type:'Feature', properties:{ name:'St. Croix Chippewa Indians of Wisconsin', location:'Hertel, WI', state:'Wisconsin', nation:'Lake Superior Chippewa', status:'Federally Recognized', url:'https://www.stcroixojibwe-nsn.gov' }, geometry:{ type:'Point', coordinates:[-92.150,45.803] } },
-                { type:'Feature', properties:{ name:'Stockbridge-Munsee Community', location:'Bowler, WI', state:'Wisconsin', nation:'Mohican / Munsee', status:'Federally Recognized', url:'https://www.mohican.com' }, geometry:{ type:'Point', coordinates:[-89.072,44.839] } },
-                { type:'Feature', properties:{ name:'Bois Forte Band of Chippewa (Nett Lake)', location:'Nett Lake, MN', state:'Minnesota', nation:'Ojibwe', status:'Federally Recognized', url:'https://www.boisforte.com' }, geometry:{ type:'Point', coordinates:[-93.072,47.882] } },
-                { type:'Feature', properties:{ name:'Fond du Lac Band of Lake Superior Chippewa', location:'Cloquet, MN', state:'Minnesota', nation:'Lake Superior Chippewa', status:'Federally Recognized', url:'https://www.fdlrez.com' }, geometry:{ type:'Point', coordinates:[-92.536,46.716] } },
-                { type:'Feature', properties:{ name:'Grand Portage Band of Lake Superior Chippewa', location:'Grand Portage, MN', state:'Minnesota', nation:'Lake Superior Chippewa', status:'Federally Recognized', url:'https://www.grandportage.com' }, geometry:{ type:'Point', coordinates:[-89.678,47.964] } },
-                { type:'Feature', properties:{ name:'Leech Lake Band of Ojibwe', location:'Cass Lake, MN', state:'Minnesota', nation:'Ojibwe', status:'Federally Recognized', url:'https://www.llojibwe.org' }, geometry:{ type:'Point', coordinates:[-94.569,47.378] } },
-                { type:'Feature', properties:{ name:'Lower Sioux Indian Community', location:'Morton, MN', state:'Minnesota', nation:'Dakota', status:'Federally Recognized', url:'https://www.lowersioux.com' }, geometry:{ type:'Point', coordinates:[-94.978,44.553] } },
-                { type:'Feature', properties:{ name:'Mille Lacs Band of Ojibwe', location:'Onamia, MN', state:'Minnesota', nation:'Ojibwe', status:'Federally Recognized', url:'https://www.millelacsband.com' }, geometry:{ type:'Point', coordinates:[-93.667,46.073] } },
-                { type:'Feature', properties:{ name:'Prairie Island Indian Community', location:'Welch, MN', state:'Minnesota', nation:'Dakota', status:'Federally Recognized', url:'https://www.prairieisland.org' }, geometry:{ type:'Point', coordinates:[-92.617,44.617] } },
-                { type:'Feature', properties:{ name:'Red Lake Nation', location:'Red Lake, MN', state:'Minnesota', nation:'Ojibwe', status:'Federally Recognized', url:'https://www.redlakenation.org' }, geometry:{ type:'Point', coordinates:[-95.014,47.877] } },
-                { type:'Feature', properties:{ name:'Shakopee Mdewakanton Sioux Community', location:'Prior Lake, MN', state:'Minnesota', nation:'Dakota', status:'Federally Recognized', url:'https://www.shakopeedakota.org' }, geometry:{ type:'Point', coordinates:[-93.535,44.773] } },
-                { type:'Feature', properties:{ name:'Upper Sioux Community', location:'Granite Falls, MN', state:'Minnesota', nation:'Dakota', status:'Federally Recognized', url:'https://uppersiouxcommunity-nsn.gov' }, geometry:{ type:'Point', coordinates:[-95.476,44.763] } },
-                { type:'Feature', properties:{ name:'White Earth Nation', location:'White Earth, MN', state:'Minnesota', nation:'Ojibwe', status:'Federally Recognized', url:'https://www.whiteearth.com' }, geometry:{ type:'Point', coordinates:[-95.836,47.123] } }
+                /* Michigan */
+                { type:'Feature', properties:{ name:'Bay Mills Indian Community',                              location:'Brimley, MI',         state:'Michigan', nation:'Ojibwe (Chippewa)',      status:'Federally Recognized', url:'https://baymills.org'              }, geometry:{ type:'Point', coordinates:[-84.5617,46.4197] } },
+                { type:'Feature', properties:{ name:'Grand Traverse Band of Ottawa and Chippewa Indians',      location:'Peshawbestown, MI',    state:'Michigan', nation:'Odawa / Ojibwe',         status:'Federally Recognized', url:'https://gtbindians.org'            }, geometry:{ type:'Point', coordinates:[-85.618,44.947]   } },
+                { type:'Feature', properties:{ name:'Hannahville Indian Community',                            location:'Wilson, MI',           state:'Michigan', nation:'Potawatomi',             status:'Federally Recognized', url:'https://hannahville.net'           }, geometry:{ type:'Point', coordinates:[-87.274,45.907]   } },
+                { type:'Feature', properties:{ name:'Keweenaw Bay Indian Community',                           location:'Baraga, MI',           state:'Michigan', nation:'Lake Superior Chippewa', status:'Federally Recognized', url:'https://www.kbic-nsn.gov'          }, geometry:{ type:'Point', coordinates:[-88.490,46.777]   } },
+                { type:'Feature', properties:{ name:'Lac Vieux Desert Band of Lake Superior Chippewa Indians', location:'Watersmeet, MI',       state:'Michigan', nation:'Lake Superior Chippewa', status:'Federally Recognized', url:'https://www.lvdtribal.com'         }, geometry:{ type:'Point', coordinates:[-89.173,46.383]   } },
+                { type:'Feature', properties:{ name:'Little River Band of Ottawa Indians',                     location:'Manistee, MI',         state:'Michigan', nation:'Odawa',                  status:'Federally Recognized', url:'https://lrboi-nsn.gov'             }, geometry:{ type:'Point', coordinates:[-86.324,44.254]   } },
+                { type:'Feature', properties:{ name:'Little Traverse Bay Bands of Odawa Indians',              location:'Petoskey, MI',         state:'Michigan', nation:'Odawa',                  status:'Federally Recognized', url:'https://ltbbodawa-nsn.gov'         }, geometry:{ type:'Point', coordinates:[-84.958,45.372]   } },
+                { type:'Feature', properties:{ name:'Match-e-be-nash-she-wish Band of Pottawatomi (Gun Lake)', location:'Bradley, MI',          state:'Michigan', nation:'Potawatomi',             status:'Federally Recognized', url:'https://gunlaketribe-nsn.gov'      }, geometry:{ type:'Point', coordinates:[-85.645,42.722]   } },
+                { type:'Feature', properties:{ name:'Nottawaseppi Huron Band of the Potawatomi',               location:'Fulton, MI',           state:'Michigan', nation:'Potawatomi',             status:'Federally Recognized', url:'https://nhbp-nsn.gov/'             }, geometry:{ type:'Point', coordinates:[-85.167,42.331]   } },
+                { type:'Feature', properties:{ name:'Pokagon Band of Potawatomi Indians',                      location:'Dowagiac, MI',         state:'Michigan', nation:'Potawatomi',             status:'Federally Recognized', url:'https://www.pokagonband-nsn.gov'   }, geometry:{ type:'Point', coordinates:[-86.191,41.984]   } },
+                { type:'Feature', properties:{ name:'Saginaw Chippewa Indian Tribe of Michigan',               location:'Mount Pleasant, MI',   state:'Michigan', nation:'Ojibwe',                 status:'Federally Recognized', url:'https://www.sagchip.org'           }, geometry:{ type:'Point', coordinates:[-84.741,43.597]   } },
+                { type:'Feature', properties:{ name:'Sault Ste. Marie Tribe of Chippewa Indians',              location:'Sault Ste. Marie, MI', state:'Michigan', nation:'Ojibwe',                 status:'Federally Recognized', url:'https://saulttribe.com'            }, geometry:{ type:'Point', coordinates:[-84.349,46.495]   } },
+                /* Wisconsin */
+                { type:'Feature', properties:{ name:'Bad River Band of Lake Superior Tribe of Chippewa',       location:'Odanah, WI',           state:'Wisconsin', nation:'Lake Superior Chippewa',    status:'Federally Recognized', url:'https://www.badriver-nsn.gov'      }, geometry:{ type:'Point', coordinates:[-90.618,46.583]   } },
+                { type:'Feature', properties:{ name:'Forest County Potawatomi Community',                      location:'Crandon, WI',          state:'Wisconsin', nation:'Potawatomi',                status:'Federally Recognized', url:'https://www.fcpotawatomi.com'      }, geometry:{ type:'Point', coordinates:[-88.761,45.528]   } },
+                { type:'Feature', properties:{ name:'Ho-Chunk Nation',                                         location:'Black River Falls, WI',state:'Wisconsin', nation:'Ho-Chunk',                  status:'Federally Recognized', url:'https://ho-chunknation.com'        }, geometry:{ type:'Point', coordinates:[-90.852,44.297]   } },
+                { type:'Feature', properties:{ name:'Lac Courte Oreilles Band of Lake Superior Chippewa',      location:'Hayward, WI',          state:'Wisconsin', nation:'Lake Superior Chippewa',    status:'Federally Recognized', url:'https://www.lco-nsn.gov'           }, geometry:{ type:'Point', coordinates:[-91.233,45.922]   } },
+                { type:'Feature', properties:{ name:'Lac du Flambeau Band of Lake Superior Chippewa',          location:'Lac du Flambeau, WI',  state:'Wisconsin', nation:'Lake Superior Chippewa',    status:'Federally Recognized', url:'https://ldftribe.com'              }, geometry:{ type:'Point', coordinates:[-89.889,45.967]   } },
+                { type:'Feature', properties:{ name:'Menominee Indian Tribe of Wisconsin',                     location:'Keshena, WI',          state:'Wisconsin', nation:'Menominee',                 status:'Federally Recognized', url:'https://www.menominee-nsn.gov'     }, geometry:{ type:'Point', coordinates:[-88.631,44.882]   } },
+                { type:'Feature', properties:{ name:'Oneida Nation',                                           location:'Oneida, WI',           state:'Wisconsin', nation:'Oneida (Haudenosaunee)',     status:'Federally Recognized', url:'https://oneida-nsn.gov'            }, geometry:{ type:'Point', coordinates:[-88.193,44.493]   } },
+                { type:'Feature', properties:{ name:'Red Cliff Band of Lake Superior Chippewa',                location:'Bayfield, WI',         state:'Wisconsin', nation:'Lake Superior Chippewa',    status:'Federally Recognized', url:'https://www.redcliff-nsn.gov'      }, geometry:{ type:'Point', coordinates:[-90.797,46.852]   } },
+                { type:'Feature', properties:{ name:'Sokaogon Chippewa Community (Mole Lake)',                 location:'Crandon, WI',          state:'Wisconsin', nation:'Lake Superior Chippewa',    status:'Federally Recognized', url:'https://www.sokaogonchippewa.com'  }, geometry:{ type:'Point', coordinates:[-88.972,45.603]   } },
+                { type:'Feature', properties:{ name:'St. Croix Chippewa Indians of Wisconsin',                 location:'Hertel, WI',           state:'Wisconsin', nation:'Lake Superior Chippewa',    status:'Federally Recognized', url:'https://www.stcroixojibwe-nsn.gov' }, geometry:{ type:'Point', coordinates:[-92.150,45.803]   } },
+                { type:'Feature', properties:{ name:'Stockbridge-Munsee Community',                            location:'Bowler, WI',           state:'Wisconsin', nation:'Mohican / Munsee',          status:'Federally Recognized', url:'https://www.mohican.com'           }, geometry:{ type:'Point', coordinates:[-89.072,44.839]   } },
+                /* Minnesota */
+                { type:'Feature', properties:{ name:'Bois Forte Band of Chippewa (Nett Lake)',                 location:'Nett Lake, MN',        state:'Minnesota', nation:'Ojibwe',                    status:'Federally Recognized', url:'https://www.boisforte.com'         }, geometry:{ type:'Point', coordinates:[-93.072,47.882]   } },
+                { type:'Feature', properties:{ name:'Fond du Lac Band of Lake Superior Chippewa',              location:'Cloquet, MN',          state:'Minnesota', nation:'Lake Superior Chippewa',    status:'Federally Recognized', url:'https://www.fdlrez.com'            }, geometry:{ type:'Point', coordinates:[-92.536,46.716]   } },
+                { type:'Feature', properties:{ name:'Grand Portage Band of Lake Superior Chippewa',            location:'Grand Portage, MN',    state:'Minnesota', nation:'Lake Superior Chippewa',    status:'Federally Recognized', url:'https://www.grandportage.com'      }, geometry:{ type:'Point', coordinates:[-89.678,47.964]   } },
+                { type:'Feature', properties:{ name:'Leech Lake Band of Ojibwe',                               location:'Cass Lake, MN',        state:'Minnesota', nation:'Ojibwe',                    status:'Federally Recognized', url:'https://www.llojibwe.org'          }, geometry:{ type:'Point', coordinates:[-94.569,47.378]   } },
+                { type:'Feature', properties:{ name:'Lower Sioux Indian Community',                            location:'Morton, MN',           state:'Minnesota', nation:'Dakota',                    status:'Federally Recognized', url:'https://www.lowersioux.com'        }, geometry:{ type:'Point', coordinates:[-94.978,44.553]   } },
+                { type:'Feature', properties:{ name:'Mille Lacs Band of Ojibwe',                               location:'Onamia, MN',           state:'Minnesota', nation:'Ojibwe',                    status:'Federally Recognized', url:'https://www.millelacsband.com'     }, geometry:{ type:'Point', coordinates:[-93.667,46.073]   } },
+                { type:'Feature', properties:{ name:'Prairie Island Indian Community',                         location:'Welch, MN',            state:'Minnesota', nation:'Dakota',                    status:'Federally Recognized', url:'https://www.prairieisland.org'     }, geometry:{ type:'Point', coordinates:[-92.617,44.617]   } },
+                { type:'Feature', properties:{ name:'Red Lake Nation',                                         location:'Red Lake, MN',         state:'Minnesota', nation:'Ojibwe',                    status:'Federally Recognized', url:'https://www.redlakenation.org'     }, geometry:{ type:'Point', coordinates:[-95.014,47.877]   } },
+                { type:'Feature', properties:{ name:'Shakopee Mdewakanton Sioux Community',                    location:'Prior Lake, MN',       state:'Minnesota', nation:'Dakota',                    status:'Federally Recognized', url:'https://www.shakopeedakota.org'    }, geometry:{ type:'Point', coordinates:[-93.535,44.773]   } },
+                { type:'Feature', properties:{ name:'Upper Sioux Community',                                   location:'Granite Falls, MN',    state:'Minnesota', nation:'Dakota',                    status:'Federally Recognized', url:'https://uppersiouxcommunity-nsn.gov' }, geometry:{ type:'Point', coordinates:[-95.476,44.763] } },
+                { type:'Feature', properties:{ name:'White Earth Nation',                                      location:'White Earth, MN',      state:'Minnesota', nation:'Ojibwe',                    status:'Federally Recognized', url:'https://www.whiteearth.com'        }, geometry:{ type:'Point', coordinates:[-95.836,47.123]   } }
             ]
         };
 
-        const upMichiganRegion = { type:'FeatureCollection', features:[{ type:'Feature', properties:{ name:'Sault Tribe of Chippewa Indians', counties:'Alger, Chippewa, Delta, Luce, Mackinac, Marquette, Schoolcraft', region:'Great Lakes / Midwest' }, geometry:{ type:'Polygon', coordinates:[[[-87.60,46.98],[-87.55,46.90],[-87.42,46.82],[-87.35,46.68],[-87.10,46.60],[-86.82,46.62],[-86.65,46.57],[-86.35,46.60],[-86.00,46.68],[-85.75,46.68],[-85.52,46.66],[-85.28,46.70],[-85.02,46.78],[-84.82,46.88],[-84.65,46.93],[-84.50,46.90],[-84.37,46.75],[-84.37,46.49],[-84.28,46.35],[-84.12,46.20],[-84.08,46.05],[-84.25,45.95],[-84.55,45.88],[-84.73,45.82],[-85.05,45.73],[-85.30,45.72],[-85.60,45.78],[-85.88,45.74],[-86.20,45.70],[-86.55,45.65],[-86.90,45.62],[-87.08,45.62],[-87.18,45.70],[-87.22,45.90],[-87.22,46.08],[-87.42,46.10],[-87.55,46.20],[-87.60,46.50],[-87.60,46.98]]] } }] };
-        const gogebicRegion = { type:'FeatureCollection', features:[{ type:'Feature', properties:{ name:'Lac Vieux Desert Band', counties:'Gogebic', region:'Great Lakes / Midwest' }, geometry:{ type:'Polygon', coordinates:[[[-90.42,46.88],[-90.20,46.84],[-89.85,46.78],[-89.50,46.70],[-89.10,46.58],[-89.04,46.07],[-89.50,46.07],[-90.00,46.07],[-90.42,46.07],[-90.42,46.88]]] } }] };
-        const menomineeDeltaRegion = { type:'FeatureCollection', features:[{ type:'Feature', properties:{ name:'Hannahville Indian Community Area', counties:'Menominee, Delta', region:'Great Lakes / Midwest' }, geometry:{ type:'Polygon', coordinates:[[[-87.22,46.10],[-87.00,46.10],[-86.65,46.10],[-86.40,46.12],[-86.25,45.95],[-86.15,45.80],[-86.10,45.65],[-86.10,45.45],[-86.25,45.22],[-86.50,45.08],[-87.00,45.02],[-87.20,45.02],[-87.55,45.10],[-87.85,45.28],[-88.05,45.55],[-88.10,45.78],[-87.95,45.98],[-87.70,46.05],[-87.50,46.08],[-87.35,46.08],[-87.22,46.10]]] } }] };
+        const upMichiganRegion      = { type:'FeatureCollection', features:[{ type:'Feature', properties:{ name:'Sault Tribe of Chippewa Indians', counties:'Alger, Chippewa, Delta, Luce, Mackinac, Marquette, Schoolcraft', region:'Great Lakes / Midwest' }, geometry:{ type:'Polygon', coordinates:[[[-87.60,46.98],[-87.55,46.90],[-87.42,46.82],[-87.35,46.68],[-87.10,46.60],[-86.82,46.62],[-86.65,46.57],[-86.35,46.60],[-86.00,46.68],[-85.75,46.68],[-85.52,46.66],[-85.28,46.70],[-85.02,46.78],[-84.82,46.88],[-84.65,46.93],[-84.50,46.90],[-84.37,46.75],[-84.37,46.49],[-84.28,46.35],[-84.12,46.20],[-84.08,46.05],[-84.25,45.95],[-84.55,45.88],[-84.73,45.82],[-85.05,45.73],[-85.30,45.72],[-85.60,45.78],[-85.88,45.74],[-86.20,45.70],[-86.55,45.65],[-86.90,45.62],[-87.08,45.62],[-87.18,45.70],[-87.22,45.90],[-87.22,46.08],[-87.42,46.10],[-87.55,46.20],[-87.60,46.50],[-87.60,46.98]]] } }] };
+        const gogebicRegion         = { type:'FeatureCollection', features:[{ type:'Feature', properties:{ name:'Lac Vieux Desert Band', counties:'Gogebic', region:'Great Lakes / Midwest' }, geometry:{ type:'Polygon', coordinates:[[[-90.42,46.88],[-90.20,46.84],[-89.85,46.78],[-89.50,46.70],[-89.10,46.58],[-89.04,46.07],[-89.50,46.07],[-90.00,46.07],[-90.42,46.07],[-90.42,46.88]]] } }] };
+        const menomineeDeltaRegion  = { type:'FeatureCollection', features:[{ type:'Feature', properties:{ name:'Hannahville Indian Community Area', counties:'Menominee, Delta', region:'Great Lakes / Midwest' }, geometry:{ type:'Polygon', coordinates:[[[-87.22,46.10],[-87.00,46.10],[-86.65,46.10],[-86.40,46.12],[-86.25,45.95],[-86.15,45.80],[-86.10,45.65],[-86.10,45.45],[-86.25,45.22],[-86.50,45.08],[-87.00,45.02],[-87.20,45.02],[-87.55,45.10],[-87.85,45.28],[-88.05,45.55],[-88.10,45.78],[-87.95,45.98],[-87.70,46.05],[-87.50,46.08],[-87.35,46.08],[-87.22,46.10]]] } }] };
 
         /* ─── Map init ──────────────────────── */
         mapboxgl.accessToken = 'pk.eyJ1IjoicnlsZWUtbGFsb25kZSIsImEiOiJjbWxheWJ5OXYwYjY0M2RxMmh1NDR5MjRxIn0.C9DGK_0soHehFbajEFkyoA';
@@ -498,8 +664,8 @@
         const map = new mapboxgl.Map({
             container: 'map',
             style: 'mapbox://styles/mapbox/light-v11',
-            center: [-89.5, 45.5],
-            zoom: 5.2,
+            center: [-84.8, 44.6],
+            zoom: 6.2,
             padding: { top: 52, left: 300, right: 0, bottom: 0 }
         });
 
@@ -516,7 +682,11 @@
             offset: { top:[0,10], bottom:[0,-14], left:[10,0], right:[-10,0], center:[0,0] }
         });
 
+        let mapReady = false;
+        let currentTribe = 'bay-mills';
+
         map.on('load', () => {
+            mapReady = true;
 
             /* regions */
             function addRegion(id, geojson) {
@@ -538,100 +708,136 @@
             addRegion('gogebic-region',         gogebicRegion);
             addRegion('menominee-delta-region', menomineeDeltaRegion);
 
-            /* ── Arcs: drawn BEFORE dots so dots sit on top ── */
-            map.addSource('affiliation-arcs', { type:'geojson', data:arcGeoJSON });
-
-            // Soft glow beneath
+            /* arcs */
+            map.addSource('affiliation-arcs', { type:'geojson', data: buildArcGeoJSON('bay-mills') });
             map.addLayer({
                 id:'arcs-glow', type:'line', source:'affiliation-arcs',
-                paint:{
-                    'line-color': '#c8924a',
-                    'line-width': ['*', ['get','width'], 4],
-                    'line-opacity': 0.08,
-                    'line-blur': 4
-                }
+                paint:{ 'line-color':'#c8924a', 'line-width':['*',['get','width'],4], 'line-opacity':0.08, 'line-blur':4 }
             });
-
-            // Main arc
             map.addLayer({
                 id:'arcs-line', type:'line', source:'affiliation-arcs',
-                paint:{
-                    'line-color': '#a06428',
-                    'line-width': ['get','width'],
-                    'line-opacity': 0.48
-                }
+                paint:{ 'line-color':'#a06428', 'line-width':['get','width'], 'line-opacity':0.48 }
             });
 
-            /* ── Institution dots ── */
-            map.addSource('institutions', { type:'geojson', data:institutionGeoJSON });
-
+            /* institution dots */
+            map.addSource('institutions', { type:'geojson', data: buildInstGeoJSON('bay-mills') });
             map.addLayer({
                 id:'institutions-glow', type:'circle', source:'institutions',
                 paint:{ 'circle-radius':10, 'circle-color':['get','color'], 'circle-opacity':0.12, 'circle-stroke-width':0 }
             });
-
             map.addLayer({
                 id:'institutions-dot', type:'circle', source:'institutions',
                 paint:{
-                    'circle-radius': ['interpolate',['linear'],['get','notices'], 1,3.5, 13,7.5],
-                    'circle-color':  ['get','color'],
-                    'circle-stroke-width': 1.5,
-                    'circle-stroke-color': 'rgba(242,237,230,0.92)'
+                    'circle-radius':['interpolate',['linear'],['get','notices'],1,3.5,14,7.5],
+                    'circle-color':['get','color'],
+                    'circle-stroke-width':1.5,
+                    'circle-stroke-color':'rgba(242,237,230,0.92)'
                 }
             });
-
             map.on('click', 'institutions-dot', e => {
                 e.originalEvent.stopPropagation();
                 const p = e.features[0].properties;
                 const typeLabel = { university:'University / College', museum:'Museum', state:'State / Gov Agency' }[p.type] || p.type;
+                const tribeName = TRIBE_INFO[currentTribe].name;
                 sharedPopup.setLngLat(e.features[0].geometry.coordinates.slice())
-                    .setHTML(`
-                        <div class="popup-head ${p.type}">
-                            <h3>${p.name}</h3>
-                            <div class="popup-sub">${p.city}, ${p.state} · ${typeLabel}</div>
-                        </div>
-                        <div class="popup-body">
-                            <p><strong>Affiliated Tribe:</strong> Bay Mills Indian Community</p>
-                            <span class="popup-notices">${p.notices} Federal Register Notice${p.notices > 1 ? 's' : ''}</span>
-                        </div>`)
+                    .setHTML(`<div class="popup-head ${p.type}"><h3>${p.name}</h3><div class="popup-sub">${p.city}, ${p.state} · ${typeLabel}</div></div><div class="popup-body"><p><strong>Affiliated Tribe:</strong> ${tribeName}</p><span class="popup-notices">${p.notices} Federal Register Notice${p.notices>1?'s':''}</span></div>`)
                     .addTo(map);
             });
             map.on('mouseenter', 'institutions-dot', () => map.getCanvas().style.cursor = 'pointer');
             map.on('mouseleave', 'institutions-dot', () => map.getCanvas().style.cursor = '');
 
-            /* ── Tribal dots — always rendered on top ── */
+            /* tribal dots */
             map.addSource('tribal-nations', { type:'geojson', data:tribalNationsData });
-
             map.addLayer({
                 id:'tribal-nations-glow', type:'circle', source:'tribal-nations',
                 paint:{ 'circle-radius':11, 'circle-color':'rgba(168,68,40,0.14)', 'circle-stroke-width':0 }
             });
-
             map.addLayer({
                 id:'tribal-nations-dot', type:'circle', source:'tribal-nations',
                 paint:{ 'circle-radius':5.5, 'circle-color':'#a84428', 'circle-stroke-width':1.5, 'circle-stroke-color':'rgba(255,255,255,0.85)' }
             });
-
             map.on('click', 'tribal-nations-dot', e => {
                 e.originalEvent.stopPropagation();
                 const p = e.features[0].properties;
                 sharedPopup.setLngLat(e.features[0].geometry.coordinates.slice())
-                    .setHTML(`
-                        <div class="popup-head">
-                            <h3>${p.name}</h3>
-                            <div class="popup-sub">${p.state}</div>
-                        </div>
-                        <div class="popup-body">
-                            <p><strong>Location:</strong> ${p.location}</p>
-                            <p><strong>Nation:</strong> ${p.nation}</p>
-                            <p><strong>Status:</strong> ${p.status}</p>
-                            <p style="margin-top:8px;"><a href="${p.url}" target="_blank" rel="noopener" style="color:var(--terra);font-size:0.78rem;text-decoration:none;">↗ ${p.url.replace('https://','')}</a></p>
-                        </div>`)
+                    .setHTML(`<div class="popup-head"><h3>${p.name}</h3><div class="popup-sub">${p.state}</div></div><div class="popup-body"><p><strong>Location:</strong> ${p.location}</p><p><strong>Nation:</strong> ${p.nation}</p><p><strong>Status:</strong> ${p.status}</p><p style="margin-top:8px;"><a href="${p.url}" target="_blank" rel="noopener" style="color:var(--terra);font-size:0.78rem;text-decoration:none;">↗ ${p.url.replace('https://','')}</a></p></div>`)
                     .addTo(map);
             });
             map.on('mouseenter', 'tribal-nations-dot', () => map.getCanvas().style.cursor = 'pointer');
             map.on('mouseleave', 'tribal-nations-dot', () => map.getCanvas().style.cursor = '');
+
+            // Apply initial Michigan filter
+            applyStateFilter('Michigan');
         });
+
+        /* ─── Tribe switcher ────────────────── */
+        function onTribeChange(val) {
+            currentTribe = val;
+            if (!mapReady) return;
+
+            // Update institution + arc data
+            map.getSource('institutions').setData(buildInstGeoJSON(val));
+            map.getSource('affiliation-arcs').setData(buildArcGeoJSON(val));
+
+            // Update notice count badge
+            const info = TRIBE_INFO[val];
+            document.getElementById('tribe-notice-count').innerHTML =
+                `<strong>${info.totalNotices}</strong> Federal Register notices`;
+
+            // Close any open popup
+            sharedPopup.remove();
+        }
+
+        /* ─── State filter ──────────────────── */
+        let currentState = 'Michigan';
+
+        function onStateChange(val) {
+            currentState = val;
+            applyStateFilter(val);
+        }
+
+        function applyStateFilter(state) {
+            if (!mapReady) return;
+
+            const cfg = STATE_CONFIG[state];
+            const hasData = cfg.hasData;
+
+            // Tribal dot filter
+            const tribalFilter = state === 'all'
+                ? null
+                : ['==', ['get', 'state'], state];
+            map.setFilter('tribal-nations-dot',  tribalFilter);
+            map.setFilter('tribal-nations-glow', tribalFilter);
+
+            // Respect existing checkbox state for institutions
+            const instCbChecked = document.getElementById('layer-institutions').checked;
+            const arcCbChecked  = document.getElementById('layer-arcs').checked;
+
+            ['institutions-dot','institutions-glow'].forEach(id => {
+                if (map.getLayer(id)) map.setLayoutProperty(id, 'visibility', (hasData && instCbChecked) ? 'visible' : 'none');
+            });
+            ['arcs-line','arcs-glow'].forEach(id => {
+                if (map.getLayer(id)) map.setLayoutProperty(id, 'visibility', (hasData && arcCbChecked) ? 'visible' : 'none');
+            });
+
+            // Fly to state viewport
+            map.flyTo({ center: cfg.center, zoom: cfg.zoom, duration: 900, essential: true });
+
+            // Update count badge
+            const countEl = document.getElementById('state-count');
+            countEl.innerHTML = `<strong>${cfg.count}</strong> federally recognized tribe${cfg.count !== 1 ? 's' : ''}`;
+
+            // Show/hide "no data" notice and tribe selector
+            document.getElementById('state-data-notice').classList.toggle('visible', !hasData);
+            document.getElementById('tribe-selector-wrap').style.display = hasData ? '' : 'none';
+
+            // Show/hide institution legend rows + layer controls
+            document.getElementById('legend-institutions').style.display   = hasData ? '' : 'none';
+            document.getElementById('legend-arcs').style.display           = hasData ? '' : 'none';
+            document.getElementById('legend-arc-divider').style.display    = hasData ? '' : 'none';
+            document.getElementById('layer-arcs-group').style.display      = hasData ? '' : 'none';
+            document.getElementById('layer-inst-group').style.display      = hasData ? '' : 'none';
+        }
 
         /* ─── Layer toggles ─────────────────── */
         const regionIds = ['up-michigan-region','gogebic-region','menominee-delta-region'];
@@ -640,10 +846,14 @@
             ids.forEach(id => { if (map.getLayer(id)) map.setLayoutProperty(id, 'visibility', on ? 'visible' : 'none'); });
         }
 
-        function toggleArcs(cb) { setVis(['arcs-glow','arcs-line'], cb.checked); }
+        function toggleArcs(cb) {
+            const hasData = STATE_CONFIG[currentState].hasData;
+            setVis(['arcs-glow','arcs-line'], cb.checked && hasData);
+        }
 
         function toggleInstitutions(cb) {
-            setVis(['institutions-dot','institutions-glow'], cb.checked);
+            const hasData = STATE_CONFIG[currentState].hasData;
+            setVis(['institutions-dot','institutions-glow'], cb.checked && hasData);
             ['i-university','i-museum','i-state'].forEach(id => document.getElementById(id).checked = cb.checked);
         }
 
@@ -651,13 +861,11 @@
             const types = ['university','museum','state'].filter((t,i) =>
                 document.getElementById(['i-university','i-museum','i-state'][i]).checked
             );
-            const filter = types.length ? ['in', ['get','type'], ['literal', types]] : ['==','1','0'];
+            const filter = types.length ? ['in',['get','type'],['literal',types]] : ['==','1','0'];
             ['institutions-dot','institutions-glow','arcs-line','arcs-glow'].forEach(id => {
                 if (map.getLayer(id)) map.setFilter(id, filter);
             });
         }
-
-        function toggleTribal(cb) { setVis(['tribal-nations-dot','tribal-nations-glow'], cb.checked); }
 
         function toggleCultural(cb) {
             document.getElementById('r-midwest').checked = cb.checked;
