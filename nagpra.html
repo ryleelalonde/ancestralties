@@ -114,7 +114,6 @@
         .nav-dropdown-trigger:hover { color: var(--ink); background: var(--parchment-2); }
         .nav-dropdown-trigger.open  { color: var(--ink); background: var(--parchment-2); }
 
-        /* Active state for dropdown trigger when a child page is active */
         .nav-dropdown-trigger.parent-active {
             color: var(--terra);
             background: var(--terra-light);
@@ -184,19 +183,21 @@
         /* ─── Page hero ───────────────────────── */
         .page-hero {
             position: relative;
-            padding: 72px 40px 60px;
+            padding: 28px 40px 22px;
             max-width: 900px;
             margin: 0 auto;
             overflow: hidden;
+            text-align: center;
         }
 
         .page-hero::before {
             content: '';
             position: absolute;
-            top: 20px; right: -20px;
-            width: 280px; height: 280px;
+            top: 0; left: 50%;
+            transform: translateX(-50%);
+            width: 280px; height: 180px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(139,58,30,0.10) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(139,58,30,0.08) 0%, transparent 70%);
             pointer-events: none;
         }
 
@@ -205,16 +206,18 @@
             letter-spacing: 0.16em;
             text-transform: uppercase;
             color: var(--terra);
-            margin-bottom: 14px;
+            margin-bottom: 8px;
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 10px;
         }
 
+        .page-hero-eyebrow::before,
         .page-hero-eyebrow::after {
             content: '';
             display: inline-block;
-            width: 32px;
+            width: 28px;
             height: 1px;
             background: var(--terra);
             opacity: 0.5;
@@ -222,21 +225,21 @@
 
         .page-hero-heading {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 3rem;
+            font-size: 2.6rem;
             font-weight: 400;
             line-height: 1.1;
             color: var(--ink);
-            margin-bottom: 16px;
-            max-width: 560px;
+            margin-bottom: 10px;
         }
 
         .page-hero-sub {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             font-style: italic;
             color: var(--ink-muted);
             font-weight: 300;
-            max-width: 520px;
+            max-width: 480px;
+            margin: 0 auto;
         }
 
         /* ─── Horizontal rule ─────────────────── */
@@ -251,7 +254,7 @@
         .section-wrap {
             max-width: 900px;
             margin: 0 auto;
-            padding: 72px 40px;
+            padding: 30px 40px;
         }
 
         .section-label {
@@ -259,17 +262,17 @@
             letter-spacing: 0.14em;
             text-transform: uppercase;
             color: var(--ink-faint);
-            margin-bottom: 20px;
-            padding-bottom: 10px;
+            margin-bottom: 10px;
+            padding-bottom: 8px;
             border-bottom: 1px solid var(--border);
         }
 
         .section-heading {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 2rem;
+            font-size: 1.85rem;
             font-weight: 400;
             color: var(--ink);
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             line-height: 1.2;
         }
 
@@ -280,14 +283,14 @@
             max-width: 680px;
         }
 
-        .section-body p + p { margin-top: 14px; }
+        .section-body p + p { margin-top: 10px; }
 
         /* ─── NAGPRA deep-dive ────────────────── */
         .nagpra-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-top: 28px;
+            gap: 8px;
+            margin-top: 16px;
         }
 
         .nagpra-item {
@@ -295,7 +298,7 @@
             border: 1px solid var(--parchment-3);
             border-top: 3px solid var(--terra);
             border-radius: 2px;
-            padding: 22px;
+            padding: 14px 16px;
         }
 
         .nagpra-item-label {
@@ -303,27 +306,27 @@
             letter-spacing: 0.12em;
             text-transform: uppercase;
             color: var(--terra);
-            margin-bottom: 8px;
+            margin-bottom: 4px;
             font-weight: 500;
         }
 
         .nagpra-item-title {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             font-weight: 600;
             color: var(--ink);
-            margin-bottom: 8px;
+            margin-bottom: 5px;
         }
 
         .nagpra-item p {
             font-size: 0.82rem;
             color: var(--ink-muted);
-            line-height: 1.7;
+            line-height: 1.6;
         }
 
         /* ─── Timeline ────────────────────────── */
         .timeline {
-            margin-top: 28px;
+            margin-top: 16px;
             position: relative;
             padding-left: 24px;
         }
@@ -339,8 +342,10 @@
 
         .timeline-item {
             position: relative;
-            margin-bottom: 24px;
+            margin-bottom: 14px;
         }
+
+        .timeline-item:last-child { margin-bottom: 0; }
 
         .timeline-item::before {
             content: '';
@@ -357,7 +362,7 @@
             font-size: 0.72rem;
             letter-spacing: 0.1em;
             color: var(--terra);
-            margin-bottom: 3px;
+            margin-bottom: 1px;
             font-weight: 500;
         }
 
@@ -366,19 +371,19 @@
             font-size: 1.05rem;
             font-weight: 600;
             color: var(--ink);
-            margin-bottom: 4px;
+            margin-bottom: 2px;
         }
 
         .timeline-desc {
             font-size: 0.82rem;
             color: var(--ink-muted);
-            line-height: 1.65;
+            line-height: 1.6;
         }
 
         /* ─── Footer ──────────────────────────── */
         footer {
             border-top: 1px solid var(--border);
-            padding: 28px 40px;
+            padding: 14px 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -397,8 +402,10 @@
 
         /* ─── Responsive ──────────────────────── */
         @media (max-width: 700px) {
-            .page-hero-heading { font-size: 2.2rem; }
+            .page-hero-heading { font-size: 2rem; }
             .nagpra-grid { grid-template-columns: 1fr; }
+            header { padding: 0 20px; }
+            .page-hero, .section-wrap { padding-left: 20px; padding-right: 20px; }
         }
     </style>
 </head>
@@ -441,7 +448,7 @@
         <p class="section-label">The Process</p>
         <h2 class="section-heading">The Four-Step Framework</h2>
         <div class="section-body">
-            <p>NAGPRA established a process — not a single event. Institutions are required to consult with tribes, publish notices in the Federal Register, and transfer items upon request. But the law's implementation has been uneven, slow, and at times contested. Understanding its structure helps make sense of what this map is showing.</p>
+            <p>NAGPRA established a process — not a single event. Institutions are required to consult with tribes, publish notices in the Federal Register, and transfer items upon request. But the law's implementation has been uneven, slow, and at times contested. Understanding its structure helps make sense of what this map is showing. These steps do not, by any means, cover the entire process, but provide a digestible understanding of key points in the repatriation process.</p>
         </div>
 
         <div class="nagpra-grid">
@@ -471,8 +478,8 @@
     <hr class="section-rule">
 
     <!-- ── Legislative Timeline ───────────────── -->
-    <div class="section-wrap" style="background: var(--dark-bg); max-width: 100%; padding-left: 0; padding-right: 0;">
-      <div style="max-width: 900px; margin: 0 auto; padding: 72px 40px;">
+    <div style="background: var(--dark-bg);">
+      <div style="max-width: 900px; margin: 0 auto; padding: 30px 40px;">
         <p class="section-label" style="color: rgba(242,237,230,0.4); border-bottom-color: rgba(242,237,230,0.12);">Legislative History</p>
         <h2 class="section-heading" style="color: var(--dark-text);">Key Milestones</h2>
         <div class="timeline" style="--terra-mid: rgba(242,237,230,0.2);">
