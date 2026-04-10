@@ -90,11 +90,8 @@
         }
 
         nav a:hover { color: var(--ink); background: var(--parchment-2); }
+        nav a.active { color: var(--terra); background: var(--terra-light); }
 
-        nav a.active {
-            color: var(--terra);
-            background: var(--terra-light);
-        }
         /* ─── Nav dropdown ────────────────────── */
         .nav-dropdown { position: relative; }
 
@@ -104,7 +101,7 @@
             letter-spacing: 0.06em;
             text-transform: uppercase;
             color: var(--ink-muted);
-            background: transparent;
+            background: none;
             border: none;
             padding: 5px 10px;
             border-radius: 3px;
@@ -117,6 +114,12 @@
 
         .nav-dropdown-trigger:hover { color: var(--ink); background: var(--parchment-2); }
         .nav-dropdown-trigger.open  { color: var(--ink); background: var(--parchment-2); }
+
+        /* Active parent state when a child page is current */
+        .nav-dropdown-trigger.parent-active {
+            color: var(--terra);
+            background: var(--terra-light);
+        }
 
         .nav-dropdown-caret {
             font-size: 8px;
@@ -178,7 +181,6 @@
         }
 
         .nav-dropdown-menu a.nested:hover { color: var(--ink); background: var(--parchment-2); }
-
 
         /* ─── Page layout ─────────────────────── */
         main {
@@ -250,6 +252,7 @@
             border-radius: 2px;
             filter: sepia(12%);
         }
+
         .profile-name {
             font-family: 'Cormorant Garamond', serif;
             font-size: 1.8rem;
@@ -474,7 +477,7 @@
 </head>
 <body>
 
-   <header>
+    <header>
         <div class="header-title">
             <h1>Ancestral Ties</h1>
             <span>A Mapping Project</span>
@@ -483,7 +486,7 @@
             <a href="index.html">Home</a>
             <a href="map.html">Map</a>
             <div class="nav-dropdown">
-                <button class="nav-dropdown-trigger" onclick="toggleNavDropdown(event)">
+                <button class="nav-dropdown-trigger parent-active" onclick="toggleNavDropdown(event)">
                     About <span class="nav-dropdown-caret">▾</span>
                 </button>
                 <div class="nav-dropdown-menu" id="nav-dropdown-menu">
@@ -570,10 +573,23 @@
 
     </main>
 
-  <footer>
+    <footer>
         <span class="footer-left">Ancestral Ties</span>
         <span class="footer-right">2026</span>
     </footer>
+
+    <script>
+        function toggleNavDropdown(e) {
+            e.stopPropagation();
+            e.currentTarget.classList.toggle('open');
+            document.getElementById('nav-dropdown-menu').classList.toggle('open');
+        }
+
+        document.addEventListener('click', () => {
+            document.querySelector('.nav-dropdown-trigger')?.classList.remove('open');
+            document.getElementById('nav-dropdown-menu')?.classList.remove('open');
+        });
+    </script>
 
 </body>
 </html>

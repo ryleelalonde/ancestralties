@@ -96,7 +96,7 @@
             letter-spacing: 0.06em;
             text-transform: uppercase;
             color: var(--ink-muted);
-            background: transparent;
+            background: none;
             border: none;
             padding: 5px 10px;
             border-radius: 3px;
@@ -109,6 +109,12 @@
 
         .nav-dropdown-trigger:hover { color: var(--ink); background: var(--parchment-2); }
         .nav-dropdown-trigger.open  { color: var(--ink); background: var(--parchment-2); }
+
+        /* Active parent state when a child page is current */
+        .nav-dropdown-trigger.parent-active {
+            color: var(--terra);
+            background: var(--terra-light);
+        }
 
         .nav-dropdown-caret {
             font-size: 8px;
@@ -170,7 +176,6 @@
         }
 
         .nav-dropdown-menu a.nested:hover { color: var(--ink); background: var(--parchment-2); }
-
 
         /* ─── Page layout ─────────────────────── */
         main {
@@ -410,7 +415,7 @@
             <a href="index.html">Home</a>
             <a href="map.html">Map</a>
             <div class="nav-dropdown">
-                <button class="nav-dropdown-trigger" onclick="toggleNavDropdown(event)">
+                <button class="nav-dropdown-trigger parent-active" onclick="toggleNavDropdown(event)">
                     About <span class="nav-dropdown-caret">▾</span>
                 </button>
                 <div class="nav-dropdown-menu" id="nav-dropdown-menu">
@@ -738,21 +743,28 @@
     </footer>
 
     <script>
+        function toggleNavDropdown(e) {
+            e.stopPropagation();
+            e.currentTarget.classList.toggle('open');
+            document.getElementById('nav-dropdown-menu').classList.toggle('open');
+        }
+
+        document.addEventListener('click', () => {
+            document.querySelector('.nav-dropdown-trigger')?.classList.remove('open');
+            document.getElementById('nav-dropdown-menu')?.classList.remove('open');
+        });
+
         function toggleTerm(head) {
             const body  = head.nextElementSibling;
             const caret = head.querySelector('.term-caret');
             const isOpen = body.classList.contains('open');
-
             body.classList.toggle('open', !isOpen);
             caret.classList.toggle('open', !isOpen);
         }
 
         function filterTerms(category, btn) {
-            // Update active button
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-
-            // Show/hide sections
             document.querySelectorAll('.term-section').forEach(section => {
                 if (category === 'all' || section.dataset.category === category) {
                     section.removeAttribute('data-hidden');
