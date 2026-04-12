@@ -75,7 +75,7 @@
             font-weight: 300;
         }
 
-        nav { display: flex; gap: 4px; }
+        nav { display: flex; gap: 4px; align-items: center; }
 
         nav a {
             font-size: 0.78rem;
@@ -91,7 +91,7 @@
         nav a:hover { color: var(--ink); background: var(--parchment-2); }
         nav a.active { color: var(--terra); background: var(--terra-light); }
 
-          /* ─── Nav dropdown ────────────────────── */
+        /* ─── Nav dropdown ────────────────────── */
         .nav-dropdown { position: relative; }
 
         .nav-dropdown-trigger {
@@ -100,7 +100,7 @@
             letter-spacing: 0.06em;
             text-transform: uppercase;
             color: var(--ink-muted);
-            background: transparent;
+            background: none;
             border: none;
             padding: 5px 10px;
             border-radius: 3px;
@@ -174,7 +174,6 @@
         }
 
         .nav-dropdown-menu a.nested:hover { color: var(--ink); background: var(--parchment-2); }
-
 
         /* ─── Main content ────────────────────── */
         main {
@@ -329,9 +328,7 @@
             font-weight: 500;
         }
 
-        .src-citation em {
-            font-style: italic;
-        }
+        .src-citation em { font-style: italic; }
 
         .src-annotation {
             font-size: 0.8rem;
@@ -354,6 +351,32 @@
         }
 
         .src-link:hover { opacity: 0.75; }
+
+        /* ─── Acknowledgment ──────────────────── */
+        .ack-note {
+            background: white;
+            border: 1px solid var(--parchment-3);
+            border-left: 3px solid var(--ink-faint);
+            border-radius: 0 3px 3px 0;
+            padding: 20px 24px;
+            margin-bottom: 52px;
+            box-shadow: 0 1px 4px rgba(15,12,8,0.06);
+        }
+
+        .ack-note-label {
+            font-size: 0.67rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .ack-note p {
+            font-size: 0.85rem;
+            color: var(--ink-muted);
+            line-height: 1.75;
+        }
 
         /* ─── No results ──────────────────────── */
         #no-results {
@@ -386,16 +409,15 @@
 
         /* ─── Responsive ──────────────────────── */
         @media (max-width: 740px) {
-            .page-wrap { grid-template-columns: 1fr; }
-            .src-nav { display: none; }
             main { padding: 40px 24px 80px; }
             .page-heading { font-size: 2rem; }
+            header { padding: 0 20px; }
         }
     </style>
 </head>
 <body>
 
-   <header>
+    <header>
         <div class="header-title">
             <h1>Ancestral Ties</h1>
             <span>A Mapping Project</span>
@@ -418,245 +440,230 @@
         </nav>
     </header>
 
-        <!-- ── Main content ──────────────────── -->
-        <main>
+    <!-- ── Main content ──────────────────── -->
+    <main>
 
-            <p class="page-eyebrow">Bibliography</p>
-            <h2 class="page-heading">Sources &amp; <em>Data</em></h2>
-            <p class="page-intro">All primary data, legal sources, and scholarly literature informing this project. Citations follow American Psychological Association- 7th generation style. Sources are organized by type; annotations note how each source is used in the project.</p>
-            <div class="page-rule"></div>
+        <p class="page-eyebrow">Bibliography</p>
+        <h2 class="page-heading">Sources &amp; <em>Data</em></h2>
+        <p class="page-intro">All primary data, legal sources, and scholarly literature informing this project. Citations follow American Psychological Association 7th edition style. Sources are organized by type; annotations note how each source is used in the project.</p>
+        <div class="page-rule"></div>
 
-            <!-- Data methodology note -->
-            <div class="data-note">
-                <p class="data-note-label">A Note on the Data</p>
-                <p>The primary dataset for this project is drawn from NAGPRA notices published in the Federal Register and the National NAGPRA Online Databases maintained by the National Park Service. All inventory and affiliation data reflects publicly available federal records. Institutional locations reflect documented addresses; tribal nation locations reflect traditional homelands and/or contemporary governmental seats as documented in publicly available sources.</p>
-                <p>This project does not display sensitive information about the location of specific burial sites, sacred sites, or ceremonial items at the request of tribal communities or per federal law. Add additional methodological notes here.</p>
+        <!-- Data methodology note -->
+        <div class="data-note">
+            <p class="data-note-label">A Note on the Data</p>
+            <p>The primary dataset for this project is drawn from NAGPRA notices published in the Federal Register and the National NAGPRA Online Databases maintained by the National Park Service. All inventory and affiliation data reflects publicly available federal records. Institutional locations reflect documented addresses; tribal nation locations reflect traditional homelands and/or contemporary governmental seats as documented in publicly available sources.</p>
+            <p>This project does not display sensitive information about the location of specific burial sites, sacred sites, or ceremonial items at the request of tribal communities or per federal law. Add additional methodological notes here.</p>
+        </div>
+
+        <div id="no-results">No sources match your search.</div>
+
+        <!-- ══ FEDERAL STATUTE ════════════════ -->
+        <div class="src-category" id="cat-statute">
+            <p class="category-label">Federal Statute</p>
+
+            <div class="src-entry" data-terms="nagpra native american graves protection repatriation act 1990 federal law 25 USC">
+                <div class="src-bar"></div>
+                <div class="src-content">
+                    <div class="src-tags"><span class="src-tag">Primary Source</span><span class="src-tag">Federal Law</span></div>
+                    <p class="src-citation">Native American Graves Protection and Repatriation Act. <em>Public Law</em> 101-601, 104 Stat. 3048, codified at <strong>25 U.S.C. §§ 3001–3013</strong> (1990).</p>
+                    <p class="src-annotation">The foundational legal text of this project. Establishes the five categories of cultural items subject to repatriation, the definition of cultural affiliation, institutional obligations, and the criminal penalties for trafficking. All definitions in this project trace back to this statute.</p>
+                    <a class="src-link" href="https://www.govinfo.gov/content/pkg/STATUTE-104/pdf/STATUTE-104-Pg3048.pdf" target="_blank" rel="noopener">↗ Full text (GovInfo)</a>
+                </div>
             </div>
 
-            <div id="no-results">No sources match your search.</div>
-
-            <!-- ══ FEDERAL STATUTE ════════════════ -->
-            <div class="src-category" id="cat-statute">
-                <p class="category-label">Federal Statute</p>
-
-                <div class="src-entry" data-terms="nagpra native american graves protection repatriation act 1990 federal law 25 USC">
-                    <div class="src-bar"></div>
-                    <div class="src-content">
-                        <div class="src-tags"><span class="src-tag">Primary Source</span><span class="src-tag">Federal Law</span></div>
-                        <p class="src-citation">Native American Graves Protection and Repatriation Act. <em>Public Law</em> 101-601, 104 Stat. 3048, codified at <strong>25 U.S.C. §§ 3001–3013</strong> (1990).</p>
-                        <p class="src-annotation">The foundational legal text of this project. Establishes the five categories of cultural items subject to repatriation, the definition of cultural affiliation, institutional obligations, and the criminal penalties for trafficking. All definitions in this project trace back to this statute.</p>
-                        <a class="src-link" href="https://www.govinfo.gov/content/pkg/STATUTE-104/pdf/STATUTE-104-Pg3048.pdf" target="_blank" rel="noopener">↗ Full text (GovInfo)</a>
-                    </div>
+            <div class="src-entry" data-terms="national museum american indian act 1989 smithsonian NMAIA precursor">
+                <div class="src-bar"></div>
+                <div class="src-content">
+                    <div class="src-tags"><span class="src-tag">Primary Source</span><span class="src-tag">Federal Law</span></div>
+                    <p class="src-citation">National Museum of the American Indian Act. <em>Public Law</em> 101-185, 103 Stat. 1336, codified at <strong>20 U.S.C. §§ 80q et seq.</strong> (1989).</p>
+                    <p class="src-annotation">The legislative precursor to NAGPRA, requiring the Smithsonian Institution specifically to inventory and repatriate Native American collections. Referenced in the project's legislative timeline.</p>
+                    <a class="src-link" href="https://americanindian.si.edu/sites/1/files/pdf/about/nmaiact.pdf" target="_blank" rel="noopener">↗ Full text (GovInfo)</a>
                 </div>
-
-                <div class="src-entry" data-terms="national museum american indian act 1989 smithsonian NMAIA precursor">
-                    <div class="src-bar"></div>
-                    <div class="src-content">
-                        <div class="src-tags"><span class="src-tag">Primary Source</span><span class="src-tag">Federal Law</span></div>
-                        <p class="src-citation">National Museum of the American Indian Act. <em>Public Law</em> 101-185, 103 Stat. 1336, codified at <strong>20 U.S.C. §§ 80q et seq.</strong> (1989).</p>
-                        <p class="src-annotation">The legislative precursor to NAGPRA, requiring the Smithsonian Institution specifically to inventory and repatriate Native American collections. Referenced in the project's legislative timeline.</p>
-                    </div>
-                </div>
-
             </div>
 
-            <!-- ══ FEDERAL REGULATIONS ════════════ -->
-            <div class="src-category" id="cat-regulations">
-                <p class="category-label">Federal Regulations</p>
+        </div>
 
-                <div class="src-entry" data-terms="43 CFR part 10 regulations implementing NAGPRA interior department procedures">
-                    <div class="src-bar"></div>
-                    <div class="src-content">
-                        <div class="src-tags"><span class="src-tag">Primary Source</span><span class="src-tag">Regulation</span></div>
-                        <p class="src-citation">U.S. Department of the Interior. "Native American Graves Protection and Repatriation Act Regulations." <strong>43 C.F.R. Part 10</strong> (1995, amended 2010, 2023).</p>
-                        <p class="src-annotation">The implementing regulations for NAGPRA. Establishes detailed procedures for inventories, summaries, consultation, cultural affiliation determinations, and repatriation. The 2010 amendment addressed culturally unidentifiable remains; the 2023 revision substantially strengthened tribal consultation requirements.</p>
-                        <a class="src-link" href="https://www.ecfr.gov/current/title-43/subtitle-A/part-10" target="_blank" rel="noopener">↗ Current regulations (eCFR)</a>
-                    </div>
+        <!-- ══ FEDERAL REGULATIONS ════════════ -->
+        <div class="src-category" id="cat-regulations">
+            <p class="category-label">Federal Regulations</p>
+
+            <div class="src-entry" data-terms="43 CFR part 10 regulations implementing NAGPRA interior department procedures">
+                <div class="src-bar"></div>
+                <div class="src-content">
+                    <div class="src-tags"><span class="src-tag">Primary Source</span><span class="src-tag">Regulation</span></div>
+                    <p class="src-citation">U.S. Department of the Interior. "Native American Graves Protection and Repatriation Act Regulations." <strong>43 C.F.R. Part 10</strong> (1995, amended 2010, 2023).</p>
+                    <p class="src-annotation">The implementing regulations for NAGPRA. Establishes detailed procedures for inventories, summaries, consultation, cultural affiliation determinations, and repatriation. The 2010 amendment addressed culturally unidentifiable remains; the 2023 revision substantially strengthened tribal consultation requirements.</p>
+                    <a class="src-link" href="https://www.ecfr.gov/current/title-43/subtitle-A/part-10" target="_blank" rel="noopener">↗ Current regulations (eCFR)</a>
                 </div>
-
-                <div class="src-entry" data-terms="2024 NAGPRA revised regulations federal register 88 FR 92716">
-                    <div class="src-bar"></div>
-                    <div class="src-content">
-                        <div class="src-tags"><span class="src-tag">Primary Source</span><span class="src-tag">Regulation</span><span class="src-tag">2023</span></div>
-                        <p class="src-citation">U.S. Department of the Interior. "Native American Graves Protection and Repatriation Act." <em>Federal Register</em> <strong>88</strong>, no. 247 (December 27, 2023): 92,716–92,793.</p>
-                        <p class="src-annotation">The 2024 revision to NAGPRA regulations. Key changes include: requiring free, prior, and informed consent before conducting research on human remains; removing the "culturally unidentifiable" category as a basis for withholding repatriation; and strengthening government-to-government consultation requirements. Cited across the project's legislative timeline and definitions.</p>
-                        <a class="src-link" href="https://www.federalregister.gov/documents/2023/12/27/2023-28391/native-american-graves-protection-and-repatriation-act" target="_blank" rel="noopener">↗ Full text (Federal Register)</a>
-                    </div>
-                </div>
-
             </div>
 
-            <!-- ══ FEDERAL REGISTER ════════════════ -->
-            <div class="src-category" id="cat-federal-register">
-                <p class="category-label">Federal Register — NAGPRA Notices</p>
-
-                <div class="src-entry" data-terms="notice inventory completion NIC federal register institution tribe affiliation published">
-                    <div class="src-bar"></div>
-                    <div class="src-content">
-                        <div class="src-tags"><span class="src-tag">Primary Data</span><span class="src-tag">Notices</span></div>
-                        <p class="src-citation">U.S. National Park Service. "NAGPRA Notices." <em>Federal Register</em>, various dates, 1993–present.</p>
-                        <p class="src-annotation">Notices of Inventory Completion and Notices of Intent to Repatriate published by covered institutions in the Federal Register constitute the primary dataset for this mapping project. Each notice identifies the holding institution, the affiliated tribal nation(s), the category and number of cultural items, and the geographic provenance. Notices are searchable at federalregister.gov under agency "National Park Service."</p>
-                        <a class="src-link" href="https://www.federalregister.gov/agencies/national-park-service" target="_blank" rel="noopener">↗ Search NAGPRA notices</a>
-                    </div>
+            <div class="src-entry" data-terms="2024 NAGPRA revised regulations federal register 88 FR 92716">
+                <div class="src-bar"></div>
+                <div class="src-content">
+                    <div class="src-tags"><span class="src-tag">Primary Source</span><span class="src-tag">Regulation</span><span class="src-tag">2023</span></div>
+                    <p class="src-citation">U.S. Department of the Interior. "Native American Graves Protection and Repatriation Act." <em>Federal Register</em> <strong>88</strong>, no. 247 (December 27, 2023): 92,716–92,793.</p>
+                    <p class="src-annotation">The 2024 revision to NAGPRA regulations. Key changes include: requiring free, prior, and informed consent before conducting research on human remains; removing the "culturally unidentifiable" category as a basis for withholding repatriation; and strengthening government-to-government consultation requirements. Cited across the project's legislative timeline and definitions.</p>
+                    <a class="src-link" href="https://www.federalregister.gov/documents/2023/12/27/2023-28391/native-american-graves-protection-and-repatriation-act" target="_blank" rel="noopener">↗ Full text (Federal Register)</a>
                 </div>
-
             </div>
 
-            <!-- ══ GOVERNMENT DATABASES ═══════════ -->
-            <div class="src-category" id="cat-databases">
-                <p class="category-label">Government Databases</p>
+        </div>
 
-                <div class="src-entry" data-terms="national NAGPRA online database NPS national park service inventory institutions tribes">
-                    <div class="src-bar"></div>
-                    <div class="src-content">
-                        <div class="src-tags"><span class="src-tag">Primary Data</span><span class="src-tag">Database</span></div>
-                        <p class="src-citation">U.S. National Park Service. <em>National NAGPRA Online Databases.</em> Washington, D.C.: U.S. Department of the Interior. Accessed 2024–2025.</p>
-                        <p class="src-annotation">The National Park Service maintains publicly accessible online databases of NAGPRA inventories, summaries, and notices. These databases are the primary source for institutional and affiliation data represented on the map. Data is updated as new notices are published. Add specific access date here.</p>
-                        <a class="src-link" href="https://www.nps.gov/subjects/nagpra/databases.htm" target="_blank" rel="noopener">↗ National NAGPRA Databases</a>
-                    </div>
+        <!-- ══ FEDERAL REGISTER ════════════════ -->
+        <div class="src-category" id="cat-federal-register">
+            <p class="category-label">Federal Register — NAGPRA Notices</p>
+
+            <div class="src-entry" data-terms="notice inventory completion NIC federal register institution tribe affiliation published">
+                <div class="src-bar"></div>
+                <div class="src-content">
+                    <div class="src-tags"><span class="src-tag">Primary Data</span><span class="src-tag">Notices</span></div>
+                    <p class="src-citation">U.S. National Park Service. "NAGPRA Notices." <em>Federal Register</em>, various dates, 1993–present.</p>
+                    <p class="src-annotation">Notices of Inventory Completion and Notices of Intent to Repatriate published by covered institutions in the Federal Register constitute the primary dataset for this mapping project. Each notice identifies the holding institution, the affiliated tribal nation(s), the category and number of cultural items, and the geographic provenance. Notices are searchable at federalregister.gov under agency "National Park Service."</p>
+                    <a class="src-link" href="https://www.federalregister.gov/agencies/national-park-service" target="_blank" rel="noopener">↗ Search NAGPRA notices</a>
                 </div>
-
-                <div class="src-entry" data-terms="Bureau Indian Affairs BIA federally recognized tribes list federal register 2024">
-                    <div class="src-bar"></div>
-                    <div class="src-content">
-                        <div class="src-tags"><span class="src-tag">Primary Data</span><span class="src-tag">Government</span></div>
-                        <p class="src-citation">U.S. Bureau of Indian Affairs. "Indian Entities Recognized and Eligible to Receive Services from the United States Bureau of Indian Affairs." <em>Federal Register</em> <strong>89</strong>, no. 18 (January 26, 2024): 5,254–5,264.</p>
-                        <p class="src-annotation">The official list of 575 federally recognized tribal nations. Used to determine which tribal nations are eligible claimants under NAGPRA and to establish the Tribal Nations layer on the map.</p>
-                        <a class="src-link" href="https://www.federalregister.gov/documents/2020/01/30/2020-01707/indian-entities-recognized-by-and-eligible-to-receive-services-from-the-united-states-bureau-of" target="_blank" rel="noopener">↗ 2024 Federal Register list</a>
-                    </div>
-                </div>
-
             </div>
 
-            <!-- ══ BOOKS & MONOGRAPHS ══════════════ -->
-            <div class="src-category" id="cat-books">
-                <p class="category-label">Books &amp; Monographs</p>
+        </div>
 
-                <div class="src-entry" data-terms="decolonizing methodologies Linda Tuhiwai Smith research indigenous peoples 1999">
-                    <div class="src-bar"></div>
-                    <div class="src-content">
-                        <div class="src-tags"><span class="src-tag">Book</span><span class="src-tag">Methodology</span></div>
-                        <p class="src-citation">Smith, Linda Tuhiwai. <em>Decolonizing Methodologies: Research and Indigenous Peoples.</em> London: Zed Books, 1999.</p>
-                    </div>
+        <!-- ══ GOVERNMENT DATABASES ═══════════ -->
+        <div class="src-category" id="cat-databases">
+            <p class="category-label">Government Databases</p>
+
+            <div class="src-entry" data-terms="national NAGPRA online database NPS national park service inventory institutions tribes">
+                <div class="src-bar"></div>
+                <div class="src-content">
+                    <div class="src-tags"><span class="src-tag">Primary Data</span><span class="src-tag">Database</span></div>
+                    <p class="src-citation">U.S. National Park Service. <em>National NAGPRA Online Databases.</em> Washington, D.C.: U.S. Department of the Interior. Accessed 2024–2025.</p>
+                    <p class="src-annotation">The National Park Service maintains publicly accessible online databases of NAGPRA inventories, summaries, and notices. These databases are the primary source for institutional and affiliation data represented on the map. Data is updated as new notices are published.</p>
+                    <a class="src-link" href="https://www.nps.gov/subjects/nagpra/databases.htm" target="_blank" rel="noopener">↗ National NAGPRA Databases</a>
                 </div>
-
-                <div class="src-entry" data-terms="bioarchaeology contextual analysis human remains Buikstra Lane Beck 2006">
-                    <div class="src-bar"></div>
-                    <div class="src-content">
-                        <div class="src-tags"><span class="src-tag">Book</span><span class="src-tag">Bioarchaeology</span></div>
-                        <p class="src-citation">Buikstra, Jane E., and Lane A. Beck, eds. <em>Bioarchaeology: The Contextual Analysis of Human Remains.</em> New York: Academic Press, 2006.</p>
-                    </div>
-                </div>
-
-                <div class="src-entry" data-terms="native science natural laws interdependence Cajete 2000 indigenous epistemology">
-                    <div class="src-bar"></div>
-                    <div class="src-content">
-                        <div class="src-tags"><span class="src-tag">Book</span><span class="src-tag">Epistemology</span></div>
-                        <p class="src-citation">Cajete, Gregory. <em>Native Science: Natural Laws of Interdependence.</em> Santa Fe: Clear Light Publishers, 2000.</p>
-                    </div>
-                </div>
-
-                <div class="src-entry" data-terms="NAGPRA repatriation bones conflict museums tribes Riding In 2000">
-                    <div class="src-bar"></div>
-                    <div class="src-content">
-                        <div class="src-tags"><span class="src-tag">Book</span><span class="src-tag">NAGPRA</span></div>
-                        <p class="src-citation">Fine-Dare, Kathleen S. <em>Grave Injustice: The American Indian Repatriation Movement and NAGPRA.</em> Lincoln: University of Nebraska Press, 2002.</p>
-                    </div>
-                </div>
-
-                <div class="src-entry" data-terms="walker repatriation skeletal remains bioarchaeology ethics 2000">
-                    <div class="src-bar"></div>
-                    <div class="src-content">
-                        <div class="src-tags"><span class="src-tag">Book</span><span class="src-tag">Bioarchaeology</span><span class="src-tag">Ethics</span></div>
-                        <p class="src-citation">Mihesuah, Devon A., ed. <em>Repatriation Reader: Who Owns American Indian Remains?</em> Lincoln: University of Nebraska Press, 2000.</p>
-                    </div>
-                </div>
-
             </div>
 
-            <!-- ══ JOURNAL ARTICLES ════════════════ -->
-            <div class="src-category" id="cat-articles">
-                <p class="category-label">Journal Articles</p>
-
-                <div class="src-entry" data-terms="Brousseau 2021 unrefutable responsibility mapping seeds settler futurity cartography colonialism indigenous land">
-                    <div class="src-bar"></div>
-                    <div class="src-content">
-                        <div class="src-tags"><span class="src-tag">Article</span><span class="src-tag">Mapping</span><span class="src-tag">Settler Colonialism</span></div>
-                        <p class="src-citation">Brousseau. "Unrefutable Responsibility: Mapping the Seeds of Settler Futurity." 2021.</p>
-                        <p class="src-annotation" style="color: var(--terra); border-top: none; margin-top: 4px; padding-top: 0;"><em>Brousseau, M. (2021). “Unrefutable Responsibility”: Mapping the Seeds of Settler Futurity and Seeding the Maps of Indigenous Futurity. Native American and Indigenous Studies, 8(1), 112-122.</em></p>
-                    </div>
+            <div class="src-entry" data-terms="Bureau Indian Affairs BIA federally recognized tribes list federal register 2024">
+                <div class="src-bar"></div>
+                <div class="src-content">
+                    <div class="src-tags"><span class="src-tag">Primary Data</span><span class="src-tag">Government</span></div>
+                    <p class="src-citation">U.S. Bureau of Indian Affairs. "Indian Entities Recognized and Eligible to Receive Services from the United States Bureau of Indian Affairs." <em>Federal Register</em> <strong>89</strong>, no. 18 (January 26, 2024): 5,254–5,264.</p>
+                    <p class="src-annotation">The official list of 575 federally recognized tribal nations. Used to determine which tribal nations are eligible claimants under NAGPRA and to establish the Tribal Nations layer on the map.</p>
+                    <a class="src-link" href="https://www.federalregister.gov/documents/2020/01/30/2020-01707/indian-entities-recognized-by-and-eligible-to-receive-services-from-the-united-states-bureau-of" target="_blank" rel="noopener">↗ 2024 Federal Register list</a>
                 </div>
-
             </div>
 
-            <!-- ══ JOURNALISM & INVESTIGATIVE ══════ -->
-            <div class="src-category" id="cat-journalism">
-                <p class="category-label">Journalism &amp; Investigative Reporting</p>
+        </div>
 
-                <div class="src-entry" data-terms="land grab Robert Lee Tristan Ahtone Margaret Pearce Kalen Goodluck Geoff McGhee Cody Leff Katherine Lanpher Taryn Salinas High Country News land grant universities Indigenous 2020">
-                    <div class="src-bar"></div>
-                    <div class="src-content">
-                        <div class="src-tags"><span class="src-tag">Investigative Journalism</span><span class="src-tag">Land</span><span class="src-tag">Universities</span></div>
-                        <p class="src-citation">Lee, Robert, Tristan Ahtone, Margaret Pearce, Kalen Goodluck, Geoff McGhee, Cody Leff, Katherine Lanpher, and Taryn Salinas. "Land Grab Universities." <em>High Country News,</em> March 30, 2020.</p>
-                        <p class="src-annotation">A landmark piece of data-driven investigative journalism documenting how the Morrill Act of 1862 — which established the land-grant university system — was funded through the seizure and sale of nearly 11 million acres of Indigenous land. The investigation identified 52 land-grant universities, the 245 tribal nations whose land was taken, and the roughly $500 million in revenue generated.</p>
-                        <p class="src-annotation">Directly relevant to this project's mapping of institutional NAGPRA holdings: many of the same universities that hold the largest Native American collections were built on — and financially founded through — the dispossession of the very peoples whose ancestors are in those collections. The piece's cartographic and data methodology also models the kind of critical Indigenous-centered mapping this project aspires to.</p>
-                        <a class="src-link" href="https://www.landgrabu.org" target="_blank" rel="noopener">↗ landgrabu.org (full project)</a>
-                    </div>
+        <!-- ══ BOOKS & MONOGRAPHS ══════════════ -->
+        <div class="src-category" id="cat-books">
+            <p class="category-label">Books &amp; Monographs</p>
+
+            <div class="src-entry" data-terms="decolonizing methodologies Linda Tuhiwai Smith research indigenous peoples 1999">
+                <div class="src-bar"></div>
+                <div class="src-content">
+                    <div class="src-tags"><span class="src-tag">Book</span><span class="src-tag">Methodology</span></div>
+                    <p class="src-citation">Smith, Linda Tuhiwai. <em>Decolonizing Methodologies: Research and Indigenous Peoples.</em> London: Zed Books, 1999.</p>
                 </div>
-
-            </div>
-            <div class="src-category" id="cat-reports">
-                <p class="category-label">Reports &amp; Government Documents</p>
-
-                <div class="src-entry" data-terms="GAO government accountability office NAGPRA progress report 2010 repatriation slow">
-                    <div class="src-bar"></div>
-                    <div class="src-content">
-                        <div class="src-tags"><span class="src-tag">Report</span><span class="src-tag">Government</span></div>
-                        <p class="src-citation">U.S. Government Accountability Office. <em>Native American Graves Protection and Repatriation Act: After Almost 20 Years, Key Federal Agencies Still Have Not Fully Complied with the Act.</em> GAO-10-768. Washington, D.C.: GAO, July 2010.</p>
-                        <p class="src-annotation">A critical assessment of federal agency compliance with NAGPRA two decades after its passage, finding significant gaps in inventory completion, consultation, and repatriation. Provides quantitative context for the scale of the ongoing repatriation backlog.</p>
-                        <a class="src-link" href="https://www.gao.gov/products/gao-10-768" target="_blank" rel="noopener">↗ Full report (GAO)</a>
-                    </div>
-                </div>
-
-                <div class="src-entry" data-terms="NPS national park service NAGPRA annual report statistics compliance institutions">
-                    <div class="src-bar"></div>
-                    <div class="src-content">
-                        <div class="src-tags"><span class="src-tag">Report</span><span class="src-tag">Government</span></div>
-                        <p class="src-citation">U.S. National Park Service. <em>NAGPRA Annual Reports to Congress.</em> Washington, D.C.: U.S. Department of the Interior, various years.</p>
-                        <p class="src-annotation">Annual reports documenting repatriation activity, institutional compliance, and program statistics. Used for background context and statistical data throughout this project.</p>
-                        <a class="src-link" href="https://www.nps.gov/subjects/nagpra/reports.htm" target="_blank" rel="noopener">↗ Annual reports (NPS)</a>
-                    </div>
-                </div>
-
             </div>
 
-            <!-- ══ GEOGRAPHIC DATA ════════════════ -->
-            <div class="src-category" id="cat-geodata">
-                <p class="category-label">Geographic Data</p>
-
-                <div class="src-entry" data-terms="Census TIGER line shapefiles county boundary Michigan geographic data 2023">
-                    <div class="src-bar"></div>
-                    <div class="src-content">
-                        <div class="src-tags"><span class="src-tag">Data</span><span class="src-tag">Geographic</span></div>
-                        <p class="src-citation">U.S. Census Bureau. <em>TIGER/Line Shapefiles: County and Equivalent.</em> Washington, D.C.: U.S. Department of Commerce, 2023.</p>
-                        <p class="src-annotation">The authoritative source for county boundary data used in the Upper Peninsula cultural region polygon on this map. For production-quality boundaries, download the Michigan county shapefile, filter to Alger, Chippewa, Delta, Luce, Mackinac, Marquette, and Schoolcraft counties, dissolve county lines, and convert to GeoJSON using Mapshaper or QGIS.</p>
-                        <a class="src-link" href="https://www.census.gov/geographies/mapping-files/time-series/geo/tiger-line-file.html" target="_blank" rel="noopener">↗ TIGER/Line downloads (Census)</a>
-                    </div>
+            <div class="src-entry" data-terms="bioarchaeology contextual analysis human remains Buikstra Lane Beck 2006">
+                <div class="src-bar"></div>
+                <div class="src-content">
+                    <div class="src-tags"><span class="src-tag">Book</span><span class="src-tag">Bioarchaeology</span></div>
+                    <p class="src-citation">Buikstra, Jane E., and Lane A. Beck, eds. <em>Bioarchaeology: The Contextual Analysis of Human Remains.</em> New York: Academic Press, 2006.</p>
                 </div>
-
-                <div class="src-entry" data-terms="Mapbox GL JS mapping library web interactive basemap tiles style">
-                    <div class="src-bar"></div>
-                    <div class="src-content">
-                        <div class="src-tags"><span class="src-tag">Data</span><span class="src-tag">Basemap</span></div>
-                        <p class="src-citation">Mapbox. <em>Mapbox GL JS</em> (Version 3.0.1). San Francisco: Mapbox, 2024.</p>
-                        <p class="src-annotation">The JavaScript mapping library powering this project's interactive map. The light-v11 basemap style is used as the background for all data layers.</p>
-                        <a class="src-link" href="https://docs.mapbox.com/mapbox-gl-js/api/" target="_blank" rel="noopener">↗ Mapbox GL JS documentation</a>
-                    </div>
-                </div>
-
             </div>
 
-        </main>
+            <div class="src-entry" data-terms="NAGPRA repatriation bones conflict museums tribes grave injustice fine-dare 2002">
+                <div class="src-bar"></div>
+                <div class="src-content">
+                    <div class="src-tags"><span class="src-tag">Book</span><span class="src-tag">NAGPRA</span></div>
+                    <p class="src-citation">Fine-Dare, Kathleen S. <em>Grave Injustice: The American Indian Repatriation Movement and NAGPRA.</em> Lincoln: University of Nebraska Press, 2002.</p>
+                </div>
+            </div>
+
+            <div class="src-entry" data-terms="walker repatriation skeletal remains bioarchaeology ethics mihesuah 2000">
+                <div class="src-bar"></div>
+                <div class="src-content">
+                    <div class="src-tags"><span class="src-tag">Book</span><span class="src-tag">Bioarchaeology</span><span class="src-tag">Ethics</span></div>
+                    <p class="src-citation">Mihesuah, Devon A., ed. <em>Repatriation Reader: Who Owns American Indian Remains?</em> Lincoln: University of Nebraska Press, 2000.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ══ JOURNAL ARTICLES ════════════════ -->
+        <div class="src-category" id="cat-articles">
+            <p class="category-label">Journal Articles</p>
+
+            <div class="src-entry" data-terms="Brousseau 2021 unrefutable responsibility mapping seeds settler futurity cartography colonialism indigenous land">
+                <div class="src-bar"></div>
+                <div class="src-content">
+                    <div class="src-tags"><span class="src-tag">Article</span><span class="src-tag">Mapping</span><span class="src-tag">Settler Colonialism</span></div>
+                    <p class="src-citation">Brousseau, M. (2021). "Unrefutable Responsibility": Mapping the Seeds of Settler Futurity and Seeding the Maps of Indigenous Futurity. <em>Native American and Indigenous Studies, 8</em>(1), 112–122.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ══ INVESTIGATIVE MAPPING ══════ -->
+        <div class="src-category" id="cat-journalism">
+            <p class="category-label">Investigative Mapping</p>
+
+            <div class="src-entry" data-terms="land grab Robert Lee Tristan Ahtone Margaret Pearce Kalen Goodluck Geoff McGhee Cody Leff Katherine Lanpher Taryn Salinas High Country News land grant universities Indigenous 2020">
+                <div class="src-bar"></div>
+                <div class="src-content">
+                    <div class="src-tags"><span class="src-tag">Investigative Journalism</span><span class="src-tag">Land</span><span class="src-tag">Universities</span></div>
+                    <p class="src-citation">Lee, Robert, Tristan Ahtone, Margaret Pearce, Kalen Goodluck, Geoff McGhee, Cody Leff, Katherine Lanpher, and Taryn Salinas. "Land Grab Universities." <em>High Country News,</em> March 30, 2020.</p>
+                    <p class="src-annotation">A landmark piece of data-driven investigative journalism documenting how the Morrill Act of 1862 — which established the land-grant university system — was funded through the seizure and sale of nearly 11 million acres of Indigenous land. The investigation identified 52 land-grant universities, the 245 tribal nations whose land was taken, and the roughly $500 million in revenue generated.</p>
+                    <p class="src-annotation">Directly relevant to this project's mapping of institutional NAGPRA holdings: many of the same universities that hold the largest Native American collections were built on — and financially founded through — the dispossession of the very peoples whose ancestors are in those collections. The piece's cartographic and data methodology also models the kind of critical Indigenous-centered mapping this project aspires to.</p>
+                    <a class="src-link" href="https://www.landgrabu.org" target="_blank" rel="noopener">↗ landgrabu.org (full project)</a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ══ REPORTS ════════════════════════ -->
+        <div class="src-category" id="cat-reports">
+            <p class="category-label">Reports &amp; Government Documents</p>
+
+            <div class="src-entry" data-terms="GAO government accountability office NAGPRA progress report 2010 repatriation slow">
+                <div class="src-bar"></div>
+                <div class="src-content">
+                    <div class="src-tags"><span class="src-tag">Report</span><span class="src-tag">Government</span></div>
+                    <p class="src-citation">U.S. Government Accountability Office. <em>Native American Graves Protection and Repatriation Act: After Almost 20 Years, Key Federal Agencies Still Have Not Fully Complied with the Act.</em> GAO-10-768. Washington, D.C.: GAO, July 2010.</p>
+                    <p class="src-annotation">A critical assessment of federal agency compliance with NAGPRA two decades after its passage, finding significant gaps in inventory completion, consultation, and repatriation. Provides quantitative context for the scale of the ongoing repatriation backlog.</p>
+                    <a class="src-link" href="https://www.gao.gov/products/gao-10-768" target="_blank" rel="noopener">↗ Full report (GAO)</a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ══ GEOGRAPHIC DATA ════════════════ -->
+        <div class="src-category" id="cat-geodata">
+            <p class="category-label">Geographic Data</p>
+
+            <div class="src-entry" data-terms="Mapbox GL JS mapping library web interactive basemap tiles style">
+                <div class="src-bar"></div>
+                <div class="src-content">
+                    <div class="src-tags"><span class="src-tag">Data</span><span class="src-tag">Basemap</span></div>
+                    <p class="src-citation">Mapbox. <em>Mapbox GL JS</em> (Version 3.0.1). San Francisco: Mapbox, 2024.</p>
+                    <p class="src-annotation">The JavaScript mapping library powering this project's interactive map. The light-v11 basemap style is used as the background for all data layers.</p>
+                    <a class="src-link" href="https://docs.mapbox.com/mapbox-gl-js/api/" target="_blank" rel="noopener">↗ Mapbox GL JS documentation</a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ══ ACKNOWLEDGMENTS ════════════════ -->
+        <div class="src-category" id="cat-acknowledgments">
+            <p class="category-label">Acknowledgments</p>
+
+            <div class="ack-note">
+                <p class="ack-note-label">Technical Assistance</p>
+                <p>The visual design, front-end aesthetics, and portions of the interactive code for this project were developed with assistance from Claude (Anthropic). Claude contributed to the design system — including typography, color palette, layout structure, and component styling — as well as debugging and iterating on broken or incomplete code throughout development. I am grateful for that collaboration.</p>
+            </div>
+
+        </div>
+
+    </main>
 
     <footer>
         <span class="footer-left">Ancestral Ties</span>
@@ -664,6 +671,18 @@
     </footer>
 
     <script>
+        /* ── Nav dropdown ────────────────────── */
+        function toggleNavDropdown(e) {
+            e.stopPropagation();
+            e.currentTarget.classList.toggle('open');
+            document.getElementById('nav-dropdown-menu').classList.toggle('open');
+        }
+
+        document.addEventListener('click', () => {
+            document.querySelector('.nav-dropdown-trigger')?.classList.remove('open');
+            document.getElementById('nav-dropdown-menu')?.classList.remove('open');
+        });
+
         /* ── Search / filter ─────────────────── */
         function filterSources(query) {
             const q = query.toLowerCase().trim();
@@ -686,28 +705,6 @@
 
             document.getElementById('no-results').style.display = anyVisible ? 'none' : 'block';
         }
-
-        /* ── Active nav on scroll ────────────── */
-        const allSections = Array.from(document.querySelectorAll('.src-category[id]'));
-        const navLinks    = document.querySelectorAll('.src-nav a');
-
-        function updateActiveLink() {
-            const scrollY = window.scrollY + 100; // offset for sticky header
-
-            let current = allSections[0];
-            for (const section of allSections) {
-                if (section.offsetTop <= scrollY) {
-                    current = section;
-                }
-            }
-
-            navLinks.forEach(a => {
-                a.classList.toggle('active', a.getAttribute('href') === '#' + current.id);
-            });
-        }
-
-        window.addEventListener('scroll', updateActiveLink, { passive: true });
-        updateActiveLink(); // run on load
     </script>
 
 </body>
