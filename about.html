@@ -76,7 +76,7 @@
             font-weight: 300;
         }
 
-        nav { display: flex; gap: 4px; }
+        nav { display: flex; gap: 4px; align-items: center; }
 
         nav a {
             font-size: 0.78rem;
@@ -115,7 +115,6 @@
         .nav-dropdown-trigger:hover { color: var(--ink); background: var(--parchment-2); }
         .nav-dropdown-trigger.open  { color: var(--ink); background: var(--parchment-2); }
 
-        /* Active parent state when a child page is current */
         .nav-dropdown-trigger.parent-active {
             color: var(--terra);
             background: var(--terra-light);
@@ -330,7 +329,7 @@
             line-height: 1.6;
         }
 
-        /* ─── About the project ───────────────── */
+        /* ─── Project block ───────────────────── */
         .project-section {
             margin-bottom: 64px;
         }
@@ -372,45 +371,53 @@
 
         .project-content p + p { margin-top: 12px; }
 
-        /* ─── NAGPRA context block ────────────── */
-        .context-section {
-            margin-bottom: 64px;
-        }
-
-        .context-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-
-        .context-item {
+        /* ─── Citation block ──────────────────── */
+        .cite-block {
             background: var(--parchment-2);
             border: 1px solid var(--parchment-3);
-            border-radius: 2px;
-            padding: 20px 20px;
+            border-radius: 3px;
+            padding: 20px 24px;
+            margin-top: 16px;
+            font-size: 0.88rem;
+            color: var(--ink-muted);
+            line-height: 1.8;
         }
 
-        .context-item-label {
-            font-size: 0.67rem;
-            letter-spacing: 0.12em;
+        .cite-block strong {
+            color: var(--ink);
+            font-weight: 500;
+        }
+
+        .cite-copy-btn {
+            margin-top: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
             text-transform: uppercase;
             color: var(--terra);
-            margin-bottom: 6px;
+            background: none;
+            border: 1px solid var(--terra-mid);
+            border-radius: 2px;
+            padding: 5px 12px;
+            cursor: pointer;
+            transition: background 0.15s, border-color 0.15s;
         }
 
-        .context-item-value {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.6rem;
-            font-weight: 500;
-            color: var(--terra);
-            line-height: 1;
-            margin-bottom: 6px;
+        .cite-copy-btn:hover {
+            background: var(--terra-light);
+            border-color: var(--terra);
         }
 
-        .context-item-desc {
+        .cite-note {
+            margin-top: 14px;
             font-size: 0.78rem;
-            color: var(--ink-muted);
-            line-height: 1.5;
+            color: var(--ink-faint);
+            line-height: 1.6;
+            padding-top: 12px;
+            border-top: 1px solid var(--border);
         }
 
         /* ─── Contact / links ─────────────────── */
@@ -470,8 +477,9 @@
             .profile { grid-template-columns: 1fr; }
             .profile-photo-wrap img { width: 100%; height: 260px; }
             .interest-grid { grid-template-columns: 1fr; }
-            .context-grid { grid-template-columns: 1fr; }
             .page-heading { font-size: 2rem; }
+            header { padding: 0 20px; }
+            main { padding: 48px 20px 80px; }
         }
     </style>
 </head>
@@ -551,10 +559,30 @@
                 <div class="project-block-inner">
                     <div class="project-accent-bar"></div>
                     <div class="project-content">
-                        <h3>Ancestral Ties: Mapping NAGPRA Across the United States</h3>
-                        <p>This project maps NAGPRA inventories and cultural affiliation claims held by institutions across the United States. By visualizing the geographic relationships between institutions — universities, museums, federal agencies, historical societies — and the tribal nations with whom they share documented cultural affiliations, the map makes visible a bureaucratic and often opaque process.</p>
-                        <p>The goal is not simply to display data, but to situate it: to show how ancestral remains and cultural items move (or don't move) through the repatriation process, and whose voices are centered or marginalized in that movement.</p>
+                        <h3>Ancestral Ties: A Mapping Project</h3>
+                        <p>This project maps NAGPRA inventories, specifically looking at cultural affiliation claims held by institutions across the United States. By visualizing the geographic relationships between institutions — universities, museums, federal agencies, historical societies — and the Tribal Nations with whom they share documented cultural affiliations, the map makes visible the geographical distance which serves as a physical dismemberment of Native bodies and the land.</p>
+                        <p>The goal is not simply to display data, but to situate it: to show how Ancestral remains and cultural items move (or don't move) through the repatriation process, and whose voices are centered or marginalized in that movement.</p>
                         <p>Add more information here...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- How to Cite -->
+        <div class="project-section">
+            <p class="section-label">How to Cite This Project</p>
+            <div class="project-block">
+                <div class="project-block-inner">
+                    <div class="project-accent-bar"></div>
+                    <div class="project-content">
+                        <h3>APA 7th Edition</h3>
+                        <div class="cite-block" id="citation-text">
+                            LaLonde, R. (<span id="cite-year"></span>). <em>Ancestral Ties: Mapping NAGPRA across the United States</em> [Interactive web map]. Michigan State University, Department of Anthropology. https://[your-url-here]
+                        </div>
+                        <button class="cite-copy-btn" onclick="copyCitation()">
+                            <span id="copy-label">⧉ Copy Citation</span>
+                        </button>
+                        <p class="cite-note">When citing specific data layers or visualizations, include the affiliated tribal nation and your access date — for example: "Bay Mills Indian Community affiliation layer, retrieved Month Day, Year."</p>
                     </div>
                 </div>
             </div>
@@ -579,6 +607,7 @@
     </footer>
 
     <script>
+        /* ── Nav dropdown ────────────────────── */
         function toggleNavDropdown(e) {
             e.stopPropagation();
             e.currentTarget.classList.toggle('open');
@@ -589,6 +618,20 @@
             document.querySelector('.nav-dropdown-trigger')?.classList.remove('open');
             document.getElementById('nav-dropdown-menu')?.classList.remove('open');
         });
+
+        /* ── Auto-fill citation year ─────────── */
+        document.getElementById('cite-year').textContent = new Date().getFullYear();
+
+        /* ── Copy citation ───────────────────── */
+        function copyCitation() {
+            const year = new Date().getFullYear();
+            const text = `LaLonde, R.S. (${2026}). Ancestral Ties: A Mapping Project [Interactive web map]. Michigan State University, Department of Anthropology. https://[ryleelalonde.github.io/ancestralties/]`;
+            navigator.clipboard.writeText(text).then(() => {
+                const label = document.getElementById('copy-label');
+                label.textContent = '✓ Copied';
+                setTimeout(() => { label.textContent = '⧉ Copy Citation'; }, 2000);
+            });
+        }
     </script>
 
 </body>
