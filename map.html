@@ -30,6 +30,7 @@
             --c-university:#3d2e22;
             --c-museum:    #7a5530;
             --c-state:     #556645;
+            --c-split:     #2e6b6b;
         }
 
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -127,6 +128,7 @@
         .legend-dot.university { background: var(--c-university); }
         .legend-dot.museum    { background: var(--c-museum); }
         .legend-dot.state-dot { background: var(--c-state); }
+        .legend-dot.split-dot { background: var(--c-split); }
         .legend-swatch { width: 12px; height: 10px; flex-shrink: 0; border-radius: 2px; }
         .legend-swatch.cultural { background: rgba(196,146,58,0.35); border: 1.5px solid rgba(196,146,58,0.9); }
         .legend-divider { border: none; border-top: 1px solid var(--border); margin: 10px 0; }
@@ -156,6 +158,7 @@
         .popup-head.university { background: var(--c-university); }
         .popup-head.museum     { background: var(--c-museum); }
         .popup-head.state      { background: var(--c-state); }
+        .popup-head.split      { background: #2e6b6b; }
         .popup-head h3 { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 500; margin: 0; line-height: 1.3; }
         .popup-sub { font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.75; margin-top: 2px; }
         .popup-body { padding: 12px 14px; font-size: 0.82rem; color: var(--ink-muted); line-height: 1.5; }
@@ -221,7 +224,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <span class="modal-footer-note">Data compiled from Federal Register notices (2020–2026).</span>
+                <span class="modal-footer-note">Data compiled from Federal Register notices (2000–2026).</span>
                 <button class="modal-enter-btn" onclick="closeModal()">
                     Enter Map
                     <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7h12M7 1l6 6-6 6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -287,18 +290,6 @@
                     <span class="state-picker-label">Affiliated Tribe (NAGPRA)</span>
                     <div class="tribe-select-wrap">
                         <select id="tribe-select" onchange="onTribeChange(this.value)">
-                            <option value="bay-mills">Bay Mills Indian Community</option>
-                            <option value="grand-traverse">Grand Traverse Band of Ottawa &amp; Chippewa</option>
-                            <option value="hannahville">Hannahville Indian Community</option>
-                            <option value="keweenaw-bay">Keweenaw Bay Indian Community</option>
-                            <option value="lac-vieux-desert">Lac Vieux Desert Band</option>
-                            <option value="little-river">Little River Band of Ottawa Indians</option>
-                            <option value="little-traverse">Little Traverse Bay Bands of Odawa</option>
-                            <option value="gun-lake">Match-e-be-nash-she-wish Band (Gun Lake)</option>
-                            <option value="nottawaseppi">Nottawaseppi Huron Band of the Potawatomi</option>
-                            <option value="pokagon">Pokagon Band of Potawatomi Indians</option>
-                            <option value="saginaw">Saginaw Chippewa Indian Tribe of Michigan</option>
-                            <option value="sault">Sault Ste. Marie Tribe of Chippewa Indians</option>
                         </select>
                     </div>
                     <span class="tribe-notice-count" id="tribe-notice-count"><strong>106</strong> Federal Register notices</span>
@@ -313,7 +304,7 @@
                 <span class="sb-caret" id="how-to-read-caret">▾</span>
             </div>
             <div class="sb-body" id="how-to-read-body">
-                <p style="font-size:0.81rem;color:var(--ink-muted);line-height:1.65;margin-bottom:8px;">This map visualizes NAGPRA inventory completion notices connecting holding institutions to affiliated Tribal Nations (2020–2026).</p>
+                <p style="font-size:0.81rem;color:var(--ink-muted);line-height:1.65;margin-bottom:8px;">This map visualizes NAGPRA inventory completion notices connecting holding institutions to affiliated Tribal Nations (2000–2026).</p>
                 <p style="font-size:0.81rem;color:var(--ink-muted);line-height:1.65;margin-bottom:8px;">Arc lines connect each institution to its affiliated Tribal dot. <strong style="color:var(--ink);font-weight:500;">Thicker arcs</strong> = more Federal Register notices from that institution.</p>
                 <p style="font-size:0.81rem;color:var(--ink-muted);line-height:1.65;">Click any dot to see details and notice count. Use the tribe selector above to switch between affiliated nations.</p>
             </div>
@@ -346,12 +337,13 @@
                         </svg>
                         Institution → Tribal Nation
                     </div>
+                    <div class="legend-item">
+                        <svg width="28" height="14" viewBox="0 0 28 14" style="flex-shrink:0;">
+                            <path d="M 2 11 Q 14 1 26 11" stroke="rgba(46,107,107,0.75)" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-dasharray="3,2"/>
+                        </svg>
+                        Shared / Split Collection
+                    </div>
                     <div class="legend-item" style="font-size:0.74rem;color:var(--ink-faint);padding-left:37px;margin-top:-4px;">Weight = notice count</div>
-                </div>
-                <hr class="legend-divider">
-                <div class="legend-group">
-                    <div class="legend-group-label">Cultural Regions</div>
-                    <div class="legend-item"><div class="legend-swatch cultural"></div> Great Lakes / Midwest</div>
                 </div>
             </div>
         </div>
@@ -379,16 +371,6 @@
                         <div class="layer-opt"><div class="opt-pip" style="background:var(--c-university)"></div><input type="checkbox" id="i-university" checked onchange="toggleInstType()"/><label for="i-university">Universities &amp; Colleges</label></div>
                         <div class="layer-opt"><div class="opt-pip" style="background:var(--c-museum)"></div><input type="checkbox" id="i-museum" checked onchange="toggleInstType()"/><label for="i-museum">Museums</label></div>
                         <div class="layer-opt"><div class="opt-pip" style="background:var(--c-state)"></div><input type="checkbox" id="i-state" checked onchange="toggleInstType()"/><label for="i-state">State / Gov Agencies</label></div>
-                    </div>
-                </div>
-                <div class="layer-group">
-                    <div class="layer-head" onclick="toggleLayerOptions('cultural-options','cultural-caret')">
-                        <input type="checkbox" id="layer-cultural" checked onclick="event.stopPropagation();toggleCultural(this)"/>
-                        <span class="layer-head-label">Cultural Regions</span>
-                        <span class="layer-caret" id="cultural-caret">▶</span>
-                    </div>
-                    <div class="layer-options" id="cultural-options">
-                        <div class="layer-opt"><div class="opt-pip square" style="background:rgba(196,146,58,0.55);border:1px solid rgba(196,146,58,0.95)"></div><input type="checkbox" id="r-midwest" checked onchange="handleMidwestToggle(this)"/><label for="r-midwest">Great Lakes / Midwest</label></div>
                     </div>
                 </div>
                 <p class="sb-note">Click any dot on the map to view details and Federal Register notice count.</p>
@@ -456,11 +438,11 @@
         const STATE_CONFIG = {
             Michigan:  { center:[-84.8, 44.6],  zoom: 6.2, hasData: true,  count: 12 },
             Wisconsin: { center:[-89.8, 44.6],  zoom: 6.5, hasData: false, count: 11 },
-            Minnesota: { center:[-93.8, 46.5],  zoom: 6.2, hasData: false, count: 11 },
+            Minnesota: { center:[-93.8, 46.5],  zoom: 6.0, hasData: true,  count: 11 },
             all:       { center:[-89.5, 45.5],  zoom: 5.2, hasData: true,  count: 34 },
         };
 
-        const COLOR_MAP = { university:'#3d2e22', museum:'#7a5530', state:'#556645' };
+        const COLOR_MAP = { university:'#3d2e22', museum:'#7a5530', state:'#556645', split:'#5c3d7a' };
 
         /* ─── Tribe anchor coords ───────────── */
         const TRIBE_COORDS = {
@@ -476,6 +458,18 @@
             'pokagon':         [-86.191,  41.984],
             'saginaw':         [-84.741,  43.597],
             'sault':           [-84.349,  46.495],
+            // Minnesota
+            'bois-forte':      [-93.072,  47.882],
+            'fond-du-lac':     [-92.536,  46.716],
+            'grand-portage':   [-89.678,  47.964],
+            'leech-lake':      [-94.569,  47.378],
+            'lower-sioux':     [-94.978,  44.553],
+            'mille-lacs':      [-93.667,  46.073],
+            'prairie-island':  [-92.617,  44.617],
+            'red-lake':        [-95.014,  47.877],
+            'shakopee':        [-93.535,  44.773],
+            'upper-sioux':     [-95.476,  44.763],
+            'white-earth':     [-95.836,  47.123],
         };
 
         const TRIBE_INFO = {
@@ -491,10 +485,22 @@
             'pokagon':         { name: 'Pokagon Band of Potawatomi Indians',                      totalNotices: 132 },
             'saginaw':         { name: 'Saginaw Chippewa Indian Tribe of Michigan',               totalNotices: 113 },
             'sault':           { name: 'Sault Ste. Marie Tribe of Chippewa Indians',              totalNotices: 113 },
+            // Minnesota
+            'bois-forte':      { name: 'Bois Forte Band of Chippewa',                            totalNotices: 127 },
+            'fond-du-lac':     { name: 'Fond du Lac Band of Lake Superior Chippewa',              totalNotices: 135 },
+            'grand-portage':   { name: 'Grand Portage Band of Ojibwe',                            totalNotices: 125 },
+            'leech-lake':      { name: 'Leech Lake Band of Ojibwe',                               totalNotices:   2 },
+            'lower-sioux':     { name: 'Lower Sioux Indian Community',                            totalNotices:  67 },
+            'mille-lacs':      { name: 'Mille Lacs Band of Ojibwe',                               totalNotices:   2 },
+            'prairie-island':  { name: 'Prairie Island Indian Community',                         totalNotices:  62 },
+            'red-lake':        { name: 'Red Lake Band of Chippewa',                               totalNotices: 129 },
+            'shakopee':        { name: 'Shakopee Mdewakanton Sioux Community',                    totalNotices:  50 },
+            'upper-sioux':     { name: 'Upper Sioux Community Pezihutazizi Oyate',                totalNotices:  62 },
+            'white-earth':     { name: 'White Earth Nation',                                      totalNotices: 109 },
         };
 
         /* ─── Institution data per tribe ────── */
-        // Deduplicated & consolidated by location. notices = FR notice count (2020–2026).
+        // Deduplicated & consolidated by location. notices = FR notice count (2000–2026).
 
         const INSTITUTIONS_BY_TRIBE = {
 
@@ -887,17 +893,341 @@
                 { name:'Huron-Clinton Metropolitan Authority',               city:'Brighton',      state:'MI', type:'state',      notices:1,  coords:[-83.7813,42.5292] },
                 { name:"Washtenaw County Medical Examiner's Office",         city:'Ann Arbor',     state:'MI', type:'state',      notices:1,  coords:[-83.7830,42.2908] },
             ],
+
+            // ── Minnesota Tribes ──────────────────────────────────────────
+
+            'bois-forte': [
+                { name:'Michigan State University',                          city:'East Lansing',  state:'MI', type:'university', notices:16, coords:[-84.4842,42.7367] },
+                { name:'Mercyhurst University',                              city:'Erie',          state:'PA', type:'university', notices:13, coords:[-80.0851,42.1292] },
+                { name:'Beloit College, Logan Museum of Anthropology',       city:'Beloit',        state:'WI', type:'university', notices:12, coords:[-89.0318,42.5083] },
+                { name:'University of Wisconsin Oshkosh',                    city:'Oshkosh',       state:'WI', type:'university', notices:12, coords:[-88.5426,44.0247] },
+                { name:'University of Michigan',                             city:'Ann Arbor',     state:'MI', type:'university', notices:7,  coords:[-83.7430,42.2808] },
+                { name:'University of Wisconsin-Milwaukee',                  city:'Milwaukee',     state:'WI', type:'university', notices:7,  coords:[-87.9065,43.0389] },
+                { name:'Peabody Museum of Archaeology and Ethnology',        city:'Cambridge',     state:'MA', type:'university', notices:5,  coords:[-71.1056,42.3736] },
+                { name:'University of Toledo',                               city:'Toledo',        state:'OH', type:'university', notices:5,  coords:[-83.5553,41.6639] },
+                { name:'University of Wisconsin-Madison',                    city:'Madison',       state:'WI', type:'university', notices:4,  coords:[-89.4012,43.0731] },
+                { name:'Marshall University',                                city:'Huntington',    state:'WV', type:'university', notices:4,  coords:[-82.4452,38.4192] },
+                { name:'Office of the State Archaeologist',                  city:'Iowa City',     state:'IA', type:'university', notices:5,  coords:[-91.5302,41.6611] },
+                { name:'Ball State University',                              city:'Muncie',        state:'IN', type:'university', notices:2,  coords:[-85.4034,40.1989] },
+                { name:'Indiana University',                                 city:'Bloomington',   state:'IN', type:'university', notices:1,  coords:[-86.5264,39.1653] },
+                { name:'Princeton University',                               city:'Princeton',     state:'NJ', type:'university', notices:1,  coords:[-74.6672,40.3573] },
+                { name:'Coe College',                                        city:'Cedar Rapids',  state:'IA', type:'university', notices:1,  coords:[-91.6557,41.9814] },
+                { name:'Grand Rapids Public Museum',                         city:'Grand Rapids',  state:'MI', type:'museum',     notices:2,  coords:[-85.6681,42.9634] },
+                { name:'Field Museum of Natural History',                    city:'Chicago',       state:'IL', type:'museum',     notices:1,  coords:[-87.6298,41.8781] },
+                { name:'Illinois State Museum',                              city:'Springfield',   state:'IL', type:'museum',     notices:1,  coords:[-89.6501,39.7984] },
+                { name:'Detroit Institute of Arts',                          city:'Detroit',       state:'MI', type:'museum',     notices:1,  coords:[-83.0658,42.3514] },
+                { name:'Indiana State Museum and Historic Sites',            city:'Indianapolis',  state:'IN', type:'museum',     notices:2,  coords:[-86.1581,39.7684] },
+                { name:'Museum of Ojibwa Culture and Marquette Mission Park',city:'St. Ignace',    state:'MI', type:'museum',     notices:1,  coords:[-84.7274,45.8717] },
+                { name:'Ohio History Connection',                            city:'Columbus',      state:'OH', type:'state',      notices:7,  coords:[-82.9988,39.9612] },
+                { name:'Michigan State Historic Preservation Office',        city:'Lansing',       state:'MI', type:'state',      notices:6,  coords:[-84.5555,42.7325] },
+                { name:'Michigan State Police',                              city:'Dimondale',     state:'MI', type:'state',      notices:3,  coords:[-84.5155,42.7525] },
+                { name:'Minnesota Indian Affairs Council',                   city:'St. Paul',      state:'MN', type:'state',      notices:2,  coords:[-93.0900,44.9537] },
+                { name:'Huron-Clinton Metropolitan Authority',               city:'Brighton',      state:'MI', type:'state',      notices:1,  coords:[-83.7813,42.5292] },
+                { name:'Voyageurs National Park, NPS',                       city:'International Falls', state:'MN', type:'state', notices:1, coords:[-92.8383,48.4839] },
+                { name:'City of Traverse City',                              city:'Traverse City', state:'MI', type:'state',      notices:1,  coords:[-85.6206,44.7631] },
+            ],
+
+            'fond-du-lac': [
+                { name:'Michigan State University',                          city:'East Lansing',  state:'MI', type:'university', notices:17, coords:[-84.4842,42.7367] },
+                { name:'University of Wisconsin Oshkosh',                    city:'Oshkosh',       state:'WI', type:'university', notices:13, coords:[-88.5426,44.0247] },
+                { name:'Mercyhurst University',                              city:'Erie',          state:'PA', type:'university', notices:13, coords:[-80.0851,42.1292] },
+                { name:'Beloit College, Logan Museum of Anthropology',       city:'Beloit',        state:'WI', type:'university', notices:12, coords:[-89.0318,42.5083] },
+                { name:'University of Michigan',                             city:'Ann Arbor',     state:'MI', type:'university', notices:8,  coords:[-83.7430,42.2808] },
+                { name:'University of Wisconsin-Milwaukee',                  city:'Milwaukee',     state:'WI', type:'university', notices:7,  coords:[-87.9065,43.0389] },
+                { name:'Peabody Museum of Archaeology and Ethnology',        city:'Cambridge',     state:'MA', type:'university', notices:5,  coords:[-71.1056,42.3736] },
+                { name:'Office of the State Archaeologist',                  city:'Iowa City',     state:'IA', type:'university', notices:5,  coords:[-91.5302,41.6611] },
+                { name:'University of Wisconsin-Madison',                    city:'Madison',       state:'WI', type:'university', notices:4,  coords:[-89.4012,43.0731] },
+                { name:'Marshall University',                                city:'Huntington',    state:'WV', type:'university', notices:4,  coords:[-82.4452,38.4192] },
+                { name:'Indiana University',                                 city:'Bloomington',   state:'IN', type:'university', notices:2,  coords:[-86.5264,39.1653] },
+                { name:'Ball State University',                              city:'Muncie',        state:'IN', type:'university', notices:2,  coords:[-85.4034,40.1989] },
+                { name:'Princeton University',                               city:'Princeton',     state:'NJ', type:'university', notices:1,  coords:[-74.6672,40.3573] },
+                { name:'Coe College',                                        city:'Cedar Rapids',  state:'IA', type:'university', notices:1,  coords:[-91.6557,41.9814] },
+                { name:'Yale Peabody Museum',                                city:'New Haven',     state:'CT', type:'university', notices:1,  coords:[-72.9223,41.3163] },
+                { name:'Northwestern University',                            city:'Evanston',      state:'IL', type:'university', notices:1,  coords:[-87.6753,42.0565] },
+                { name:'University of Illinois Urbana-Champaign',            city:'Champaign',     state:'IL', type:'university', notices:1,  coords:[-88.2272,40.1020] },
+                { name:'Dept. of Anthropology, Northern Illinois Univ.',     city:'DeKalb',        state:'IL', type:'university', notices:1,  coords:[-88.7748,41.9314] },
+                { name:'Grand Rapids Public Museum',                         city:'Grand Rapids',  state:'MI', type:'museum',     notices:2,  coords:[-85.6681,42.9634] },
+                { name:'Illinois State Museum',                              city:'Springfield',   state:'IL', type:'museum',     notices:3,  coords:[-89.6501,39.7984] },
+                { name:'Field Museum of Natural History',                    city:'Chicago',       state:'IL', type:'museum',     notices:1,  coords:[-87.6298,41.8781] },
+                { name:'Detroit Institute of Arts',                          city:'Detroit',       state:'MI', type:'museum',     notices:1,  coords:[-83.0658,42.3514] },
+                { name:'Indiana State Museum and Historic Sites',            city:'Indianapolis',  state:'IN', type:'museum',     notices:2,  coords:[-86.1581,39.7684] },
+                { name:'American Museum of Natural History',                 city:'New York',      state:'NY', type:'museum',     notices:1,  coords:[-73.9742,40.7813] },
+                { name:'Museum of Ojibwa Culture and Marquette Mission Park',city:'St. Ignace',    state:'MI', type:'museum',     notices:1,  coords:[-84.7274,45.8717] },
+                { name:'Ohio History Connection',                            city:'Columbus',      state:'OH', type:'state',      notices:8,  coords:[-82.9988,39.9612] },
+                { name:'Michigan State Historic Preservation Office',        city:'Lansing',       state:'MI', type:'state',      notices:6,  coords:[-84.5555,42.7325] },
+                { name:'Michigan State Police',                              city:'Dimondale',     state:'MI', type:'state',      notices:3,  coords:[-84.5155,42.7525] },
+                { name:'Minnesota Indian Affairs Council',                   city:'St. Paul',      state:'MN', type:'state',      notices:2,  coords:[-93.0900,44.9537] },
+                { name:'Metropolitan Park District of the Toledo Area',      city:'Toledo',        state:'OH', type:'state',      notices:5,  coords:[-83.5153,41.6539] },
+                { name:'Huron-Clinton Metropolitan Authority',               city:'Brighton',      state:'MI', type:'state',      notices:1,  coords:[-83.7813,42.5292] },
+                { name:'City of Traverse City',                              city:'Traverse City', state:'MI', type:'state',      notices:1,  coords:[-85.6206,44.7631] },
+            ],
+
+            'grand-portage': [
+                { name:'Michigan State University',                          city:'East Lansing',  state:'MI', type:'university', notices:17, coords:[-84.4842,42.7367] },
+                { name:'University of Wisconsin Oshkosh',                    city:'Oshkosh',       state:'WI', type:'university', notices:14, coords:[-88.5426,44.0247] },
+                { name:'Mercyhurst University',                              city:'Erie',          state:'PA', type:'university', notices:13, coords:[-80.0851,42.1292] },
+                { name:'Beloit College, Logan Museum of Anthropology',       city:'Beloit',        state:'WI', type:'university', notices:12, coords:[-89.0318,42.5083] },
+                { name:'University of Wisconsin-Milwaukee',                  city:'Milwaukee',     state:'WI', type:'university', notices:7,  coords:[-87.9065,43.0389] },
+                { name:'University of Michigan',                             city:'Ann Arbor',     state:'MI', type:'university', notices:7,  coords:[-83.7430,42.2808] },
+                { name:'Peabody Museum of Archaeology and Ethnology',        city:'Cambridge',     state:'MA', type:'university', notices:5,  coords:[-71.1056,42.3736] },
+                { name:'Office of the State Archaeologist',                  city:'Iowa City',     state:'IA', type:'university', notices:5,  coords:[-91.5302,41.6611] },
+                { name:'University of Wisconsin-Madison',                    city:'Madison',       state:'WI', type:'university', notices:4,  coords:[-89.4012,43.0731] },
+                { name:'Marshall University',                                city:'Huntington',    state:'WV', type:'university', notices:4,  coords:[-82.4452,38.4192] },
+                { name:'Indiana University',                                 city:'Bloomington',   state:'IN', type:'university', notices:1,  coords:[-86.5264,39.1653] },
+                { name:'Ball State University',                              city:'Muncie',        state:'IN', type:'university', notices:2,  coords:[-85.4034,40.1989] },
+                { name:'Princeton University',                               city:'Princeton',     state:'NJ', type:'university', notices:1,  coords:[-74.6672,40.3573] },
+                { name:'Coe College',                                        city:'Cedar Rapids',  state:'IA', type:'university', notices:1,  coords:[-91.6557,41.9814] },
+                { name:'Grand Rapids Public Museum',                         city:'Grand Rapids',  state:'MI', type:'museum',     notices:2,  coords:[-85.6681,42.9634] },
+                { name:'Field Museum of Natural History',                    city:'Chicago',       state:'IL', type:'museum',     notices:1,  coords:[-87.6298,41.8781] },
+                { name:'Illinois State Museum',                              city:'Springfield',   state:'IL', type:'museum',     notices:1,  coords:[-89.6501,39.7984] },
+                { name:'Detroit Institute of Arts',                          city:'Detroit',       state:'MI', type:'museum',     notices:1,  coords:[-83.0658,42.3514] },
+                { name:'Indiana State Museum and Historic Sites',            city:'Indianapolis',  state:'IN', type:'museum',     notices:2,  coords:[-86.1581,39.7684] },
+                { name:'Museum of Ojibwa Culture and Marquette Mission Park',city:'St. Ignace',    state:'MI', type:'museum',     notices:1,  coords:[-84.7274,45.8717] },
+                { name:'Ohio History Connection',                            city:'Columbus',      state:'OH', type:'state',      notices:7,  coords:[-82.9988,39.9612] },
+                { name:'Michigan State Historic Preservation Office',        city:'Lansing',       state:'MI', type:'state',      notices:6,  coords:[-84.5555,42.7325] },
+                { name:'Michigan State Police',                              city:'Dimondale',     state:'MI', type:'state',      notices:3,  coords:[-84.5155,42.7525] },
+                { name:'Minnesota Indian Affairs Council',                   city:'St. Paul',      state:'MN', type:'state',      notices:1,  coords:[-93.0900,44.9537] },
+                { name:'Metropolitan Park District of the Toledo Area',      city:'Toledo',        state:'OH', type:'state',      notices:5,  coords:[-83.5153,41.6539] },
+                { name:'Huron-Clinton Metropolitan Authority',               city:'Brighton',      state:'MI', type:'state',      notices:1,  coords:[-83.7813,42.5292] },
+                { name:'City of Traverse City',                              city:'Traverse City', state:'MI', type:'state',      notices:1,  coords:[-85.6206,44.7631] },
+            ],
+
+            'leech-lake': [
+                { name:'Illinois State Museum',                              city:'Springfield',   state:'IL', type:'museum',     notices:1,  coords:[-89.6501,39.7984] },
+                { name:'Museum of Ojibwa Culture and Marquette Mission Park',city:'St. Ignace',    state:'MI', type:'museum',     notices:1,  coords:[-84.7274,45.8717] },
+            ],
+
+            'lower-sioux': [
+                { name:'University of Wisconsin Oshkosh',                    city:'Oshkosh',       state:'WI', type:'university', notices:14, coords:[-88.5426,44.0247] },
+                { name:'Beloit College, Logan Museum of Anthropology',       city:'Beloit',        state:'WI', type:'university', notices:12, coords:[-89.0318,42.5083] },
+                { name:'Office of the State Archaeologist',                  city:'Iowa City',     state:'IA', type:'university', notices:11, coords:[-91.5302,41.6611] },
+                { name:'University of Wisconsin-Milwaukee',                  city:'Milwaukee',     state:'WI', type:'university', notices:7,  coords:[-87.9065,43.0389] },
+                { name:'Indiana University',                                 city:'Bloomington',   state:'IN', type:'university', notices:1,  coords:[-86.5264,39.1653] },
+                { name:'Peabody Museum of Archaeology and Ethnology',        city:'Cambridge',     state:'MA', type:'university', notices:1,  coords:[-71.1056,42.3736] },
+                { name:'University of North Dakota',                         city:'Grand Forks',   state:'ND', type:'university', notices:1,  coords:[-97.0535,47.9209] },
+                { name:'University of Wisconsin-Madison',                    city:'Madison',       state:'WI', type:'university', notices:1,  coords:[-89.4012,43.0731] },
+                { name:'University of Kansas',                               city:'Lawrence',      state:'KS', type:'university', notices:1,  coords:[-95.2353,38.9717] },
+                { name:'University of Wyoming Human Remains Repository',     city:'Laramie',       state:'WY', type:'university', notices:1,  coords:[-105.5713,41.3149] },
+                { name:'Haffenreffer Museum, Brown University',              city:'Bristol',       state:'RI', type:'university', notices:1,  coords:[-71.2534,41.6976] },
+                { name:'Harvard Countway Library of Medicine',               city:'Boston',        state:'MA', type:'university', notices:1,  coords:[-71.1047,42.3354] },
+                { name:'Coe College',                                        city:'Cedar Rapids',  state:'IA', type:'university', notices:1,  coords:[-91.6557,41.9814] },
+                { name:'University of Connecticut',                          city:'Storrs',        state:'CT', type:'university', notices:1,  coords:[-72.2518,41.8071] },
+                { name:'Grand Rapids Public Museum',                         city:'Grand Rapids',  state:'MI', type:'museum',     notices:3,  coords:[-85.6681,42.9634] },
+                { name:'Mütter Museum',                                      city:'Philadelphia',  state:'PA', type:'museum',     notices:2,  coords:[-75.1729,39.9516] },
+                { name:'Chicago Historical Society',                         city:'Chicago',       state:'IL', type:'museum',     notices:1,  coords:[-87.6323,41.9217] },
+                { name:'Mercyhurst University',                              city:'Erie',          state:'PA', type:'university', notices:2,  coords:[-80.0851,42.1292] },
+                { name:'Minnesota Indian Affairs Council',                   city:'St. Paul',      state:'MN', type:'state',      notices:1,  coords:[-93.0900,44.9537] },
+                { name:'Effigy Mounds National Monument, NPS',               city:'Harpers Ferry', state:'IA', type:'state',      notices:1,  coords:[-91.1851,43.0842] },
+                { name:'Little Bighorn Battlefield National Monument, NPS',  city:'Crow Agency',   state:'MT', type:'state',      notices:1,  coords:[-107.4274,45.5616] },
+                { name:'Florida Department of State',                        city:'Tallahassee',   state:'FL', type:'state',      notices:1,  coords:[-84.2807,30.4383] },
+            ],
+
+            'mille-lacs': [
+                { name:'Illinois State Museum',                              city:'Springfield',   state:'IL', type:'museum',     notices:1,  coords:[-89.6501,39.7984] },
+                { name:'Museum of Ojibwa Culture and Marquette Mission Park',city:'St. Ignace',    state:'MI', type:'museum',     notices:1,  coords:[-84.7274,45.8717] },
+            ],
+
+            'prairie-island': [
+                { name:'University of Wisconsin Oshkosh',                    city:'Oshkosh',       state:'WI', type:'university', notices:14, coords:[-88.5426,44.0247] },
+                { name:'Beloit College, Logan Museum of Anthropology',       city:'Beloit',        state:'WI', type:'university', notices:12, coords:[-89.0318,42.5083] },
+                { name:'Office of the State Archaeologist',                  city:'Iowa City',     state:'IA', type:'university', notices:7,  coords:[-91.5302,41.6611] },
+                { name:'University of Wisconsin-Milwaukee',                  city:'Milwaukee',     state:'WI', type:'university', notices:7,  coords:[-87.9065,43.0389] },
+                { name:'Peabody Museum of Archaeology and Ethnology',        city:'Cambridge',     state:'MA', type:'university', notices:1,  coords:[-71.1056,42.3736] },
+                { name:'University of Michigan',                             city:'Ann Arbor',     state:'MI', type:'university', notices:1,  coords:[-83.7430,42.2808] },
+                { name:'University of North Dakota',                         city:'Grand Forks',   state:'ND', type:'university', notices:1,  coords:[-97.0535,47.9209] },
+                { name:'University of Wisconsin-Madison',                    city:'Madison',       state:'WI', type:'university', notices:1,  coords:[-89.4012,43.0731] },
+                { name:'University of Kansas',                               city:'Lawrence',      state:'KS', type:'university', notices:1,  coords:[-95.2353,38.9717] },
+                { name:'Haffenreffer Museum, Brown University',              city:'Bristol',       state:'RI', type:'university', notices:1,  coords:[-71.2534,41.6976] },
+                { name:'Harvard Countway Library of Medicine',               city:'Boston',        state:'MA', type:'university', notices:1,  coords:[-71.1047,42.3354] },
+                { name:'Coe College',                                        city:'Cedar Rapids',  state:'IA', type:'university', notices:1,  coords:[-91.6557,41.9814] },
+                { name:'University of Connecticut',                          city:'Storrs',        state:'CT', type:'university', notices:1,  coords:[-72.2518,41.8071] },
+                { name:'Michigan State University',                          city:'East Lansing',  state:'MI', type:'university', notices:1,  coords:[-84.4842,42.7367] },
+                { name:'Mercyhurst University',                              city:'Erie',          state:'PA', type:'university', notices:2,  coords:[-80.0851,42.1292] },
+                { name:'Grand Rapids Public Museum',                         city:'Grand Rapids',  state:'MI', type:'museum',     notices:3,  coords:[-85.6681,42.9634] },
+                { name:'Mütter Museum',                                      city:'Philadelphia',  state:'PA', type:'museum',     notices:2,  coords:[-75.1729,39.9516] },
+                { name:'Ohio History Connection',                            city:'Columbus',      state:'OH', type:'state',      notices:2,  coords:[-82.9988,39.9612] },
+                { name:'Minnesota Indian Affairs Council',                   city:'St. Paul',      state:'MN', type:'state',      notices:2,  coords:[-93.0900,44.9537] },
+                { name:'Effigy Mounds National Monument, NPS',               city:'Harpers Ferry', state:'IA', type:'state',      notices:1,  coords:[-91.1851,43.0842] },
+            ],
+
+            'red-lake': [
+                { name:'Michigan State University',                          city:'East Lansing',  state:'MI', type:'university', notices:18, coords:[-84.4842,42.7367] },
+                { name:'University of Wisconsin Oshkosh',                    city:'Oshkosh',       state:'WI', type:'university', notices:14, coords:[-88.5426,44.0247] },
+                { name:'Mercyhurst University',                              city:'Erie',          state:'PA', type:'university', notices:13, coords:[-80.0851,42.1292] },
+                { name:'Beloit College, Logan Museum of Anthropology',       city:'Beloit',        state:'WI', type:'university', notices:12, coords:[-89.0318,42.5083] },
+                { name:'University of Michigan',                             city:'Ann Arbor',     state:'MI', type:'university', notices:7,  coords:[-83.7430,42.2808] },
+                { name:'University of Wisconsin-Milwaukee',                  city:'Milwaukee',     state:'WI', type:'university', notices:7,  coords:[-87.9065,43.0389] },
+                { name:'Peabody Museum of Archaeology and Ethnology',        city:'Cambridge',     state:'MA', type:'university', notices:6,  coords:[-71.1056,42.3736] },
+                { name:'Office of the State Archaeologist',                  city:'Iowa City',     state:'IA', type:'university', notices:5,  coords:[-91.5302,41.6611] },
+                { name:'University of Toledo',                               city:'Toledo',        state:'OH', type:'university', notices:5,  coords:[-83.5553,41.6639] },
+                { name:'University of Wisconsin-Madison',                    city:'Madison',       state:'WI', type:'university', notices:4,  coords:[-89.4012,43.0731] },
+                { name:'Marshall University',                                city:'Huntington',    state:'WV', type:'university', notices:4,  coords:[-82.4452,38.4192] },
+                { name:'Ball State University',                              city:'Muncie',        state:'IN', type:'university', notices:2,  coords:[-85.4034,40.1989] },
+                { name:'Indiana University',                                 city:'Bloomington',   state:'IN', type:'university', notices:1,  coords:[-86.5264,39.1653] },
+                { name:'Princeton University',                               city:'Princeton',     state:'NJ', type:'university', notices:1,  coords:[-74.6672,40.3573] },
+                { name:'Coe College',                                        city:'Cedar Rapids',  state:'IA', type:'university', notices:1,  coords:[-91.6557,41.9814] },
+                { name:'University of North Dakota',                         city:'Grand Forks',   state:'ND', type:'university', notices:1,  coords:[-97.0535,47.9209] },
+                { name:'Dept. of Anthropology, Northern Illinois Univ.',     city:'DeKalb',        state:'IL', type:'university', notices:1,  coords:[-88.7748,41.9314] },
+                { name:'Grand Rapids Public Museum',                         city:'Grand Rapids',  state:'MI', type:'museum',     notices:4,  coords:[-85.6681,42.9634] },
+                { name:'Field Museum of Natural History',                    city:'Chicago',       state:'IL', type:'museum',     notices:1,  coords:[-87.6298,41.8781] },
+                { name:'Illinois State Museum',                              city:'Springfield',   state:'IL', type:'museum',     notices:1,  coords:[-89.6501,39.7984] },
+                { name:'Detroit Institute of Arts',                          city:'Detroit',       state:'MI', type:'museum',     notices:1,  coords:[-83.0658,42.3514] },
+                { name:'Indiana State Museum and Historic Sites',            city:'Indianapolis',  state:'IN', type:'museum',     notices:2,  coords:[-86.1581,39.7684] },
+                { name:'Museum of Ojibwa Culture and Marquette Mission Park',city:'St. Ignace',    state:'MI', type:'museum',     notices:1,  coords:[-84.7274,45.8717] },
+                { name:'Ohio History Connection',                            city:'Columbus',      state:'OH', type:'state',      notices:7,  coords:[-82.9988,39.9612] },
+                { name:'Michigan State Historic Preservation Office',        city:'Lansing',       state:'MI', type:'state',      notices:6,  coords:[-84.5555,42.7325] },
+                { name:'Michigan State Police',                              city:'Dimondale',     state:'MI', type:'state',      notices:2,  coords:[-84.5155,42.7525] },
+                { name:'Minnesota Indian Affairs Council',                   city:'St. Paul',      state:'MN', type:'state',      notices:1,  coords:[-93.0900,44.9537] },
+                { name:'Huron-Clinton Metropolitan Authority',               city:'Brighton',      state:'MI', type:'state',      notices:1,  coords:[-83.7813,42.5292] },
+                { name:'City of Traverse City',                              city:'Traverse City', state:'MI', type:'state',      notices:1,  coords:[-85.6206,44.7631] },
+            ],
+
+            'shakopee': [
+                { name:'University of Wisconsin Oshkosh',                    city:'Oshkosh',       state:'WI', type:'university', notices:14, coords:[-88.5426,44.0247] },
+                { name:'Beloit College, Logan Museum of Anthropology',       city:'Beloit',        state:'WI', type:'university', notices:12, coords:[-89.0318,42.5083] },
+                { name:'University of Wisconsin-Milwaukee',                  city:'Milwaukee',     state:'WI', type:'university', notices:7,  coords:[-87.9065,43.0389] },
+                { name:'Office of the State Archaeologist',                  city:'Iowa City',     state:'IA', type:'university', notices:3,  coords:[-91.5302,41.6611] },
+                { name:'University of North Dakota',                         city:'Grand Forks',   state:'ND', type:'university', notices:1,  coords:[-97.0535,47.9209] },
+                { name:'University of Wisconsin-Madison',                    city:'Madison',       state:'WI', type:'university', notices:1,  coords:[-89.4012,43.0731] },
+                { name:'University of Kansas',                               city:'Lawrence',      state:'KS', type:'university', notices:1,  coords:[-95.2353,38.9717] },
+                { name:'Haffenreffer Museum, Brown University',              city:'Bristol',       state:'RI', type:'university', notices:1,  coords:[-71.2534,41.6976] },
+                { name:'University of Connecticut',                          city:'Storrs',        state:'CT', type:'university', notices:1,  coords:[-72.2518,41.8071] },
+                { name:'Mercyhurst University',                              city:'Erie',          state:'PA', type:'university', notices:2,  coords:[-80.0851,42.1292] },
+                { name:'Grand Rapids Public Museum',                         city:'Grand Rapids',  state:'MI', type:'museum',     notices:3,  coords:[-85.6681,42.9634] },
+                { name:'Mütter Museum',                                      city:'Philadelphia',  state:'PA', type:'museum',     notices:2,  coords:[-75.1729,39.9516] },
+                { name:'Minnesota Indian Affairs Council',                   city:'St. Paul',      state:'MN', type:'state',      notices:1,  coords:[-93.0900,44.9537] },
+                { name:'Effigy Mounds National Monument, NPS',               city:'Harpers Ferry', state:'IA', type:'state',      notices:1,  coords:[-91.1851,43.0842] },
+            ],
+
+            'upper-sioux': [
+                { name:'University of Wisconsin Oshkosh',                    city:'Oshkosh',       state:'WI', type:'university', notices:14, coords:[-88.5426,44.0247] },
+                { name:'Office of the State Archaeologist',                  city:'Iowa City',     state:'IA', type:'university', notices:11, coords:[-91.5302,41.6611] },
+                { name:'Beloit College, Logan Museum of Anthropology',       city:'Beloit',        state:'WI', type:'university', notices:12, coords:[-89.0318,42.5083] },
+                { name:'University of Wisconsin-Milwaukee',                  city:'Milwaukee',     state:'WI', type:'university', notices:6,  coords:[-87.9065,43.0389] },
+                { name:'Peabody Museum of Archaeology and Ethnology',        city:'Cambridge',     state:'MA', type:'university', notices:1,  coords:[-71.1056,42.3736] },
+                { name:'University of North Dakota',                         city:'Grand Forks',   state:'ND', type:'university', notices:1,  coords:[-97.0535,47.9209] },
+                { name:'University of Wisconsin-Madison',                    city:'Madison',       state:'WI', type:'university', notices:1,  coords:[-89.4012,43.0731] },
+                { name:'Haffenreffer Museum, Brown University',              city:'Bristol',       state:'RI', type:'university', notices:1,  coords:[-71.2534,41.6976] },
+                { name:'Harvard Countway Library of Medicine',               city:'Boston',        state:'MA', type:'university', notices:1,  coords:[-71.1047,42.3354] },
+                { name:'Coe College',                                        city:'Cedar Rapids',  state:'IA', type:'university', notices:1,  coords:[-91.6557,41.9814] },
+                { name:'University of Connecticut',                          city:'Storrs',        state:'CT', type:'university', notices:1,  coords:[-72.2518,41.8071] },
+                { name:'Mercyhurst University',                              city:'Erie',          state:'PA', type:'university', notices:2,  coords:[-80.0851,42.1292] },
+                { name:'Grand Rapids Public Museum',                         city:'Grand Rapids',  state:'MI', type:'museum',     notices:2,  coords:[-85.6681,42.9634] },
+                { name:'Mütter Museum',                                      city:'Philadelphia',  state:'PA', type:'museum',     notices:2,  coords:[-75.1729,39.9516] },
+                { name:'Minnesota Indian Affairs Council',                   city:'St. Paul',      state:'MN', type:'state',      notices:2,  coords:[-93.0900,44.9537] },
+                { name:'Little Bighorn Battlefield National Monument, NPS',  city:'Crow Agency',   state:'MT', type:'state',      notices:2,  coords:[-107.4274,45.5616] },
+                { name:'Effigy Mounds National Monument, NPS',               city:'Harpers Ferry', state:'IA', type:'state',      notices:1,  coords:[-91.1851,43.0842] },
+                { name:'Florida Department of State',                        city:'Tallahassee',   state:'FL', type:'state',      notices:1,  coords:[-84.2807,30.4383] },
+            ],
+
+            'white-earth': [
+                { name:'University of Wisconsin Oshkosh',                    city:'Oshkosh',       state:'WI', type:'university', notices:14, coords:[-88.5426,44.0247] },
+                { name:'Mercyhurst University',                              city:'Erie',          state:'PA', type:'university', notices:13, coords:[-80.0851,42.1292] },
+                { name:'Beloit College, Logan Museum of Anthropology',       city:'Beloit',        state:'WI', type:'university', notices:12, coords:[-89.0318,42.5083] },
+                { name:'University of Wisconsin-Milwaukee',                  city:'Milwaukee',     state:'WI', type:'university', notices:7,  coords:[-87.9065,43.0389] },
+                { name:'Michigan State University',                          city:'East Lansing',  state:'MI', type:'university', notices:6,  coords:[-84.4842,42.7367] },
+                { name:'Peabody Museum of Archaeology and Ethnology',        city:'Cambridge',     state:'MA', type:'university', notices:5,  coords:[-71.1056,42.3736] },
+                { name:'Office of the State Archaeologist',                  city:'Iowa City',     state:'IA', type:'university', notices:5,  coords:[-91.5302,41.6611] },
+                { name:'University of Toledo',                               city:'Toledo',        state:'OH', type:'university', notices:5,  coords:[-83.5553,41.6639] },
+                { name:'University of Wisconsin-Madison',                    city:'Madison',       state:'WI', type:'university', notices:4,  coords:[-89.4012,43.0731] },
+                { name:'Marshall University',                                city:'Huntington',    state:'WV', type:'university', notices:4,  coords:[-82.4452,38.4192] },
+                { name:'Princeton University',                               city:'Princeton',     state:'NJ', type:'university', notices:1,  coords:[-74.6672,40.3573] },
+                { name:'Coe College',                                        city:'Cedar Rapids',  state:'IA', type:'university', notices:1,  coords:[-91.6557,41.9814] },
+                { name:'Kansas State University',                            city:'Manhattan',     state:'KS', type:'university', notices:1,  coords:[-96.5836,39.1955] },
+                { name:'Grand Rapids Public Museum',                         city:'Grand Rapids',  state:'MI', type:'museum',     notices:2,  coords:[-85.6681,42.9634] },
+                { name:'Detroit Institute of Arts',                          city:'Detroit',       state:'MI', type:'museum',     notices:1,  coords:[-83.0658,42.3514] },
+                { name:'Museum of Ojibwa Culture and Marquette Mission Park',city:'St. Ignace',    state:'MI', type:'museum',     notices:1,  coords:[-84.7274,45.8717] },
+                { name:'Valentine Museum',                                   city:'Richmond',      state:'VA', type:'museum',     notices:1,  coords:[-77.4432,37.5444] },
+                { name:'Ohio History Connection',                            city:'Columbus',      state:'OH', type:'state',      notices:10, coords:[-82.9988,39.9612] },
+                { name:'Michigan State Historic Preservation Office',        city:'Lansing',       state:'MI', type:'state',      notices:4,  coords:[-84.5555,42.7325] },
+                { name:'Michigan State Police',                              city:'Dimondale',     state:'MI', type:'state',      notices:2,  coords:[-84.5155,42.7525] },
+                { name:"Washtenaw County Medical Examiner's Office",         city:'Ann Arbor',     state:'MI', type:'state',      notices:6,  coords:[-83.7830,42.2908] },
+                { name:'Minnesota Indian Affairs Council',                   city:'St. Paul',      state:'MN', type:'state',      notices:1,  coords:[-93.0900,44.9537] }, // note: listed as MIAC
+                { name:'Huron-Clinton Metropolitan Authority',               city:'Brighton',      state:'MI', type:'state',      notices:1,  coords:[-83.7813,42.5292] },
+                { name:'Indiana State Museum and Historic Sites',            city:'Indianapolis',  state:'IN', type:'museum',     notices:1,  coords:[-86.1581,39.7684] },
+                { name:'Kansas State Historical Society',                    city:'Topeka',        state:'KS', type:'state',      notices:1,  coords:[-95.6903,39.0558] },
+                { name:'U.S. Army Corps of Engineers & Univ. of Tennessee',  city:'Omaha & Knoxville', state:'NE/TN', type:'state', notices:1, coords:[-95.9345,41.2565], split:true },
+            ],
         };
 
 
-        /* ─── Build GeoJSON for a given tribe ── */
+        /* ─── Tribes keyed by state ─────────── */
+        const TRIBES_BY_STATE = {
+            Michigan: [
+                { key:'bay-mills',       label:'Bay Mills Indian Community' },
+                { key:'grand-traverse',  label:'Grand Traverse Band of Ottawa & Chippewa' },
+                { key:'hannahville',     label:'Hannahville Indian Community' },
+                { key:'keweenaw-bay',    label:'Keweenaw Bay Indian Community' },
+                { key:'lac-vieux-desert',label:'Lac Vieux Desert Band' },
+                { key:'little-river',    label:'Little River Band of Ottawa Indians' },
+                { key:'little-traverse', label:'Little Traverse Bay Bands of Odawa' },
+                { key:'gun-lake',        label:'Match-e-be-nash-she-wish Band (Gun Lake)' },
+                { key:'nottawaseppi',    label:'Nottawaseppi Huron Band of the Potawatomi' },
+                { key:'pokagon',         label:'Pokagon Band of Potawatomi Indians' },
+                { key:'saginaw',         label:'Saginaw Chippewa Indian Tribe of Michigan' },
+                { key:'sault',           label:'Sault Ste. Marie Tribe of Chippewa Indians' },
+            ],
+            Minnesota: [
+                { key:'bois-forte',      label:'Bois Forte Band of Chippewa' },
+                { key:'fond-du-lac',     label:'Fond du Lac Band of Lake Superior Chippewa' },
+                { key:'grand-portage',   label:'Grand Portage Band of Ojibwe' },
+                { key:'leech-lake',      label:'Leech Lake Band of Ojibwe' },
+                { key:'lower-sioux',     label:'Lower Sioux Indian Community' },
+                { key:'mille-lacs',      label:'Mille Lacs Band of Ojibwe' },
+                { key:'prairie-island',  label:'Prairie Island Indian Community' },
+                { key:'red-lake',        label:'Red Lake Band of Chippewa' },
+                { key:'shakopee',        label:'Shakopee Mdewakanton Sioux Community' },
+                { key:'upper-sioux',     label:'Upper Sioux Community' },
+                { key:'white-earth',     label:'White Earth Nation' },
+            ],
+            all: [
+                { key:'bay-mills',       label:'Bay Mills Indian Community (MI)' },
+                { key:'grand-traverse',  label:'Grand Traverse Band (MI)' },
+                { key:'hannahville',     label:'Hannahville Indian Community (MI)' },
+                { key:'keweenaw-bay',    label:'Keweenaw Bay Indian Community (MI)' },
+                { key:'lac-vieux-desert',label:'Lac Vieux Desert Band (MI)' },
+                { key:'little-river',    label:'Little River Band of Ottawa Indians (MI)' },
+                { key:'little-traverse', label:'Little Traverse Bay Bands of Odawa (MI)' },
+                { key:'gun-lake',        label:'Match-e-be-nash-she-wish Band / Gun Lake (MI)' },
+                { key:'nottawaseppi',    label:'Nottawaseppi Huron Band (MI)' },
+                { key:'pokagon',         label:'Pokagon Band of Potawatomi (MI)' },
+                { key:'saginaw',         label:'Saginaw Chippewa Indian Tribe (MI)' },
+                { key:'sault',           label:'Sault Ste. Marie Tribe of Chippewa (MI)' },
+                { key:'bois-forte',      label:'Bois Forte Band of Chippewa (MN)' },
+                { key:'fond-du-lac',     label:'Fond du Lac Band (MN)' },
+                { key:'grand-portage',   label:'Grand Portage Band of Ojibwe (MN)' },
+                { key:'leech-lake',      label:'Leech Lake Band of Ojibwe (MN)' },
+                { key:'lower-sioux',     label:'Lower Sioux Indian Community (MN)' },
+                { key:'mille-lacs',      label:'Mille Lacs Band of Ojibwe (MN)' },
+                { key:'prairie-island',  label:'Prairie Island Indian Community (MN)' },
+                { key:'red-lake',        label:'Red Lake Band of Chippewa (MN)' },
+                { key:'shakopee',        label:'Shakopee Mdewakanton Sioux Community (MN)' },
+                { key:'upper-sioux',     label:'Upper Sioux Community (MN)' },
+                { key:'white-earth',     label:'White Earth Nation (MN)' },
+            ],
+        };
+
+        function populateTribeDropdown(state) {
+            const sel = document.getElementById('tribe-select');
+            const tribes = TRIBES_BY_STATE[state] || [];
+            sel.innerHTML = tribes.map(t =>
+                `<option value="${t.key}">${t.label}</option>`
+            ).join('');
+            currentTribe = tribes.length ? tribes[0].key : null;
+            // Update notice count badge
+            if (currentTribe) {
+                const info = TRIBE_INFO[currentTribe];
+                document.getElementById('tribe-notice-count').innerHTML =
+                    `<strong>${info.totalNotices}</strong> Federal Register notices`;
+            }
+        }
         function buildInstGeoJSON(tribeKey) {
             const list = INSTITUTIONS_BY_TRIBE[tribeKey];
             return {
                 type:'FeatureCollection',
                 features: list.map(d => ({
                     type:'Feature',
-                    properties:{ ...d, color: COLOR_MAP[d.type] },
+                    properties:{ ...d, color: COLOR_MAP[d.type], isSplit: !!d.split },
                     geometry:{ type:'Point', coordinates: d.coords }
                 }))
             };
@@ -913,7 +1243,9 @@
                     properties:{
                         name: d.name, notices: d.notices, type: d.type,
                         tribeName: TRIBE_INFO[tribeKey].name,
-                        width: Math.max(0.6, Math.min(3.2, 0.5 + d.notices * 0.22))
+                        width: Math.max(0.6, Math.min(3.2, 0.5 + d.notices * 0.22)),
+                        lineColor:     d.split ? '#2e6b6b' : '#a06428',
+                        lineColorGlow: d.split ? '#5a9e9e' : '#c8924a',
                     },
                     geometry:{ type:'LineString', coordinates: makeArc(d.coords, dest) }
                 }))
@@ -964,10 +1296,6 @@
             ]
         };
 
-        const upMichiganRegion      = { type:'FeatureCollection', features:[{ type:'Feature', properties:{ name:'Sault Tribe of Chippewa Indians', counties:'Alger, Chippewa, Delta, Luce, Mackinac, Marquette, Schoolcraft', region:'Great Lakes / Midwest' }, geometry:{ type:'Polygon', coordinates:[[[-87.60,46.98],[-87.55,46.90],[-87.42,46.82],[-87.35,46.68],[-87.10,46.60],[-86.82,46.62],[-86.65,46.57],[-86.35,46.60],[-86.00,46.68],[-85.75,46.68],[-85.52,46.66],[-85.28,46.70],[-85.02,46.78],[-84.82,46.88],[-84.65,46.93],[-84.50,46.90],[-84.37,46.75],[-84.37,46.49],[-84.28,46.35],[-84.12,46.20],[-84.08,46.05],[-84.25,45.95],[-84.55,45.88],[-84.73,45.82],[-85.05,45.73],[-85.30,45.72],[-85.60,45.78],[-85.88,45.74],[-86.20,45.70],[-86.55,45.65],[-86.90,45.62],[-87.08,45.62],[-87.18,45.70],[-87.22,45.90],[-87.22,46.08],[-87.42,46.10],[-87.55,46.20],[-87.60,46.50],[-87.60,46.98]]] } }] };
-        const gogebicRegion         = { type:'FeatureCollection', features:[{ type:'Feature', properties:{ name:'Lac Vieux Desert Band', counties:'Gogebic', region:'Great Lakes / Midwest' }, geometry:{ type:'Polygon', coordinates:[[[-90.42,46.88],[-90.20,46.84],[-89.85,46.78],[-89.50,46.70],[-89.10,46.58],[-89.04,46.07],[-89.50,46.07],[-90.00,46.07],[-90.42,46.07],[-90.42,46.88]]] } }] };
-        const menomineeDeltaRegion  = { type:'FeatureCollection', features:[{ type:'Feature', properties:{ name:'Hannahville Indian Community Area', counties:'Menominee, Delta', region:'Great Lakes / Midwest' }, geometry:{ type:'Polygon', coordinates:[[[-87.22,46.10],[-87.00,46.10],[-86.65,46.10],[-86.40,46.12],[-86.25,45.95],[-86.15,45.80],[-86.10,45.65],[-86.10,45.45],[-86.25,45.22],[-86.50,45.08],[-87.00,45.02],[-87.20,45.02],[-87.55,45.10],[-87.85,45.28],[-88.05,45.55],[-88.10,45.78],[-87.95,45.98],[-87.70,46.05],[-87.50,46.08],[-87.35,46.08],[-87.22,46.10]]] } }] };
-
         /* ─── Map init ──────────────────────── */
         mapboxgl.accessToken = 'pk.eyJ1IjoicnlsZWUtbGFsb25kZSIsImEiOiJjbWxheWJ5OXYwYjY0M2RxMmh1NDR5MjRxIn0.C9DGK_0soHehFbajEFkyoA';
 
@@ -998,35 +1326,15 @@
         map.on('load', () => {
             mapReady = true;
 
-            /* regions */
-            function addRegion(id, geojson) {
-                map.addSource(id, { type:'geojson', data:geojson });
-                map.addLayer({ id:id+'-fill',    type:'fill', source:id, paint:{ 'fill-color':'rgba(196,146,58,0.13)', 'fill-opacity':1 } });
-                map.addLayer({ id:id+'-outline', type:'line', source:id, paint:{ 'line-color':'rgba(196,146,58,0.85)', 'line-width':1.5, 'line-dasharray':[3,2] } });
-                map.on('click', id+'-fill', e => {
-                    if (map.queryRenderedFeatures(e.point, { layers:['tribal-nations-dot','institutions-dot'] }).length) return;
-                    const p = e.features[0].properties;
-                    new mapboxgl.Popup({ offset:8 }).setLngLat(e.lngLat)
-                        .setHTML(`<div class="popup-head"><h3>${p.name}</h3></div><div class="popup-body"><p><strong>Counties:</strong> ${p.counties}</p><p><strong>Region:</strong> ${p.region}</p></div>`)
-                        .addTo(map);
-                });
-                map.on('mouseenter', id+'-fill', () => map.getCanvas().style.cursor = 'pointer');
-                map.on('mouseleave', id+'-fill', () => map.getCanvas().style.cursor = '');
-            }
-
-            addRegion('up-michigan-region',    upMichiganRegion);
-            addRegion('gogebic-region',         gogebicRegion);
-            addRegion('menominee-delta-region', menomineeDeltaRegion);
-
             /* arcs */
             map.addSource('affiliation-arcs', { type:'geojson', data: buildArcGeoJSON('bay-mills') });
             map.addLayer({
                 id:'arcs-glow', type:'line', source:'affiliation-arcs',
-                paint:{ 'line-color':'#c8924a', 'line-width':['*',['get','width'],4], 'line-opacity':0.08, 'line-blur':4 }
+                paint:{ 'line-color':['get','lineColorGlow'], 'line-width':['*',['get','width'],4], 'line-opacity':0.08, 'line-blur':4 }
             });
             map.addLayer({
                 id:'arcs-line', type:'line', source:'affiliation-arcs',
-                paint:{ 'line-color':'#a06428', 'line-width':['get','width'], 'line-opacity':0.48 }
+                paint:{ 'line-color':['get','lineColor'], 'line-width':['get','width'], 'line-opacity':0.48 }
             });
 
             /* institution dots */
@@ -1049,8 +1357,11 @@
                 const p = e.features[0].properties;
                 const typeLabel = { university:'University / College', museum:'Museum', state:'State / Gov Agency' }[p.type] || p.type;
                 const tribeName = TRIBE_INFO[currentTribe].name;
+                const splitBadge = p.isSplit
+                    ? `<span class="popup-notices" style="background:rgba(46,107,107,0.1);color:#2e6b6b;border-color:rgba(46,107,107,0.4);margin-left:6px;">⟨ Shared Collection</span>`
+                    : '';
                 sharedPopup.setLngLat(e.features[0].geometry.coordinates.slice())
-                    .setHTML(`<div class="popup-head ${p.type}"><h3>${p.name}</h3><div class="popup-sub">${p.city}, ${p.state} · ${typeLabel}</div></div><div class="popup-body"><p><strong>Affiliated Tribe:</strong> ${tribeName}</p><span class="popup-notices">${p.notices} Federal Register Notice${p.notices>1?'s':''}</span></div>`)
+                    .setHTML(`<div class="popup-head ${p.isSplit ? 'split' : p.type}"><h3>${p.name}</h3><div class="popup-sub">${p.city}, ${p.state} · ${typeLabel}</div></div><div class="popup-body"><p><strong>Affiliated Tribe:</strong> ${tribeName}</p><span class="popup-notices">${p.notices} Federal Register Notice${p.notices>1?'s':''}</span>${splitBadge}${p.isSplit ? '<p style="margin-top:8px;font-size:0.78rem;color:var(--ink-faint);line-height:1.5;">Collection held jointly; repatriated as a split/shared inventory between two institutions.</p>' : ''}</div>`)
                     .addTo(map);
             });
             map.on('mouseenter', 'institutions-dot', () => map.getCanvas().style.cursor = 'pointer');
@@ -1077,6 +1388,7 @@
             map.on('mouseleave', 'tribal-nations-dot', () => map.getCanvas().style.cursor = '');
 
             // Apply initial Michigan filter
+            populateTribeDropdown('Michigan');
             applyStateFilter('Michigan');
         });
 
@@ -1119,6 +1431,16 @@
             map.setFilter('tribal-nations-dot',  tribalFilter);
             map.setFilter('tribal-nations-glow', tribalFilter);
 
+            // Repopulate tribe dropdown for this state
+            if (hasData) {
+                populateTribeDropdown(state);
+                // Load the first tribe's data automatically
+                if (currentTribe) {
+                    map.getSource('institutions').setData(buildInstGeoJSON(currentTribe));
+                    map.getSource('affiliation-arcs').setData(buildArcGeoJSON(currentTribe));
+                }
+            }
+
             // Respect existing checkbox state for institutions
             const instCbChecked = document.getElementById('layer-institutions').checked;
             const arcCbChecked  = document.getElementById('layer-arcs').checked;
@@ -1150,7 +1472,6 @@
         }
 
         /* ─── Layer toggles ─────────────────── */
-        const regionIds = ['up-michigan-region','gogebic-region','menominee-delta-region'];
 
         function setVis(ids, on) {
             ids.forEach(id => { if (map.getLayer(id)) map.setLayoutProperty(id, 'visibility', on ? 'visible' : 'none'); });
@@ -1177,17 +1498,6 @@
             });
         }
 
-        function toggleCultural(cb) {
-            document.getElementById('r-midwest').checked = cb.checked;
-            handleMidwestToggle({ checked: cb.checked });
-        }
-
-        function handleMidwestToggle(cb) {
-            regionIds.forEach(id => {
-                if (map.getLayer(id+'-fill'))    map.setLayoutProperty(id+'-fill',    'visibility', cb.checked ? 'visible' : 'none');
-                if (map.getLayer(id+'-outline')) map.setLayoutProperty(id+'-outline', 'visibility', cb.checked ? 'visible' : 'none');
-            });
-        }
     </script>
 
 </body>
