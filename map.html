@@ -140,7 +140,7 @@
                         <p>Connections shown between institutions and Tribal Nations do not imply ownership or resolved repatriation. They document relationships established through archaeological, historical, and Tribal evidence as recorded — evidence produced within a legal system that itself has a complicated relationship with Indigenous sovereignty.</p>
                         <div class="ethics-principles">
                             <div class="ethics-principle"><p class="ethics-principle-title">Transparency</p><p>All data sources are cited. All citations are disclosed in the Sources page.</p></div>
-                            <div class="ethics-principle"><p class="ethics-principle-title">Tribal Sovereignty</p><p>Tribal nations are named and treated as sovereign political entities, not ethnic categories or archaeological groupings.</p></div>
+                            <div class="ethics-principle"><p class="ethics-principle-title">Tribal Sovereignty</p><p>Tribal Nations are named and treated as sovereign political entities, not ethnic categories or archaeological groupings.</p></div>
                             <div class="ethics-principle"><p class="ethics-principle-title">Avoiding Harm</p><p>This project does not display sensitive information about individual human remains, sacred objects, or burial sites.</p></div>
                             <div class="ethics-principle"><p class="ethics-principle-title">Ongoing Process</p><p>Repatriation is not presented as complete or resolved. The map reflects a snapshot of an ongoing, dynamic relationship.</p></div>
                         </div>
@@ -148,7 +148,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <span class="modal-footer-note">Data compiled from Federal Register notices (2000–2026).</span>
+                <span class="modal-footer-note">Data compiled from Federal Register notices (2020–2026).</span>
                 <button class="modal-enter-btn" onclick="closeModal()">Enter Map <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7h12M7 1l6 6-6 6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
             </div>
         </div>
@@ -201,9 +201,10 @@
         <div class="sb-section">
             <div class="sb-section-head" onclick="toggleSection('how-to-read')"><h2>How to Read</h2><span class="sb-caret" id="how-to-read-caret">▾</span></div>
             <div class="sb-body" id="how-to-read-body">
-                <p style="font-size:0.81rem;color:var(--ink-muted);line-height:1.65;margin-bottom:8px">This map visualizes NAGPRA inventory completion notices connecting holding institutions to affiliated Tribal Nations (2000–2026).</p>
-                <p style="font-size:0.81rem;color:var(--ink-muted);line-height:1.65;margin-bottom:8px">Arc lines connect each institution to its affiliated Tribal dot. <strong style="color:var(--ink);font-weight:500">Thicker arcs</strong> = more Federal Register notices.</p>
-                <p style="font-size:0.81rem;color:var(--ink-muted);line-height:1.65"><strong style="color:#2e6b6b;font-weight:500">Teal arcs &amp; dots</strong> = split or shared collections held across two locations.</p>
+                <p style="font-size:0.81rem;color:var(--ink-muted);line-height:1.65;margin-bottom:8px">This map visualizes NAGPRA inventory completion notices connecting holding institutions to affiliated Tribal nations (2020-2026).</p>
+                <p style="font-size:0.81rem;color:var(--ink-muted);line-height:1.65;margin-bottom:8px">The federally recognized Tribal Nations (red dots) are connected to institutions (brown, green, or teal) via affiliation arcs. The arcs originate from the tribal nations to indicate their connection to an affiliated home, and end at the institution to signify that where Ancestors currently reside is not where they originally were — conveying the gravity of their removal.</p>
+                <p style="font-size:0.81rem;color:var(--ink-muted);line-height:1.65">For institutions, a larger dot and thicker affiliation arc indicate a greater number of Federal Register notices.</p>
+                <p style="font-size:0.81rem;color:var(--ink-muted);line-height:1.65">Above, two dropdown menus allow you to filter by state and by Tribe. Below, you can toggle map layers to remove affiliation arcs or filter by institution type.</p>
             </div>
         </div>
         <div class="sb-section">
@@ -272,10 +273,10 @@
         }
         /* State config */
         const STATE_CONFIG={
-            Michigan: {center:[-84.8,44.6],zoom:6.2,hasData:true, count:12},
-            Wisconsin:{center:[-89.8,44.6],zoom:6.5,hasData:true, count:10},
-            Minnesota:{center:[-93.8,46.5],zoom:6.0,hasData:true, count:11},
-            all:      {center:[-89.5,45.5],zoom:5.2,hasData:true, count:34},
+            Michigan: {center:[-84.8,44.6],zoom:5,hasData:true, count:12},
+            Wisconsin:{center:[-89.8,44.6],zoom:5,hasData:true, count:10},
+            Minnesota:{center:[-93.8,46.5],zoom:5,hasData:true, count:11},
+            all:      {center:[-89.5,45.5],zoom:4.5,hasData:true, count:34},
         }
         const COLOR_MAP={university:'#3d2e22',museum:'#7a5530',state:'#556645',split:'#2e6b6b'}
         /* Tribe anchor coords */
@@ -428,7 +429,7 @@
         /* ─── INSTITUTIONS_BY_TRIBE ──────────────────────────────
            Each key maps to an array of holding institutions with
            their notice counts compiled from Federal Register data
-           (2000-2026). Split/shared inventories use split:true.     */
+           (2020-2026). Split/shared inventories use split:true.     */
         const INSTITUTIONS_BY_TRIBE = {
 
             'bad-river': [
