@@ -15,7 +15,7 @@
             --ink:         #0f0c08; --ink-muted:   #3d3229; --ink-faint:   #7a6e64;
             --terra:       #8b3a1e; --terra-light: rgba(139,58,30,0.10); --terra-mid: rgba(139,58,30,0.30);
             --border:      rgba(15,12,8,0.20); --sidebar-w: 300px; --header-h: 52px;
-            --c-tribal:#a84428; --c-university:#3d2e22; --c-museum:#7a5530; --c-state:#556645; --c-split:#2e6b6b;
+            --c-tribal:#a84428; --c-university:#3d2e22; --c-museum:#7a5530; --c-state:#556645; --c-split:#2e6b6b; --c-historical: #6b4e7a;
         }
         *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
         body,html{height:100%;overflow:hidden;font-family:'DM Sans',sans-serif;color:var(--ink);background:var(--parchment)}
@@ -71,6 +71,7 @@
         .legend-dot.tribal{background:var(--c-tribal);box-shadow:0 0 0 3px rgba(168,68,40,0.18)}
         .legend-dot.university{background:var(--c-university)} .legend-dot.museum{background:var(--c-museum)}
         .legend-dot.state-dot{background:var(--c-state)} .legend-dot.split-dot{background:var(--c-split)}
+        .legend-dot.historical{background:var(--c-historical)}
         .legend-swatch{width:12px;height:10px;flex-shrink:0;border-radius:2px}
         .legend-swatch.cultural{background:rgba(196,146,58,0.35);border:1.5px solid rgba(196,146,58,0.9)}
         .legend-divider{border:none;border-top:1px solid var(--border);margin:10px 0}
@@ -87,7 +88,7 @@
         .sb-note{font-size:0.73rem;color:var(--ink-faint);line-height:1.5;padding:10px 0 4px;border-top:1px solid var(--border);margin-top:4px}
         .mapboxgl-popup-content{padding:0;border-radius:6px;box-shadow:0 4px 20px rgba(15,12,8,0.18);min-width:220px;max-width:290px;overflow:hidden;font-family:'DM Sans',sans-serif}
         .popup-head{background:var(--terra);color:white;padding:10px 14px}
-        .popup-head.university{background:var(--c-university)} .popup-head.museum{background:var(--c-museum)} .popup-head.state{background:var(--c-state)} .popup-head.split{background:#2e6b6b}
+        .popup-head.university{background:var(--c-university)} .popup-head.museum{background:var(--c-museum)} .popup-head.state{background:var(--c-state)} .popup-head.split{background:#2e6b6b} .popup-head.historical{background:var(--c-historical)}
         .popup-head h3{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:500;margin:0;line-height:1.3}
         .popup-sub{font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;opacity:0.75;margin-top:2px}
         .popup-body{padding:12px 14px;font-size:0.82rem;color:var(--ink-muted);line-height:1.5}
@@ -218,6 +219,7 @@
                     <div class="legend-item"><div class="legend-dot museum"></div> Museum</div>
                     <div class="legend-item"><div class="legend-dot state-dot"></div> State / Gov Agency</div>
                     <div class="legend-item"><div class="legend-dot split-dot"></div> Split / Shared Collection</div>
+                    <div class="legend-item"><div class="legend-dot historical"></div>Historical Society</div>
                 </div>
                 <hr class="legend-divider" id="legend-arc-divider">
                 <div class="legend-group" id="legend-arcs">
@@ -278,7 +280,7 @@
             Minnesota:{center:[-93.8,46.5],zoom:5,hasData:true, count:11},
             all:      {center:[-89.5,45.5],zoom:4.5,hasData:true, count:34},
         }
-        const COLOR_MAP={university:'#3d2e22',museum:'#7a5530',state:'#556645',split:'#2e6b6b'}
+        const COLOR_MAP={university:'#3d2e22',museum:'#7a5530',state:'#556645',split:'#2e6b6b', historical: '#6b4e7a'}
         /* Tribe anchor coords */
         const TRIBE_COORDS={
             'bay-mills':[-84.5617,46.4197],'grand-traverse':[-85.618,44.947],'hannahville':[-87.274,45.907],
@@ -461,6 +463,7 @@
                 { name:'Indiana University', city:'Bloomington', state:'IN', type:'university', notices:1, coords:[-86.5264,39.1653] },
                 { name:'Illinois State Museum', city:'Springfield', state:'IL', type:'museum', notices:1, coords:[-89.6501,39.7984] },
                 { name:'Indiana Dept. of Natural Resources, Division of Historic Preservation and Archaeology', city:'Indianapolis', state:'IN', type:'state', notices:1, coords:[-86.0955, 39.4600] },
+                { name:'City of Traverse City', city:'Traverse City', state:'MI', type:'state', notices:1, coords:[-85.6206,44.7631] },
 
             ],
             'forest-county': [
@@ -490,7 +493,7 @@
                 { name:'Metropolitan Park District of the Toledo Area', city:'Toledo', state:'OH', type:'state', notices:1, coords:[-83.5153,41.6539] },
                 { name:'Field Museum of Natural History', city:'Chicago', state:'IL', type:'museum', notices:1, coords:[-87.6298,41.8781] },
                 { name:'Washtenaw County Medical Examiner\'s Office', city:'Ann Arbor', state:'MI', type:'state', notices:1, coords:[-83.7830,42.2908] },
-                { name:'Missouri Historical Society', city:'St. Louis', state:'MO', type:'museum', notices:1, coords:[-90.2847,38.6488] },
+                { name:'Missouri Historical Society', city:'St. Louis', state:'MO', type:'historical', notices:1, coords:[-90.2847,38.6488] },
                 { name:'Augusta Museum of History', city:'Augusta', state:'GA', type:'museum', notices:1, coords:[-81.9748,33.4735] },
                 { name:'Department of Anthropology, Northern Illinois Univ.', city:'DeKalb', state:'IL', type:'university', notices:1, coords:[-88.7748,41.9314] },
                 { name:'University of Illinois Urbana-Champaign', city:'Champaign', state:'IL', type:'university', notices:1, coords:[-88.2272,40.1020] },
@@ -501,6 +504,10 @@
                 { name:'Huron-Clinton Metropolitan Authority', city:'Brighton', state:'MI', type:'state', notices:1, coords:[-83.7813,42.5292] },
                 { name:'Coe College', city:'Cedar Rapids', state:'IA', type:'university', notices:1, coords:[-91.6557,41.9814] },
                 { name:'Indiana Dept. of Natural Resources, Division of Historic Preservation and Archaeology', city:'Indianapolis', state:'IN', type:'state', notices:1, coords:[-86.0955, 39.4600] },
+                { name:'SUNY, Broome Community College', city:'Binghamton', state:'NY', type:'university', notices:1, coords:[-75.9189, 42.1310]},
+                { name:'Library Company of Philadelphia', city:'Philadelphia', state:'PA', type:'state', notices:1, coords:[-75.1632, 39.9479]},
+                { name:'S\'edav Va\'aki Museum', city:'Phoenix', state:'AZ', type:'museum', notices:1, coords:[-111.5903, 33.44639]},
+                { name:'Sandusky Library', city:'Sandusky', state:'OH', type:'state', notices:1, coords:[-82.4238, 41.2711]},
 
             ],
             'ho-chunk-wi': [
@@ -526,6 +533,8 @@
                 { name:'Santa Barbara Museum of Natural History', city:'Santa Barbara', state:'CA', type:'museum', notices:1, coords:[-119.7195,34.4358] },
                 { name:'Coe College', city:'Cedar Rapids', state:'IA', type:'university', notices:1, coords:[-91.6557,41.9814] },
                 { name:'Milwaukee Public Museum', city:'Milwaukee', state:'WI', type:'museum', notices:1, coords:[-87.9290,43.0434] },
+                { name:'Midewin Tallgrass Prairie', city:'Wilmington', state:'IL', type:'state', notices:1, coords:[-88.1565, 41.366] },
+
             ],
             'lac-courte-oreilles': [
                 { name:'Michigan State University', city:'East Lansing', state:'MI', type:'university', notices:17, coords:[-84.4842,42.7367] },
@@ -632,6 +641,11 @@
                 { name:'Princeton University', city:'Princeton', state:'NJ', type:'university', notices:1, coords:[-74.6672,40.3573] },
                 { name:'The University of Wisconsin-Milwaukee', city:'Milwaukee', state:'WI', type:'university', notices:1, coords:[-87.9065,43.0389] },
                 { name:'Huntington Museum of Art', city:'Huntington', state:'WV', type:'museum', notices:1, coords:[-82.4052,38.4292] },
+                { name:'University of Buffalo  ', city:'Buffalo', state:'NY', type:'university', notices:1,  coords:[-78.790, 43.001] },
+                { name:'Western Washington University', city:'Ballingham', state:'WA', type:'university', notices:1,  coords:[-122.4875, 48.7351] },
+                { name:'State University of New York-Postdam', city:'Postdam', state:'NY', type:'university', notices:1,  coords:[-74.9859, 44.6713] },
+                { name:'Broome County Historical Society', city:'Binghamton', state:'NY', type:'historical', notices:1,  coords:[-75.9680, 42.1143]},
+
             ],
             'red-cliff': [
                 { name:'Michigan State University', city:'East Lansing', state:'MI', type:'university', notices:17, coords:[-84.4842,42.7367] },
@@ -744,7 +758,7 @@
                 { name:'Bixby Memorial Free Library ', city:'Vergennes', state:'VT', type:'state', notices:1,  coords:[-73.15, 44.10] },
                 { name:'Bruce Museum, Inc. ', city:'Greenwich', state:'CT', type:'museum', notices:2,  coords:[-73.37, 41.13] },
                 { name:'Harvard University, Archives, Pusey Library', city:'Cambridge', state:'MA', type:'university', notices:1,  coords:[-71.1174, 42.3744] },
-                { name:'Huguenot Historical Society ', city:'New Paltz', state:'NY', type:'historical society', notices:1,  coords:[-74.0502, 41.4505] },
+                { name:'Huguenot Historical Society ', city:'New Paltz', state:'NY', type:'historical', notices:1,  coords:[-74.0502, 41.4505] },
                 { name:'Johnson-Humrickhouse Museum  ', city:'Coshocton', state:'OH', type:'museum', notices:1,  coords:[-81.87, 40.27] },
                 { name:'Sandusky Library  ', city:'Sandusky', state:'OH', type:'state', notices:1,  coords:[-82.42, 41.27] },
                 { name:'The Westfield Athenaeum  ', city:'Westfield', state:'MA', type:'museum', notices:1,  coords:[-72.7533, 42.1260] },
@@ -754,14 +768,14 @@
                 { name:'Shippen Manor Museum', city:'Oxford', state:'NJ', type:'museum', notices:1,  coords:[-59.846, 48.249] },
                 { name:'Berkshire Museum', city:'Pittsfield', state:'MA', type:'museum', notices:1,  coords:[-73.25, 42.44] },
                 { name:'Boston University', city:'Boston', state:'MA', type:'university', notices:1,  coords:[-71.1054, 42.3505] },
-                { name:'Brooklyn Childrens Museum', city:'Brooklyn', state:'NY', type:'museum', notices:1,  coords:[-73.9458, 40.6729] },
+                { name:'Brooklyn Children\'s Museum', city:'Brooklyn', state:'NY', type:'museum', notices:1,  coords:[-73.9458, 40.6729] },
                 { name:'Carnegie Museum of Natural History', city:'Pittsburgh', state:'PA', type:'museum', notices:1,  coords:[-79.9493, 40.4439] },
                 { name:'Cleveland State University', city:'Cleveland', state:'OH', type:'museum', notices:1,  coords:[-81.6765, 41.5015] },
                 { name:'Mütter Museum of the College of Physicians of Philadelphia', city:'Philidelphia', state:'PA', type:'museum', notices:1,  coords:[-75.1036, 39.5712] },
                 { name:'Robert S. Peabody, Institute of Archaeology', city:'Andover', state:'MA', type:'museum', notices:1,  coords:[-71.1476, 42.6565] },
                 { name:'New York University, College of Dentistry', city:'New York', state:'NY', type:'university', notices:1,  coords:[-73.9774, 40.7388] },
                 { name:'New York State, Office of Parks, Recreation, & Historic Preservation', city:'Waterford', state:'NY', type:'state', notices:2,  coords:[-73.68, 42.72] },
-                { name:'Moravian Historical Society', city:'Nazareth', state:'PA', type:'historical society', notices:1,  coords:[-75.18, 40.44] },
+                { name:'Moravian Historical Society', city:'Nazareth', state:'PA', type:'historical', notices:1,  coords:[-75.18, 40.44] },
                 { name:'Garvies Point Museum & Preserve', city:'Glen Cove', state:'NY', type:'museum', notices:1,  coords:[-73.6337, 40.8719] },
 
             ],
@@ -985,7 +999,7 @@
                 { name:'Detroit Institute of Arts',                          city:'Detroit',      state:'MI', type:'museum',     notices:1,  coords:[-83.0658,42.3514] },
                 { name:'Gordon L. Grosscup Museum of Anthropology',          city:'Detroit',      state:'MI', type:'museum',     notices:1,  coords:[-83.0458,42.3314] },
                 { name:'Indiana State Museum and Historic Sites',            city:'Indianapolis', state:'IN', type:'museum',     notices:2,  coords:[-86.1581,39.7684] },
-                { name:'Missouri Historical Society',            city:'St. Louis',    state:'MO', type:'historical society', notices:1,  coords:[-90.17, 38.38] },
+                { name:'Missouri Historical Society',            city:'St. Louis',    state:'MO', type:'historical', notices:1,  coords:[-90.17, 38.38] },
                 { name:'Museum of Ojibwa Culture and Marquette Park',        city:'St. Ignace',   state:'MI', type:'museum',     notices:1,  coords:[-84.7274,45.8717] },
                 { name:'American Museum of Natural History',                 city:'New York',     state:'NY', type:'museum',     notices:1,  coords:[-73.9742,40.7813] },
                 { name:'Milwaukee Public Museum',                            city:'Milwaukee',    state:'WI', type:'museum',     notices:1,  coords:[-87.9290,43.0434] },
@@ -1000,7 +1014,7 @@
                 { name:'Santa Barbara Museum of Natural History',            city:'Santa Barbara',    state:'CA', type:'museum', notices:1,  coords:[-119.7145, 34.4409] },
                 { name:'University of Missouri, Museum of Anthropology',            city:'Columbia',    state:'MO', type:'university', notices:1,  coords:[-92.33, 38.94] },
                 { name:'SUNY, Broome Community College',            city:'Binghamton',    state:'NY', type:'university', notices:1,  coords:[-75.91, 42.13] },
-                { name:'US Dept. of Interior- Hopewell Cultural National Historical Park',            city:'Chillicothe',    state:'OH', type:'state', notices:1,  coords:[-83.00,39.22] },
+                { name:'US Dept. of Interior- Hopewell Cultural National Historical Park',            city:'Chillicothe',    state:'OH', type:'historical', notices:1,  coords:[-83.00,39.22] },
             ],
             'nottawaseppi': [
                 { name:'The University of Wisconsin-Oshkosh',                    city:'Oshkosh',      state:'WI', type:'university', notices:14, coords:[-88.5426,44.0247] },
@@ -1258,7 +1272,7 @@
                 { name:'University of Connecticut', city:'Storrs', state:'CT', type:'university', notices:1, coords:[-72.2518,41.8071] },
                 { name:'Grand Rapids Public Museum', city:'Grand Rapids', state:'MI', type:'museum', notices:3, coords:[-85.6681,42.9634] },
                 { name:'Mütter Museum', city:'Philadelphia', state:'PA', type:'museum', notices:2, coords:[-75.1729,39.9516] },
-                { name:'Chicago Historical Society', city:'Chicago', state:'IL', type:'museum', notices:1, coords:[-87.6323,41.9217] },
+                { name:'Chicago Historical Society', city:'Chicago', state:'IL', type:'historical', notices:1, coords:[-87.6323,41.9217] },
                 { name:'Minnesota Indian Affairs Council', city:'St. Paul', state:'MN', type:'state', notices:1, coords:[-93.0900,44.9537] },
                 { name:'Effigy Mounds National Monument, NPS', city:'Harpers Ferry', state:'IA', type:'state', notices:1, coords:[-91.1851,43.0842] },
                 { name:'Little Bighorn Battlefield NM, NPS', city:'Crow Agency', state:'MT', type:'state', notices:1, coords:[-107.4274,45.5616] },
@@ -1461,13 +1475,14 @@
             map.on('click','institutions-dot',e=>{
                 e.originalEvent.stopPropagation()
                 const p=e.features[0].properties
-                const typeLabel={university:'University / College',museum:'Museum',state:'State / Gov Agency'}[p.type]||p.type
+                const typeLabel={university:'University / College',museum:'Museum',state:'State / Gov Agency',historical:'Historical Society'}[p.type]||p.type
+                const headClass=p.isSplit?'split' :p.type==='historical society'?'historical':p.type
                 const tribeName=TRIBE_INFO[currentTribe].name
                 const splitNote=p.isSplit
                     ?`<div style="margin-top:8px;padding:8px 10px;background:rgba(46,107,107,0.08);border-left:3px solid #2e6b6b;border-radius:0 2px 2px 0;font-size:0.78rem;color:#2e6b6b;line-height:1.5"><strong>Split Collection</strong> — held jointly with ${p.splitPartner||'another institution'}.</div>`
                     :''
                 sharedPopup.setLngLat(e.features[0].geometry.coordinates.slice())
-                    .setHTML(`<div class="popup-head ${p.isSplit?'split':p.type}"><h3>${p.name}</h3><div class="popup-sub">${p.city}, ${p.state} · ${typeLabel}</div></div><div class="popup-body"><p><strong>Affiliated Tribe:</strong> ${tribeName}</p><span class="popup-notices">${p.notices} Federal Register Notice${p.notices>1?'s':''}</span>${splitNote}</div>`)
+                    .setHTML(`<div class="popup-head ${headClass}"><h3>${p.name}</h3><div class="popup-sub">${p.city}, ${p.state} · ${typeLabel}</div></div><div class="popup-body"><p><strong>Affiliated Tribe:</strong> ${tribeName}</p><span class="popup-notices">${p.notices} Federal Register Notice${p.notices>1?'s':''}</span>${splitNote}</div>`)
                     .addTo(map)
             })
             map.on('mouseenter','institutions-dot',()=>map.getCanvas().style.cursor='pointer')
