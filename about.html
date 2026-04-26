@@ -21,11 +21,6 @@
             --terra-light: rgba(139, 58, 30, 0.10);
             --terra-mid:   rgba(139, 58, 30, 0.30);
             --border:      rgba(15, 12, 8, 0.20);
-
-            --dark-bg:     #19140e;
-            --dark-text:   #f2ede6;
-            --dark-muted:  #b8a898;
-            --dark-border: rgba(242, 237, 230, 0.14);
         }
 
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -38,7 +33,6 @@
             min-height: 100vh;
         }
 
-        /* ─── Header ──────────────────────────── */
         header {
             display: flex;
             align-items: center;
@@ -53,430 +47,178 @@
             backdrop-filter: blur(12px);
         }
 
-        .header-title {
-            display: flex;
-            align-items: baseline;
-            gap: 10px;
-        }
-
-        .header-title h1 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.25rem;
-            font-weight: 500;
-            letter-spacing: 0.01em;
-            color: var(--ink);
-            white-space: nowrap;
-        }
-
-        .header-title span {
-            font-size: 0.7rem;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            color: var(--ink-faint);
-            font-weight: 300;
-        }
+        .header-title { display: flex; align-items: baseline; gap: 10px; }
+        .header-title h1 { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-weight: 500; letter-spacing: 0.01em; color: var(--ink); white-space: nowrap; }
+        .header-title span { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-faint); font-weight: 300; }
 
         nav { display: flex; gap: 4px; align-items: center; }
-
-        nav a {
-            font-size: 0.78rem;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            text-decoration: none;
-            color: var(--ink-muted);
-            padding: 5px 10px;
-            border-radius: 3px;
-            transition: color 0.15s, background 0.15s;
-        }
-
+        nav a { font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; color: var(--ink-muted); padding: 5px 10px; border-radius: 3px; transition: color 0.15s, background 0.15s; }
         nav a:hover { color: var(--ink); background: var(--parchment-2); }
         nav a.active { color: var(--terra); background: var(--terra-light); }
 
-        /* ─── Nav dropdown ────────────────────── */
         .nav-dropdown { position: relative; }
-
-        .nav-dropdown-trigger {
-            font-family: 'DM Sans', sans-serif;
-            font-size: 0.78rem;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            color: var(--ink-muted);
-            background: none;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 3px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            transition: color 0.15s, background 0.15s;
-        }
-
+        .nav-dropdown-trigger { font-family: 'DM Sans', sans-serif; font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-muted); background: none; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer; display: flex; align-items: center; gap: 4px; transition: color 0.15s, background 0.15s; }
         .nav-dropdown-trigger:hover { color: var(--ink); background: var(--parchment-2); }
-        .nav-dropdown-trigger.open  { color: var(--ink); background: var(--parchment-2); }
-
-        .nav-dropdown-trigger.parent-active {
-            color: var(--terra);
-            background: var(--terra-light);
-        }
-
-        .nav-dropdown-caret {
-            font-size: 8px;
-            transition: transform 0.2s;
-            opacity: 0.7;
-        }
-
+        .nav-dropdown-trigger.open { color: var(--ink); background: var(--parchment-2); }
+        .nav-dropdown-trigger.parent-active { color: var(--terra); background: var(--terra-light); }
+        .nav-dropdown-caret { font-size: 8px; transition: transform 0.2s; opacity: 0.7; }
         .nav-dropdown-trigger.open .nav-dropdown-caret { transform: rotate(180deg); }
-
-        .nav-dropdown-menu {
-            position: absolute;
-            top: calc(100% + 6px);
-            right: 0;
-            background: rgba(242, 237, 230, 0.99);
-            border: 1px solid var(--border);
-            border-radius: 4px;
-            box-shadow: 0 4px 16px rgba(15,12,8,0.12);
-            min-width: 200px;
-            overflow: hidden;
-            display: none;
-            z-index: 20;
-        }
-
+        .nav-dropdown-menu { position: absolute; top: calc(100% + 6px); right: 0; background: rgba(242, 237, 230, 0.99); border: 1px solid var(--border); border-radius: 4px; box-shadow: 0 4px 16px rgba(15,12,8,0.12); min-width: 200px; overflow: hidden; display: none; z-index: 20; }
         .nav-dropdown-menu.open { display: block; }
-
-        .nav-dropdown-menu a {
-            display: block;
-            padding: 8px 14px;
-            font-size: 0.78rem;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            text-decoration: none;
-            color: var(--ink-muted);
-            border-radius: 0;
-            transition: color 0.12s, background 0.12s;
-            border-bottom: 1px solid rgba(15,12,8,0.07);
-        }
-
+        .nav-dropdown-menu a { display: block; padding: 8px 14px; font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; color: var(--ink-muted); border-radius: 0; transition: color 0.12s, background 0.12s; border-bottom: 1px solid rgba(15,12,8,0.07); }
         .nav-dropdown-menu a:last-child { border-bottom: none; }
         .nav-dropdown-menu a:hover { color: var(--ink); background: var(--parchment-2); }
         .nav-dropdown-menu a.active { color: var(--terra); background: var(--terra-light); }
-
-        .nav-dropdown-menu .menu-section-label {
-            display: block;
-            padding: 10px 14px 4px;
-            font-size: 0.62rem;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: var(--ink-faint);
-            border-bottom: 1px solid rgba(15,12,8,0.07);
-            cursor: default;
-            background: rgba(15,12,8,0.03);
-        }
-
-        .nav-dropdown-menu a.nested {
-            padding-left: 22px;
-            font-size: 0.75rem;
-            color: var(--ink-faint);
-        }
-
+        .nav-dropdown-menu .menu-section-label { display: block; padding: 10px 14px 4px; font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); border-bottom: 1px solid rgba(15,12,8,0.07); cursor: default; background: rgba(15,12,8,0.03); }
+        .nav-dropdown-menu a.nested { padding-left: 22px; font-size: 0.75rem; color: var(--ink-faint); }
         .nav-dropdown-menu a.nested:hover { color: var(--ink); background: var(--parchment-2); }
 
-        /* ─── Page layout ─────────────────────── */
-        main {
-            max-width: 860px;
-            margin: 0 auto;
-            padding: 72px 32px 120px;
-        }
+        main { max-width: 860px; margin: 0 auto; padding: 72px 32px 120px; }
 
-        /* ─── Page header ─────────────────────── */
-        .page-eyebrow {
-            font-size: 0.7rem;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: var(--terra);
-            margin-bottom: 10px;
-        }
+        .page-eyebrow { font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--terra); margin-bottom: 10px; }
+        .page-heading { font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; font-weight: 400; line-height: 1.15; color: var(--ink); margin-bottom: 16px; }
+        .page-heading em { font-style: italic; color: var(--terra); }
+        .page-rule { width: 48px; height: 1px; background: var(--terra); margin-bottom: 60px; }
 
-        .page-heading {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 2.8rem;
-            font-weight: 400;
-            line-height: 1.15;
-            color: var(--ink);
-            margin-bottom: 16px;
-        }
-
-        .page-heading em {
-            font-style: italic;
-            color: var(--terra);
-        }
-
-        .page-rule {
-            width: 48px;
-            height: 1px;
-            background: var(--terra);
-            margin-bottom: 60px;
-        }
-
-        /* ─── Profile block ───────────────────── */
-        .profile {
-            display: grid;
-            grid-template-columns: 200px 1fr;
-            gap: 48px;
-            align-items: start;
-            margin-bottom: 64px;
-        }
-
-        .profile-photo-wrap {
-            position: relative;
-        }
-
-        .profile-photo-wrap::before {
-            content: '';
-            position: absolute;
-            inset: -8px;
-            border: 1px solid var(--terra-mid);
-            border-radius: 3px;
-            z-index: 0;
-        }
-
-        .profile-photo-wrap img {
-            position: relative;
-            z-index: 1;
-            width: 200px;
-            height: 240px;
-            object-fit: cover;
-            object-position: top center;
-            display: block;
-            border-radius: 2px;
-            filter: sepia(12%);
-        }
-
-        .profile-name {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.8rem;
-            font-weight: 500;
-            letter-spacing: 0.01em;
-            margin-bottom: 4px;
-        }
-
-        .profile-title {
-            font-size: 0.8rem;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: var(--terra);
-            margin-bottom: 20px;
-        }
-
-        .profile-bio {
-            font-size: 0.93rem;
-            color: var(--ink-muted);
-            line-height: 1.75;
-            max-width: 540px;
-        }
-
+        .profile { display: grid; grid-template-columns: 200px 1fr; gap: 48px; align-items: start; margin-bottom: 64px; }
+        .profile-photo-wrap { position: relative; }
+        .profile-photo-wrap::before { content: ''; position: absolute; inset: -8px; border: 1px solid var(--terra-mid); border-radius: 3px; z-index: 0; }
+        .profile-photo-wrap img { position: relative; z-index: 1; width: 200px; height: 240px; object-fit: cover; object-position: top center; display: block; border-radius: 2px; filter: sepia(12%); }
+        .profile-name { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 500; letter-spacing: 0.01em; margin-bottom: 4px; }
+        .profile-title { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--terra); margin-bottom: 20px; }
+        .profile-bio { font-size: 0.93rem; color: var(--ink-muted); line-height: 1.75; max-width: 540px; }
         .profile-bio p + p { margin-top: 14px; }
 
-        /* ─── Section divider ─────────────────── */
-        .section-label {
-            font-size: 0.67rem;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: var(--ink-faint);
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid var(--border);
-        }
+        .section-label { font-size: 0.67rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
 
-        /* ─── Research interests ──────────────── */
-        .interests {
-            margin-bottom: 64px;
-        }
+        .interests { margin-bottom: 64px; }
+        .interest-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 4px; }
+        .interest-card { background: white; border: 1px solid var(--parchment-3); border-top: 3px solid var(--terra); padding: 20px 18px; border-radius: 2px; box-shadow: 0 1px 4px rgba(15,12,8,0.06); }
+        .interest-icon { font-size: 1.1rem; margin-bottom: 10px; opacity: 0.7; }
+        .interest-title { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 600; color: var(--ink); margin-bottom: 7px; }
+        .interest-desc { font-size: 0.78rem; color: var(--ink-muted); line-height: 1.6; }
 
-        .interest-grid {
+        .project-section { margin-bottom: 64px; }
+        .project-block { background: white; border: 1px solid var(--parchment-3); border-radius: 3px; overflow: hidden; box-shadow: 0 2px 8px rgba(15,12,8,0.06); }
+        .project-block-inner { display: grid; grid-template-columns: 3px 1fr; }
+        .project-accent-bar { background: var(--terra); }
+        .project-content { padding: 28px 32px; }
+        .project-content h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 500; margin-bottom: 12px; }
+        .project-content p { font-size: 0.88rem; color: var(--ink-muted); line-height: 1.75; max-width: 620px; }
+        .project-content p + p { margin-top: 12px; }
+
+        .cite-block { background: var(--parchment-2); border: 1px solid var(--parchment-3); border-radius: 3px; padding: 20px 24px; margin-top: 16px; font-size: 0.88rem; color: var(--ink-muted); line-height: 1.8; }
+        .cite-block strong { color: var(--ink); font-weight: 500; }
+        .cite-copy-btn { margin-top: 14px; display: inline-flex; align-items: center; gap: 6px; font-family: 'DM Sans', sans-serif; font-size: 0.75rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--terra); background: none; border: 1px solid var(--terra-mid); border-radius: 2px; padding: 5px 12px; cursor: pointer; transition: background 0.15s, border-color 0.15s; }
+        .cite-copy-btn:hover { background: var(--terra-light); border-color: var(--terra); }
+        .cite-note { margin-top: 14px; font-size: 0.78rem; color: var(--ink-faint); line-height: 1.6; padding-top: 12px; border-top: 1px solid var(--border); }
+
+        .contact-section { margin-bottom: 64px; }
+        .contact-links { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 4px; }
+        .contact-link { display: inline-flex; align-items: center; gap: 6px; font-size: 0.8rem; letter-spacing: 0.04em; color: var(--terra); text-decoration: none; border: 1px solid var(--terra-mid); padding: 6px 14px; border-radius: 2px; background: var(--terra-light); transition: background 0.15s, border-color 0.15s; }
+        .contact-link:hover { background: var(--terra-mid); border-color: var(--terra); }
+
+        /* ─── Partners ────────────────────────── */
+        .partners-section { margin-bottom: 64px; }
+
+        .partners-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
+            grid-template-columns: 1fr;
+            gap: 16px;
             margin-top: 4px;
         }
 
-        .interest-card {
-            background: white;
-            border: 1px solid var(--parchment-3);
-            border-top: 3px solid var(--terra);
-            padding: 20px 18px;
-            border-radius: 2px;
-            box-shadow: 0 1px 4px rgba(15,12,8,0.06);
-        }
-
-        .interest-icon {
-            font-size: 1.1rem;
-            margin-bottom: 10px;
-            opacity: 0.7;
-        }
-
-        .interest-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--ink);
-            margin-bottom: 7px;
-        }
-
-        .interest-desc {
-            font-size: 0.78rem;
-            color: var(--ink-muted);
-            line-height: 1.6;
-        }
-
-        /* ─── Project block ───────────────────── */
-        .project-section {
-            margin-bottom: 64px;
-        }
-
-        .project-block {
+        .partner-card {
             background: white;
             border: 1px solid var(--parchment-3);
             border-radius: 3px;
             overflow: hidden;
             box-shadow: 0 2px 8px rgba(15,12,8,0.06);
+            display: flex;
+            flex-direction: row;
         }
 
-        .project-block-inner {
-            display: grid;
-            grid-template-columns: 3px 1fr;
+        .partner-photo-wrap {
+            flex: 0 0 160px;
+            min-height: 160px;
+            background: var(--parchment-2);
+            overflow: hidden;
         }
 
-        .project-accent-bar {
-            background: var(--terra);
+        .partner-photo-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top center;
+            display: block;
+            filter: sepia(12%);
         }
 
-        .project-content {
-            padding: 28px 32px;
+        .partner-photo-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
 
-        .project-content h3 {
+        .partner-photo-placeholder svg {
+            width: 36px;
+            height: 36px;
+            color: var(--parchment-3);
+        }
+
+        .partner-photo-placeholder span {
+            font-size: 0.68rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            opacity: 0.55;
+        }
+
+        .partner-info {
+            padding: 20px 24px;
+            border-left: 3px solid var(--terra);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .partner-name {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.3rem;
+            font-size: 1.25rem;
             font-weight: 500;
+            letter-spacing: 0.01em;
+            color: var(--ink);
+            margin-bottom: 3px;
+        }
+
+        .partner-role {
+            font-size: 0.7rem;
+            letter-spacing: 0.09em;
+            text-transform: uppercase;
+            color: var(--terra);
+            margin-top: 6px;
             margin-bottom: 12px;
         }
 
-        .project-content p {
-            font-size: 0.88rem;
+        .partner-bio {
+            font-size: 0.83rem;
             color: var(--ink-muted);
-            line-height: 1.75;
-            max-width: 620px;
+            line-height: 1.7;
         }
 
-        .project-content p + p { margin-top: 12px; }
+        footer { border-top: 1px solid var(--border); padding: 28px 40px; display: flex; justify-content: space-between; align-items: center; }
+        .footer-left { font-family: 'Cormorant Garamond', serif; font-size: 0.95rem; color: var(--ink-muted); }
+        .footer-right { font-size: 0.75rem; color: var(--ink-faint); }
 
-        /* ─── Citation block ──────────────────── */
-        .cite-block {
-            background: var(--parchment-2);
-            border: 1px solid var(--parchment-3);
-            border-radius: 3px;
-            padding: 20px 24px;
-            margin-top: 16px;
-            font-size: 0.88rem;
-            color: var(--ink-muted);
-            line-height: 1.8;
-        }
-
-        .cite-block strong {
-            color: var(--ink);
-            font-weight: 500;
-        }
-
-        .cite-copy-btn {
-            margin-top: 14px;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-family: 'DM Sans', sans-serif;
-            font-size: 0.75rem;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            color: var(--terra);
-            background: none;
-            border: 1px solid var(--terra-mid);
-            border-radius: 2px;
-            padding: 5px 12px;
-            cursor: pointer;
-            transition: background 0.15s, border-color 0.15s;
-        }
-
-        .cite-copy-btn:hover {
-            background: var(--terra-light);
-            border-color: var(--terra);
-        }
-
-        .cite-note {
-            margin-top: 14px;
-            font-size: 0.78rem;
-            color: var(--ink-faint);
-            line-height: 1.6;
-            padding-top: 12px;
-            border-top: 1px solid var(--border);
-        }
-
-        /* ─── Contact / links ─────────────────── */
-        .contact-section {
-            margin-bottom: 64px;
-        }
-
-        .contact-links {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-top: 4px;
-        }
-
-        .contact-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.8rem;
-            letter-spacing: 0.04em;
-            color: var(--terra);
-            text-decoration: none;
-            border: 1px solid var(--terra-mid);
-            padding: 6px 14px;
-            border-radius: 2px;
-            background: var(--terra-light);
-            transition: background 0.15s, border-color 0.15s;
-        }
-
-        .contact-link:hover {
-            background: var(--terra-mid);
-            border-color: var(--terra);
-        }
-
-        /* ─── Footer ──────────────────────────── */
-        footer {
-            border-top: 1px solid var(--border);
-            padding: 28px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .footer-left {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 0.95rem;
-            color: var(--ink-muted);
-        }
-
-        .footer-right {
-            font-size: 0.75rem;
-            color: var(--ink-faint);
-        }
-
-        /* ─── Responsive ──────────────────────── */
         @media (max-width: 680px) {
             .profile { grid-template-columns: 1fr; }
             .profile-photo-wrap img { width: 100%; height: 260px; }
             .interest-grid { grid-template-columns: 1fr; }
+            .partners-grid { grid-template-columns: 1fr; }
             .page-heading { font-size: 2rem; }
             header { padding: 0 20px; }
             main { padding: 48px 20px 80px; }
@@ -567,6 +309,36 @@
             </div>
         </div>
 
+        <!-- Partners -->
+        <div class="partners-section">
+            <p class="section-label">Partners</p>
+            <div class="partners-grid">
+
+                <!-- Partner 1 -->
+                <div class="partner-card">
+                    <div class="partner-photo-wrap">
+                        <img src="images/Yann-Jessica.jpg" alt="Dr. Jessica Yann"/>
+                    </div>
+                    <div class="partner-info">
+                        <p class="partner-name">Dr. Jessica Yann</p>
+                        <p class="partner-role">NAGPRA Program Manager &nbsp;·&nbsp; University Arts and Collections, Michigan State University</p>
+                    </div>
+                </div>
+
+                <!-- Partner 2 -->
+                <div class="partner-card">
+                    <div class="partner-photo-wrap">
+                        <img src="images/No-Image-Placeholder.png" alt="Dr. Madeline Mackie" style="object-position: left center;"/>
+                    </div>
+                    <div class="partner-info">
+                        <p class="partner-name">Dr. Madeline Mackie</p>
+                        <p class="partner-role">Assistant Professor &nbsp;·&nbsp; Department of Anthropology, Michigan State University</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
         <!-- How to Cite -->
         <div class="project-section">
             <p class="section-label">How to Cite This Project</p>
@@ -605,7 +377,6 @@
     </footer>
 
     <script>
-        /* ── Nav dropdown ────────────────────── */
         function toggleNavDropdown(e) {
             e.stopPropagation();
             e.currentTarget.classList.toggle('open');
@@ -617,12 +388,9 @@
             document.getElementById('nav-dropdown-menu')?.classList.remove('open');
         });
 
-        /* ── Auto-fill citation year ─────────── */
         document.getElementById('cite-year').textContent = new Date().getFullYear();
 
-        /* ── Copy citation ───────────────────── */
         function copyCitation() {
-            const year = new Date().getFullYear();
             const text = `LaLonde, R.S. (${2026}). Ancestral Ties: A Mapping Project [Interactive web map]. Michigan State University, Department of Anthropology. https://[ryleelalonde.github.io/ancestralties/]`;
             navigator.clipboard.writeText(text).then(() => {
                 const label = document.getElementById('copy-label');
