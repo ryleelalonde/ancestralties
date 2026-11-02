@@ -36,6 +36,65 @@
             line-height: 1.6;
         }
 
+        /* ─── Under Construction Banner ───────── */
+        .construction-banner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 9px 48px;
+            position: relative;
+            background:
+                repeating-linear-gradient(
+                    -45deg,
+                    rgba(139, 58, 30, 0.06) 0 10px,
+                    transparent 10px 20px
+                ),
+                var(--parchment-2);
+            border-bottom: 1px solid var(--terra-mid);
+            text-align: center;
+        }
+
+        .construction-banner-tag {
+            font-size: 0.65rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: white;
+            background: var(--terra);
+            padding: 3px 8px;
+            border-radius: 2px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .construction-banner-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1rem;
+            font-style: italic;
+            color: var(--ink-muted);
+            line-height: 1.35;
+        }
+
+        .construction-banner-close {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: transparent;
+            border: none;
+            color: var(--ink-faint);
+            font-size: 1.1rem;
+            line-height: 1;
+            cursor: pointer;
+            padding: 4px 6px;
+            border-radius: 3px;
+            transition: color 0.15s, background 0.15s;
+        }
+
+        .construction-banner-close:hover { color: var(--terra); background: var(--terra-light); }
+
+        .construction-banner.hidden { display: none; }
+
         /* ─── Header ──────────────────────────── */
         header {
             display: flex;
@@ -419,10 +478,19 @@
             .hero-heading { font-size: 1.25rem; }
             .overview-grid { grid-template-columns: 1fr; }
             .concept-grid { grid-template-columns: 1fr; }
+            .construction-banner { flex-direction: column; gap: 6px; padding: 10px 44px; }
+            .construction-banner-text { font-size: 0.92rem; }
         }
     </style>
 </head>
 <body>
+
+    <!-- ── Under Construction Banner ─────────── -->
+    <div class="construction-banner" id="construction-banner" role="status">
+        <span class="construction-banner-tag">Under Construction</span>
+        <span class="construction-banner-text">This site is a work in progress — pages, data, and features are still being added.</span>
+        <button class="construction-banner-close" onclick="dismissBanner()" aria-label="Dismiss banner">×</button>
+    </div>
 
     <header>
         <div class="header-title">
@@ -535,6 +603,18 @@
             document.querySelectorAll('.nav-dropdown-trigger').forEach(b => b.classList.remove('open'));
             document.querySelectorAll('.nav-dropdown-menu').forEach(m => m.classList.remove('open'));
         });
+
+        // Under construction banner: dismiss for the rest of the browser session
+        function dismissBanner() {
+            document.getElementById('construction-banner').classList.add('hidden');
+            try { sessionStorage.setItem('at-banner-dismissed', '1'); } catch (e) {}
+        }
+
+        try {
+            if (sessionStorage.getItem('at-banner-dismissed') === '1') {
+                document.getElementById('construction-banner').classList.add('hidden');
+            }
+        } catch (e) {}
     </script>
 
 </body>
